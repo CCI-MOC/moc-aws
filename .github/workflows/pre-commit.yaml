@@ -1,0 +1,26 @@
+name: pre-commit
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    env:
+      TF_CLI_ARGS: "-no-color"
+      TF_IN_AUTOMATION: "true"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_wrapper: false
+      - uses: pre-commit/action@v3.0.1
+        with:
+          extra_args: --all-files

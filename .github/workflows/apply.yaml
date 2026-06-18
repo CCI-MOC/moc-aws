@@ -1,0 +1,50 @@
+name: Apply configuration
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */4 * * *"
+  push:
+    paths:
+      - "**/*.tf"
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    env:
+      TF_CLI_ARGS: "-no-color"
+      TF_IN_AUTOMATION: "true"
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_wrapper: false
+
+      - name: TF init
+        run: |
+          tofu init
+
+      - name: TF Validate
+        run: |
+          tofu validate
+
+      - name: TF Apply
+        run: |
+          tofu apply -concise -auto-approve
