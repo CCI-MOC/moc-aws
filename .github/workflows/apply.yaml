@@ -25,7 +25,7 @@ jobs:
       TF_CLI_ARGS: "-no-color"
       TF_IN_AUTOMATION: "true"
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: aws-actions/configure-aws-credentials@v4
         with:
