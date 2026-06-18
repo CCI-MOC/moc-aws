@@ -2,7 +2,7 @@
 # GitHub OIDC – IAM role for CCI-MOC/moc-aws
 # -----------------------------------------------------------------------------
 
-data "aws_iam_policy_document" "github_actions_assume_role" {
+data "aws_iam_policy_document" "github_actions_admin_assume_role" {
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -26,20 +26,20 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
   }
 }
 
-resource "aws_iam_role" "github_actions" {
-  name               = "github-actions"
-  assume_role_policy = data.aws_iam_policy_document.github_actions_assume_role.json
+resource "aws_iam_role" "github_actions_admin" {
+  name               = "github-actions-admin"
+  assume_role_policy = data.aws_iam_policy_document.github_actions_admin_assume_role.json
 }
 
 resource "aws_iam_role_policy_attachment" "github_actions_admin" {
-  role       = aws_iam_role.github_actions.name
+  role       = aws_iam_role.github_actions_admin.name
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 # This policy prevents the github identity form performing potentially
 # dangerous actions (those that impact the entire organization or that otherwise
 # have a large blast radius).
-data "aws_iam_policy_document" "github_actions_deny_dangerous" {
+data "aws_iam_policy_document" "github_actions_admin_deny_dangerous" {
   statement {
     sid    = "DenyDangerousActions"
     effect = "Deny"
@@ -67,8 +67,8 @@ data "aws_iam_policy_document" "github_actions_deny_dangerous" {
   }
 }
 
-resource "aws_iam_role_policy" "github_actions_deny_dangerous" {
-  name   = "github-actions-deny-dangerous"
-  role   = aws_iam_role.github_actions.name
-  policy = data.aws_iam_policy_document.github_actions_deny_dangerous.json
+resource "aws_iam_role_policy" "github_actions_admin_deny_dangerous" {
+  name   = "github-actions-admin-deny-dangerous"
+  role   = aws_iam_role.github_actions_admin.name
+  policy = data.aws_iam_policy_document.github_actions_admin_deny_dangerous.json
 }
