@@ -10,6 +10,11 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 
+  # This applies the "managed-by: moc-aws" tag to all resources created by this
+  # repository. This is useful in e.g. resource explorer queries to identify
+  # unmanaged resources.
+  #
+  # aws resource-explorer-2 search --query-string='-tag:managed-by=moc-aws'
   default_tags {
     tags = {
       managed-by = "moc-aws"
