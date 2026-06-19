@@ -29,5 +29,5 @@ resource "aws_route53_zone" "ocp_massopen_cloud" {
 
 resource "aws_route53_zone" "osac_integration_svc_massopen_cloud" {
   name    = "osac-integration.svc.massopen.cloud"
-  comment = ""
+  comment = "Used for OSAC integration tests"
 }

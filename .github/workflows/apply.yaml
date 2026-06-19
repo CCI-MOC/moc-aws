@@ -45,6 +45,10 @@ jobs:
         run: |
           tofu validate
 
+      - name: TF Plan & Policy
+        run: |
+          ./ci/check-policy.sh
+
       - name: TF Apply
         run: |
-          tofu apply -concise -auto-approve
+          tofu apply -concise -auto-approve tfplan
