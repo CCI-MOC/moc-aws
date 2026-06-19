@@ -18,5 +18,6 @@ provider "aws" {
 }
 
 module "oidc" {
-  source = "./modules/oidc"
+  source         = "./modules/oidc"
+  dns_policy_arn = aws_iam_policy.route53_records.arn
 }

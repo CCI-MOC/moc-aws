@@ -31,26 +31,7 @@ resource "aws_iam_role" "github_actions_dns" {
   assume_role_policy = data.aws_iam_policy_document.github_actions_dns_assume_role.json
 }
 
-data "aws_iam_policy_document" "github_actions_dns_permissions" {
-  statement {
-    sid    = "AllowRoute53RecordManagement"
-    effect = "Allow"
-
-    actions = [
-      "route53:ChangeResourceRecordSets",
-      "route53:GetChange",
-      "route53:GetHostedZone",
-      "route53:ListHostedZones",
-      "route53:ListHostedZonesByName",
-      "route53:ListResourceRecordSets",
-    ]
-
-    resources = ["*"]
-  }
-}
-
-resource "aws_iam_role_policy" "github_actions_dns_permissions" {
-  name   = "github-actions-dns-permissions"
-  role   = aws_iam_role.github_actions_dns.name
-  policy = data.aws_iam_policy_document.github_actions_dns_permissions.json
+resource "aws_iam_role_policy_attachment" "github_actions_dns_permissions" {
+  role       = aws_iam_role.github_actions_dns.name
+  policy_arn = var.dns_policy_arn
 }
