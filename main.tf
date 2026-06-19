@@ -16,3 +16,7 @@ provider "aws" {
     }
   }
 }
+
+module "oidc" {
+  source = "./modules/oidc"
+}
