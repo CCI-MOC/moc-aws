@@ -15,6 +15,11 @@ module "administrator_access" {
       principal_type = "GROUP"
       target_id      = var.aws_account_id
     }
+    moc_aws_admins_secondary = {
+      principal_id   = aws_identitystore_group.moc_aws_admins.group_id
+      principal_type = "GROUP"
+      target_id      = var.aws_account_id_secondary
+    }
   }
 }
 
