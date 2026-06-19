@@ -49,10 +49,18 @@ with each other.
 
     You will want to use our actual AWS account id for the value of `sso_account_id`.
 
+3. Set the `AWS_PROFILE` environment variable:
+
+    ```
+    export AWS_PROFILE=moc-admin
+    ```
+
+    This tells the AWS tooling (and the OpenTofu S3 backend) which account profile to use.
+
 3. Acquire credentials:
 
     ```sh
-    aws sso login --profile moc-admin
+    aws sso login
     ```
 
     Complete the login exchange in your browser and you should be all set.
@@ -60,6 +68,17 @@ with each other.
 ## Running OpenTofu
 
 *Preqrequisites*: you must be authenticated to AWS with sufficient permissions to perform any actions required by the OpenTofu configuration.
+
+### Configure variables
+
+Our AWS account ids are not included in this repository. They must be configured as OpenTofu variables. A simple solution is to create a file `local.tfvars` that looks something like:
+
+```
+aws_account_id           = "...primary account id goes here..."
+aws_account_id_secondary = "...secondary account id goes here..."
+```
+
+This file is ignored by via `.gitignore`. Alternately, you can set the `TF_VAR_aws_account_id` and `TF_VAR_aws_account_id_secondary` environment variables.
 
 ### Initialize OpenTofu
 
@@ -122,7 +141,6 @@ Plan: 1 to add, 1 to change, 0 to destroy.
 ```
 
 ### Apply changes
-
 
 To apply changes to AWS, run:
 
