@@ -49,7 +49,7 @@ jobs:
 
       - name: TF Plan & Policy
         run: |
-          ./ci/check-policy.sh
+          ./scripts/check-policy.sh
 
       - name: TF Apply
         run: |

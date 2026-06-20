@@ -26,4 +26,4 @@ repos:
         name: tofu-fmt
         language: script
         files: \.tf$
-        entry: ./ci/tofu-local-hook.sh
+        entry: ./scripts/tofu-local-hook.sh
