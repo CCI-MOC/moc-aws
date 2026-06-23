@@ -11,12 +11,12 @@ module "administrator_access" {
   }
   assignments = {
     moc_aws_admins = {
-      principal_id   = aws_identitystore_group.moc_aws_admins.group_id
+      principal_id   = aws_identitystore_group.this["moc-aws-admins"].group_id
       principal_type = "GROUP"
       target_id      = var.aws_account_id
     }
     moc_aws_admins_secondary = {
-      principal_id   = aws_identitystore_group.moc_aws_admins.group_id
+      principal_id   = aws_identitystore_group.this["moc-aws-admins"].group_id
       principal_type = "GROUP"
       target_id      = var.aws_account_id_secondary
     }
@@ -32,7 +32,7 @@ module "view_only_access" {
   }
   assignments = {
     moc_aws_admins = {
-      principal_id   = aws_identitystore_group.moc_aws_admins.group_id
+      principal_id   = aws_identitystore_group.this["moc-aws-admins"].group_id
       principal_type = "GROUP"
       target_id      = var.aws_account_id
     }
@@ -80,7 +80,7 @@ module "route53_records" {
   }
   assignments = {
     moc_aws_admins = {
-      principal_id   = aws_identitystore_group.moc_aws_admins.group_id
+      principal_id   = aws_identitystore_group.this["moc-aws-admins"].group_id
       principal_type = "GROUP"
       target_id      = var.aws_account_id
     }
