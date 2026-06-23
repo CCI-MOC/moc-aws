@@ -6,11 +6,12 @@ output "arn" {
   value = aws_iam_user.this.arn
 }
 
-output "access_key_id" {
-  value = aws_iam_access_key.this.id
-}
-
-output "secret_access_key" {
-  value     = aws_iam_access_key.this.secret
+output "access_keys" {
+  value = {
+    for label, key in aws_iam_access_key.this : label => {
+      id                = key.id
+      secret_access_key = key.secret
+    }
+  }
   sensitive = true
 }

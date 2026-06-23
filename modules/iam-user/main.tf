@@ -4,7 +4,8 @@ resource "aws_iam_user" "this" {
 }
 
 resource "aws_iam_access_key" "this" {
-  user = aws_iam_user.this.name
+  for_each = var.access_keys
+  user     = aws_iam_user.this.name
 }
 
 resource "aws_iam_user_policy_attachment" "this" {
