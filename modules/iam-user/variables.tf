@@ -10,9 +10,9 @@ variable "tags" {
 }
 
 variable "access_keys" {
-  description = "Set of access key labels to create for this user"
-  type        = set(string)
-  default     = []
+  description = "Map of access key labels to descriptions"
+  type        = map(string)
+  default     = {}
 }
 
 variable "policy_arns" {

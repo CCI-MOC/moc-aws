@@ -23,13 +23,18 @@ module "route53_policy_innabox" {
 locals {
   iam_users = {
     "cert-manager-ocp-massopen" = {
-      access_keys = ["cert-manager-nist-clusters"]
+      access_keys = {
+        cert-manager-nist-clusters = "Used by cert-manager in NIST clusters for dns01 challenges"
+      }
       policy_arns = {
         ocp-massopen-cloud = module.route53_policy_ocp_massopen.policy_arn
       }
     }
     "innabox-dns-manager" = {
-      access_keys = ["innabox-dns", "innabox-aap"]
+      access_keys = {
+        innabox-dns = "Used by cert-manager in innabox dev cluster"
+        innabox-aap = "Used by AAP in innabox dev cluster"
+      }
       policy_arns = {
         box-massopen-cloud = module.route53_policy_innabox.policy_arn
       }

@@ -18,3 +18,7 @@ output "github_actions_dns_role_arn" {
   value       = module.oidc.github_actions_dns_role_arn
   description = "Set AWS_ROLE_ARN to this value for GitHub workflows that interact only with Route53"
 }
+
+output "iam_user_access_keys" {
+  value = { for name, user in module.iam_user : name => user.access_keys }
+}

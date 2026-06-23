@@ -9,9 +9,8 @@ output "arn" {
 output "access_keys" {
   value = {
     for label, key in aws_iam_access_key.this : label => {
-      id                = key.id
-      secret_access_key = key.secret
+      id         = key.id
+      secret_arn = aws_secretsmanager_secret.access_key[label].arn
     }
   }
-  sensitive = true
 }
