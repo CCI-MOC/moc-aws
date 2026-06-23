@@ -2,32 +2,19 @@
 # Route53 – Hosted zones
 # -----------------------------------------------------------------------------
 
-resource "aws_route53_zone" "massopen_cloud" {
-  name    = "massopen.cloud"
-  comment = "Top-level MOC domain"
+locals {
+  hosted_zones = {
+    "massopen.cloud"                      = "Top-level MOC domain"
+    "int.massopen.cloud"                  = "Internal MOC systems"
+    "svc.massopen.cloud"                  = "Public facing services"
+    "box.massopen.cloud"                  = "Used by the OSAC development environment"
+    "ocp.massopen.cloud"                  = "For MOCs OpenShift clusters. Initially they will host the NIST cluster."
+    "osac-integration.svc.massopen.cloud" = "Used for OSAC integration tests"
+  }
 }
 
-resource "aws_route53_zone" "int_massopen_cloud" {
-  name    = "int.massopen.cloud"
-  comment = "Internal MOC systems"
-}
-
-resource "aws_route53_zone" "svc_massopen_cloud" {
-  name    = "svc.massopen.cloud"
-  comment = "Public facing services"
-}
-
-resource "aws_route53_zone" "box_massopen_cloud" {
-  name    = "box.massopen.cloud"
-  comment = "Used by the OSAC development environment"
-}
-
-resource "aws_route53_zone" "ocp_massopen_cloud" {
-  name    = "ocp.massopen.cloud"
-  comment = "For MOCs OpenShift clusters. Initially they will host the NIST cluster."
-}
-
-resource "aws_route53_zone" "osac_integration_svc_massopen_cloud" {
-  name    = "osac-integration.svc.massopen.cloud"
-  comment = "Used for OSAC integration tests"
+resource "aws_route53_zone" "this" {
+  for_each = local.hosted_zones
+  name     = each.key
+  comment  = each.value
 }
