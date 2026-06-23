@@ -47,6 +47,6 @@ module "iam_user" {
   source      = "./modules/iam-user"
   name        = each.key
   tags        = try(each.value.tags, {})
-  access_keys = each.value.access_keys
-  policy_arns = each.value.policy_arns
+  access_keys = try(each.value.access_keys, {})
+  policy_arns = try(each.value.policy_arns, {})
 }
