@@ -32,3 +32,10 @@ repos:
         name: check-account-ids
         language: script
         entry: ./scripts/check-account-ids.sh
+
+      - id: terraform-docs
+        pass_filenames: false
+        name: terraform-docs
+        language: script
+        files: \.tf$
+        entry: ./scripts/terraform-docs-hook.sh
