@@ -27,3 +27,8 @@ repos:
         language: script
         files: \.tf$
         entry: ./scripts/tofu-local-hook.sh
+
+      - id: check-account-ids
+        name: check-account-ids
+        language: script
+        entry: ./scripts/check-account-ids.sh
