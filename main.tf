@@ -22,7 +22,7 @@ provider "aws" {
   }
 }
 
-module "oidc" {
-  source         = "./modules/oidc"
+module "github-oidc" {
+  source         = "./modules/github-oidc"
   dns_policy_arn = aws_iam_policy.route53_records.arn
 }
