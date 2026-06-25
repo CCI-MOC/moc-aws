@@ -22,6 +22,7 @@ module "route53_policy_innabox" {
 
 locals {
   iam_users = {
+    "example-user" = {}
     "cert-manager-ocp-massopen" = {
       access_keys = {
         cert-manager-nist-clusters = "Used by cert-manager in NIST clusters for dns01 challenges"
