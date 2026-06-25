@@ -31,4 +31,9 @@ variable "path" {
   description = "Used to organize users in a hierarchical structure"
   type        = string
   default     = "/"
+
+  validation {
+    condition     = can(regex("^/([a-zA-Z0-9/]+/)?$", var.path))
+    error_message = "Path must begin and end with / and contain only alphanumeric characters and / characters."
+  }
 }
