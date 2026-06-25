@@ -7,6 +7,9 @@ on:
     branches-ignore:
       - main
 
+env:
+  TERRAFORM_DOCS_VERSION: "0.24.0"
+
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
@@ -21,6 +24,10 @@ jobs:
       - uses: opentofu/setup-opentofu@v2
         with:
           tofu_wrapper: false
+      - name: Install terraform-docs
+        run: |
+          curl -sSLo terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/download/v${TERRAFORM_DOCS_VERSION}/terraform-docs-v${TERRAFORM_DOCS_VERSION}-linux-amd64.tar.gz
+          tar -C /usr/local/bin -xf terraform-docs.tar.gz terraform-docs
       - uses: pre-commit/action@v3.0.1
         with:
           extra_args: --all-files
