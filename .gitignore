@@ -1,6 +1,5 @@
 .envrc
 .terraform/
-.terraform.lock.hcl
 local.tfvars
 tfplan
 tfplan.json
