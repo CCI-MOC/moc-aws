@@ -20,3 +20,9 @@ variable "policy_arns" {
   type        = map(string)
   default     = {}
 }
+
+variable "path" {
+  description = "Used to organize users in a hierarchical structure"
+  type        = string
+  default     = "/"
+}
