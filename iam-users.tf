@@ -43,10 +43,11 @@ locals {
 }
 
 module "iam_user" {
-  for_each    = local.iam_users
-  source      = "./modules/iam-user"
-  name        = each.key
-  tags        = try(each.value.tags, {})
-  access_keys = try(each.value.access_keys, {})
-  policy_arns = try(each.value.policy_arns, {})
+  for_each                       = local.iam_users
+  source                         = "./modules/iam-user"
+  name                           = each.key
+  tags                           = try(each.value.tags, {})
+  access_keys                    = try(each.value.access_keys, {})
+  policy_arns                    = try(each.value.policy_arns, {})
+  secret_recovery_window_in_days = try(each.value.secret_recovery_window_in_days, 30)
 }
