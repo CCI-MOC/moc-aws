@@ -10,9 +10,10 @@ resource "aws_iam_access_key" "this" {
 }
 
 resource "aws_secretsmanager_secret" "access_key" {
-  for_each    = var.access_keys
-  name        = "iam-user/${var.name}/${each.key}"
-  description = each.value
+  for_each                = var.access_keys
+  name                    = "iam-user/${var.name}/${each.key}"
+  description             = each.value
+  recovery_window_in_days = var.secret_recovery_window_in_days
 }
 
 resource "aws_secretsmanager_secret_version" "access_key" {

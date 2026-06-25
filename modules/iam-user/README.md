@@ -55,7 +55,9 @@ No modules.
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_name"></a> [name](#input\_name) | Name of the IAM user | `string` | n/a | yes |
 | <a name="input_access_keys"></a> [access\_keys](#input\_access\_keys) | Map of access key labels to descriptions | `map(string)` | `{}` | no |
+| <a name="input_path"></a> [path](#input\_path) | Used to organize users in a hierarchical structure | `string` | `"/"` | no |
 | <a name="input_policy_arns"></a> [policy\_arns](#input\_policy\_arns) | Map of managed policy ARNs to attach to the user (key = stable name, value = ARN) | `map(string)` | `{}` | no |
+| <a name="input_secret_recovery_window_in_days"></a> [secret\_recovery\_window\_in\_days](#input\_secret\_recovery\_window\_in\_days) | Number of days that AWS Secrets Manager waits before deleting a secret (0 for immediate deletion) | `number` | `30` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to the IAM user | `map(string)` | `{}` | no |
 
 ## Outputs

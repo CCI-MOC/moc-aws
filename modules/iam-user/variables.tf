@@ -21,6 +21,12 @@ variable "policy_arns" {
   default     = {}
 }
 
+variable "secret_recovery_window_in_days" {
+  description = "Number of days that AWS Secrets Manager waits before deleting a secret (0 for immediate deletion)"
+  type        = number
+  default     = 30
+}
+
 variable "path" {
   description = "Used to organize users in a hierarchical structure"
   type        = string
