@@ -157,3 +157,36 @@ Do you want to perform these actions?
 
   Enter a value:
 ```
+
+## CI workflows
+
+When you create a pull request in this `moc-aws` repository, we perform a number of validations on your changes. When a pull request merges to `main`, the changes are applied automatically.
+
+### Pre-commit
+
+The **Pre-commit** workflow performs a number of linting and syntax checks. It includes the following checks specific to our OpenTofu configuration:
+
+- It runs `tofu fmt` on all `*.tf` files (and fails the pull request if any files were unformatted).
+- It ensures that our AWS account ids are not included in any files in the repository.
+- It ensures that documentation generated automatically with `terraform-docs` is up-to-date.
+
+> [!NOTE]
+> You should run these same checks in your local repository *before* submitting a pull request.
+
+These checks are all driven with [pre-commit]; once the tool is installed, you can configure your local repository by running the following from inside your working copy:
+
+[pre-commit]: https://pre-commit.com/
+
+```sh
+pre-commit install
+```
+
+### Plan
+
+The **Plan** workflow runs `tofu plan` to show the changes included in the pull request. It exports the plan to a JSON document, and then uses [conftest] to validate it against any OPA policy documents in the [policy/](policy/) directory.
+
+[conftest]: https://www.conftest.dev/
+
+### Apply
+
+When changes merge to the `main` branch, the **Apply** workflow runs `tofu apply` to apply the changes against AWS.

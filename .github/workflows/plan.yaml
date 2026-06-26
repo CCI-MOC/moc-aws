@@ -1,4 +1,4 @@
-name: Plan configuration
+name: Plan
 
 on:
   pull_request:

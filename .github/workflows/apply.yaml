@@ -1,4 +1,4 @@
-name: Apply configuration
+name: Apply
 
 on:
   workflow_dispatch:
