@@ -26,6 +26,8 @@ jobs:
       TF_IN_AUTOMATION: "true"
       TF_VAR_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
       TF_VAR_aws_account_id_secondary: ${{ secrets.AWS_ACCOUNT_ID_SECONDARY }}
+      TF_VAR_wasabi_access_key: "${{ secrets.WASABI_ACCESS_KEY }}"
+      TF_VAR_wasabi_secret_key: "${{ secrets.WASABI_SECRET_KEY }}"
     steps:
       - uses: actions/checkout@v6
 

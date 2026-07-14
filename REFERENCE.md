@@ -25,6 +25,7 @@
 | <a name="module_route53_policy_ocp_massopen"></a> [route53\_policy\_ocp\_massopen](#module\_route53\_policy\_ocp\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_route53_records"></a> [route53\_records](#module\_route53\_records) | ./modules/permission-set | n/a |
 | <a name="module_view_only_access"></a> [view\_only\_access](#module\_view\_only\_access) | ./modules/permission-set | n/a |
+| <a name="module_wasabi"></a> [wasabi](#module\_wasabi) | ./wasabi | n/a |
 
 ## Resources
 
@@ -44,6 +45,8 @@
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_aws_account_id"></a> [aws\_account\_id](#input\_aws\_account\_id) | Primary AWS account ID | `string` | n/a | yes |
 | <a name="input_aws_account_id_secondary"></a> [aws\_account\_id\_secondary](#input\_aws\_account\_id\_secondary) | Secondary AWS account ID | `string` | n/a | yes |
+| <a name="input_wasabi_access_key"></a> [wasabi\_access\_key](#input\_wasabi\_access\_key) | Wasabi access key | `string` | n/a | yes |
+| <a name="input_wasabi_secret_key"></a> [wasabi\_secret\_key](#input\_wasabi\_secret\_key) | Wasabi secret key | `string` | n/a | yes |
 
 ## Outputs
 

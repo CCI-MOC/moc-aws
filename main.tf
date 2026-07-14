@@ -26,3 +26,10 @@ module "github-oidc" {
   source         = "./modules/github-oidc"
   dns_policy_arn = aws_iam_policy.route53_records.arn
 }
+
+module "wasabi" {
+  source = "./wasabi"
+
+  wasabi_access_key = var.wasabi_access_key
+  wasabi_secret_key = var.wasabi_secret_key
+}
