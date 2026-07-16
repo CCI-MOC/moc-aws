@@ -15,6 +15,7 @@ resource "aws_iam_group_membership" "admins" {
   users = [
     module.user["tschwesi"].name,
     module.user["lars"].name,
+    module.user["naved001"].name,
   ]
 }
 

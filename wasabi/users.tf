@@ -13,6 +13,9 @@ locals {
     "lars" = {
       allow_change_password = true
     }
+    "naved001" = {
+      allow_change_password = true
+    }
   }
 }
 
