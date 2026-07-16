@@ -9,12 +9,15 @@ locals {
     }
     "tschwesi" = {
       allow_change_password = true
+      is_admin              = true
     }
     "lars" = {
       allow_change_password = true
+      is_admin              = true
     }
     "naved001" = {
       allow_change_password = true
+      is_admin              = true
     }
   }
 }

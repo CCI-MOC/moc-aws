@@ -13,9 +13,10 @@ resource "aws_iam_group_membership" "admins" {
   group    = aws_iam_group.admins.name
 
   users = [
-    module.user["tschwesi"].name,
-    module.user["lars"].name,
-    module.user["naved001"].name,
+    # This is like the python expression:
+    # [user_modules[name].name for name, config in wasabi_users.items() if config.get('is_admin', False)]
+    for name, config in local.wasabi_users : module.user[name].name
+    if try(config.is_admin, false)
   ]
 }
 
