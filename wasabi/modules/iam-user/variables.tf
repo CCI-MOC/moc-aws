@@ -14,3 +14,9 @@ variable "policies" {
   type        = list(string)
   default     = []
 }
+
+variable "secret_recovery_window_in_days" {
+  description = "Number of days that AWS Secrets Manager waits before deleting a secret (0 for immediate deletion)"
+  type        = number
+  default     = 30
+}

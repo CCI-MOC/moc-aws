@@ -32,4 +32,8 @@ module "wasabi" {
 
   wasabi_access_key = var.wasabi_access_key
   wasabi_secret_key = var.wasabi_secret_key
+
+  providers = {
+    aws = aws
+  }
 }

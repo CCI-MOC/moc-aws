@@ -26,8 +26,7 @@ output "iam_user_access_keys" {
   description = "Show names, access key ids, and corresponding secret ARN for all managed iam users"
 }
 
-output "wasabi_user_passwords" {
-  value       = module.wasabi.user_passwords
-  description = "Initial console passwords for Wasabi users with login profiles"
-  sensitive   = true
+output "wasabi_console_secrets" {
+  value       = module.wasabi.console_secrets
+  description = "Secrets Manager secrets containing initial console passwords for Wasabi users"
 }

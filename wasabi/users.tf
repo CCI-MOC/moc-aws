@@ -24,6 +24,7 @@ module "user" {
   policies              = try(each.value.policies, [])
 
   providers = {
-    aws = aws.wasabi
+    aws         = aws.wasabi
+    aws.secrets = aws
   }
 }

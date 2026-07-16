@@ -46,5 +46,5 @@ We are using [Wasabi] (for cost reasons) to backup data from the NERC monitoring
 
 | Name | Description |
 | ---- | ----------- |
-| <a name="output_user_passwords"></a> [user\_passwords](#output\_user\_passwords) | Initial console passwords for Wasabi users with login profiles |
+| <a name="output_console_secrets"></a> [console\_secrets](#output\_console\_secrets) | Secrets Manager secrets containing initial console passwords for Wasabi users |
 <!-- END_TF_DOCS -->

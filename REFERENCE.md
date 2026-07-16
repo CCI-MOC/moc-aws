@@ -57,5 +57,5 @@
 | <a name="output_iam_user_access_keys"></a> [iam\_user\_access\_keys](#output\_iam\_user\_access\_keys) | Show names, access key ids, and corresponding secret ARN for all managed iam users |
 | <a name="output_identity_store_id"></a> [identity\_store\_id](#output\_identity\_store\_id) | ARN of the Identity Store instance associated with our IAM Identity Center instance. Used when creating SSO users and groups. |
 | <a name="output_sso_instance_arn"></a> [sso\_instance\_arn](#output\_sso\_instance\_arn) | ARN of our AWS Identity Center instance |
-| <a name="output_wasabi_user_passwords"></a> [wasabi\_user\_passwords](#output\_wasabi\_user\_passwords) | Initial console passwords for Wasabi users with login profiles |
+| <a name="output_wasabi_console_secrets"></a> [wasabi\_console\_secrets](#output\_wasabi\_console\_secrets) | Secrets Manager secrets containing initial console passwords for Wasabi users |
 <!-- END_TF_DOCS -->

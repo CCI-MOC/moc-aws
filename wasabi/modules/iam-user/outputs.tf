@@ -3,8 +3,10 @@ output "name" {
   value       = aws_iam_user.this.name
 }
 
-output "password" {
-  description = "The initial console password (only available on first apply)"
-  value       = var.allow_change_password ? aws_iam_user_login_profile.this[0].password : null
-  sensitive   = true
+output "console_secret" {
+  description = "Secrets Manager secret containing the initial console password"
+  value = var.allow_change_password ? {
+    arn  = aws_secretsmanager_secret.console_password[0].arn
+    name = aws_secretsmanager_secret.console_password[0].name
+  } : null
 }
