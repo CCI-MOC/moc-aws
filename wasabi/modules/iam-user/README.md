@@ -37,4 +37,5 @@ No modules.
 | Name | Description |
 | ---- | ----------- |
 | <a name="output_name"></a> [name](#output\_name) | The IAM user name |
+| <a name="output_password"></a> [password](#output\_password) | The initial console password (only available on first apply) |
 <!-- END_TF_DOCS -->

@@ -25,3 +25,9 @@ output "iam_user_access_keys" {
   value       = { for name, user in module.iam_user : name => user.access_keys }
   description = "Show names, access key ids, and corresponding secret ARN for all managed iam users"
 }
+
+output "wasabi_user_passwords" {
+  value       = module.wasabi.user_passwords
+  description = "Initial console passwords for Wasabi users with login profiles"
+  sensitive   = true
+}
