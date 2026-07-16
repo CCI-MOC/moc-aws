@@ -18,11 +18,11 @@
 | Name | Source | Version |
 | ---- | ------ | ------- |
 | <a name="module_administrator_access"></a> [administrator\_access](#module\_administrator\_access) | ./modules/permission-set | n/a |
+| <a name="module_cert_manager_policy_innabox"></a> [cert\_manager\_policy\_innabox](#module\_cert\_manager\_policy\_innabox) | ./modules/iam-policy/route53-single-zone | n/a |
+| <a name="module_cert_manager_policy_ocp_massopen"></a> [cert\_manager\_policy\_ocp\_massopen](#module\_cert\_manager\_policy\_ocp\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_github-oidc"></a> [github-oidc](#module\_github-oidc) | ./modules/github-oidc | n/a |
 | <a name="module_iam_user"></a> [iam\_user](#module\_iam\_user) | ./modules/iam-user | n/a |
 | <a name="module_osac_terraform_state"></a> [osac\_terraform\_state](#module\_osac\_terraform\_state) | ./modules/bucket | n/a |
-| <a name="module_route53_policy_innabox"></a> [route53\_policy\_innabox](#module\_route53\_policy\_innabox) | ./modules/iam-policy/route53-single-zone | n/a |
-| <a name="module_route53_policy_ocp_massopen"></a> [route53\_policy\_ocp\_massopen](#module\_route53\_policy\_ocp\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_route53_records"></a> [route53\_records](#module\_route53\_records) | ./modules/permission-set | n/a |
 | <a name="module_view_only_access"></a> [view\_only\_access](#module\_view\_only\_access) | ./modules/permission-set | n/a |
 | <a name="module_wasabi"></a> [wasabi](#module\_wasabi) | ./wasabi | n/a |
