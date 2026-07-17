@@ -6,6 +6,7 @@
 | Name | Version |
 | ---- | ------- |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
+| <a name="requirement_b2"></a> [b2](#requirement\_b2) | ~> 0.12 |
 
 ## Providers
 
@@ -18,6 +19,7 @@
 | Name | Source | Version |
 | ---- | ------ | ------- |
 | <a name="module_administrator_access"></a> [administrator\_access](#module\_administrator\_access) | ./modules/permission-set | n/a |
+| <a name="module_b2"></a> [b2](#module\_b2) | ./b2 | n/a |
 | <a name="module_cert_manager_policy_innabox"></a> [cert\_manager\_policy\_innabox](#module\_cert\_manager\_policy\_innabox) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_cert_manager_policy_ocp_massopen"></a> [cert\_manager\_policy\_ocp\_massopen](#module\_cert\_manager\_policy\_ocp\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_github-oidc"></a> [github-oidc](#module\_github-oidc) | ./modules/github-oidc | n/a |
@@ -45,6 +47,8 @@
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_aws_account_id"></a> [aws\_account\_id](#input\_aws\_account\_id) | Primary AWS account ID | `string` | n/a | yes |
 | <a name="input_aws_account_id_secondary"></a> [aws\_account\_id\_secondary](#input\_aws\_account\_id\_secondary) | Secondary AWS account ID | `string` | n/a | yes |
+| <a name="input_b2_access_key"></a> [b2\_access\_key](#input\_b2\_access\_key) | Backblaze B2 application key ID | `string` | n/a | yes |
+| <a name="input_b2_secret_key"></a> [b2\_secret\_key](#input\_b2\_secret\_key) | Backblaze B2 application key | `string` | n/a | yes |
 | <a name="input_wasabi_access_key"></a> [wasabi\_access\_key](#input\_wasabi\_access\_key) | Wasabi access key | `string` | n/a | yes |
 | <a name="input_wasabi_secret_key"></a> [wasabi\_secret\_key](#input\_wasabi\_secret\_key) | Wasabi secret key | `string` | n/a | yes |
 

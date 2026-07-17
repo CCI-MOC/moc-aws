@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+    b2 = {
+      source  = "Backblaze/b2"
+      version = "~> 0.12"
+    }
   }
 }
 
@@ -32,6 +36,17 @@ module "wasabi" {
 
   wasabi_access_key = var.wasabi_access_key
   wasabi_secret_key = var.wasabi_secret_key
+
+  providers = {
+    aws = aws
+  }
+}
+
+module "b2" {
+  source = "./b2"
+
+  b2_access_key = var.b2_access_key
+  b2_secret_key = var.b2_secret_key
 
   providers = {
     aws = aws
