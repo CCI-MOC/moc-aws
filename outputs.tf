@@ -30,3 +30,8 @@ output "wasabi_console_secrets" {
   value       = module.wasabi.console_secrets
   description = "Secrets Manager secrets containing initial console passwords for Wasabi users"
 }
+
+output "b2_application_keys" {
+  value       = module.b2.application_keys
+  description = "Secrets Manager secrets containing B2 application keys"
+}

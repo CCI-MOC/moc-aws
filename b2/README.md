@@ -32,5 +32,7 @@ No resources.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+| ---- | ----------- |
+| <a name="output_application_keys"></a> [application\_keys](#output\_application\_keys) | Secrets Manager secrets containing B2 application keys |
 <!-- END_TF_DOCS -->

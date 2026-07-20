@@ -56,6 +56,7 @@
 
 | Name | Description |
 | ---- | ----------- |
+| <a name="output_b2_application_keys"></a> [b2\_application\_keys](#output\_b2\_application\_keys) | Secrets Manager secrets containing B2 application keys |
 | <a name="output_github_actions_admin_role_arn"></a> [github\_actions\_admin\_role\_arn](#output\_github\_actions\_admin\_role\_arn) | Set AWS\_ROLE\_ARN to this value for GitHub workflows that require administrative access |
 | <a name="output_github_actions_dns_role_arn"></a> [github\_actions\_dns\_role\_arn](#output\_github\_actions\_dns\_role\_arn) | Set AWS\_ROLE\_ARN to this value for GitHub workflows that interact only with Route53 |
 | <a name="output_iam_user_access_keys"></a> [iam\_user\_access\_keys](#output\_iam\_user\_access\_keys) | Show names, access key ids, and corresponding secret ARN for all managed iam users |
