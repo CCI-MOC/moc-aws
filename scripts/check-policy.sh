@@ -20,6 +20,6 @@ else
 fi
 trap 'rm -f "${files_to_clean[@]}"' EXIT
 
-tofu plan -concise -input=false -out "$tfplan" &&
+tofu plan -refresh=false -concise -input=false -out "$tfplan" &&
   tofu show -json "$tfplan" >"${tfplanjson}" &&
   docker run --rm -v "$PWD:/project" openpolicyagent/conftest test "${tfplanjson}"
