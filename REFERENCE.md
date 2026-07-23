@@ -20,6 +20,7 @@
 | ---- | ------ | ------- |
 | <a name="module_administrator_access"></a> [administrator\_access](#module\_administrator\_access) | ./modules/permission-set | n/a |
 | <a name="module_b2"></a> [b2](#module\_b2) | ./b2 | n/a |
+| <a name="module_cert_manager_policy"></a> [cert\_manager\_policy](#module\_cert\_manager\_policy) | ./modules/iam-policy/cert-manager-route53 | n/a |
 | <a name="module_cert_manager_policy_innabox"></a> [cert\_manager\_policy\_innabox](#module\_cert\_manager\_policy\_innabox) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_cert_manager_policy_ocp_massopen"></a> [cert\_manager\_policy\_ocp\_massopen](#module\_cert\_manager\_policy\_ocp\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_github-oidc"></a> [github-oidc](#module\_github-oidc) | ./modules/github-oidc | n/a |
