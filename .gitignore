@@ -1,5 +1,6 @@
 .envrc
 .terraform/
+local.auto.tfvars
 local.tfvars
 tfplan
 tfplan.json
