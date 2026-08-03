@@ -22,6 +22,7 @@
 | <a name="module_b2"></a> [b2](#module\_b2) | ./b2 | n/a |
 | <a name="module_cert_manager_policy"></a> [cert\_manager\_policy](#module\_cert\_manager\_policy) | ./modules/iam-policy/cert-manager-route53 | n/a |
 | <a name="module_cert_manager_policy_innabox"></a> [cert\_manager\_policy\_innabox](#module\_cert\_manager\_policy\_innabox) | ./modules/iam-policy/route53-single-zone | n/a |
+| <a name="module_eks_access"></a> [eks\_access](#module\_eks\_access) | ./modules/permission-set | n/a |
 | <a name="module_github-oidc"></a> [github-oidc](#module\_github-oidc) | ./modules/github-oidc | n/a |
 | <a name="module_iam_user"></a> [iam\_user](#module\_iam\_user) | ./modules/iam-user | n/a |
 | <a name="module_openshift_oidc_oac_infra"></a> [openshift\_oidc\_oac\_infra](#module\_openshift\_oidc\_oac\_infra) | ./modules/openshift-oidc | n/a |
@@ -35,6 +36,7 @@
 
 | Name | Type |
 | ---- | ---- |
+| [aws_iam_policy.eks_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.route53_records](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_identitystore_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_group) | resource |
 | [aws_identitystore_group_membership.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_group_membership) | resource |
@@ -43,6 +45,7 @@
 | [aws_s3_bucket.oac_oidc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_policy.oac_oidc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_s3_bucket_public_access_block.oac_oidc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_iam_policy_document.eks_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.oac_oidc_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.route53_records](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_ssoadmin_instances.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssoadmin_instances) | data source |

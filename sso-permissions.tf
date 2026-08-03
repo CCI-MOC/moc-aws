@@ -56,6 +56,90 @@ module "view_only_access" {
 }
 
 # -----------------------------------------------------------------------------
+# Managed policy – EKS cluster management
+# -----------------------------------------------------------------------------
+
+data "aws_iam_policy_document" "eks_access" {
+  statement {
+    sid    = "AllowEKSFullAccess"
+    effect = "Allow"
+
+    actions = [
+      "eks:*",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "AllowEKSIAMRoleManagement"
+    effect = "Allow"
+
+    actions = [
+      "iam:CreateRole",
+      "iam:DeleteRole",
+      "iam:GetRole",
+      "iam:ListAttachedRolePolicies",
+      "iam:AttachRolePolicy",
+      "iam:DetachRolePolicy",
+      "iam:TagRole",
+      "iam:UntagRole",
+      "iam:CreateServiceLinkedRole",
+      "iam:CreateOpenIDConnectProvider",
+      "iam:GetOpenIDConnectProvider",
+      "iam:DeleteOpenIDConnectProvider",
+      "iam:TagOpenIDConnectProvider",
+      "iam:ListOpenIDConnectProviders",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "AllowPassRoleToEKS"
+    effect = "Allow"
+
+    actions = [
+      "iam:PassRole",
+    ]
+
+    resources = ["*"]
+
+    condition {
+      test     = "StringEquals"
+      variable = "iam:PassedToService"
+      values   = ["eks.amazonaws.com", "ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_policy" "eks_access" {
+  name   = "EKSAccess"
+  policy = data.aws_iam_policy_document.eks_access.json
+}
+
+# -----------------------------------------------------------------------------
+# SSO – EKSAccess permission set
+# -----------------------------------------------------------------------------
+
+module "eks_access" {
+  source       = "./modules/permission-set"
+  instance_arn = local.sso_instance_arn
+  name         = "EKSAccess"
+  description  = "Create and manage EKS clusters with scoped IAM for service roles"
+  customer_managed_policy_names = {
+    eks_access = aws_iam_policy.eks_access.name
+  }
+  assignments = {
+    moc_aws_eks_operators = {
+      principal_id   = aws_identitystore_group.this["moc-aws-eks-operators"].group_id
+      principal_type = "GROUP"
+      target_id      = var.aws_account_id
+    }
+  }
+}
+
+# -----------------------------------------------------------------------------
 # Managed policy – Route53 record management
 # -----------------------------------------------------------------------------
 
