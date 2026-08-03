@@ -4,7 +4,8 @@
 
 locals {
   sso_groups = {
-    "moc-aws-admins" = "Users with admin access to AWS."
+    "moc-aws-admins"    = "Users with admin access to AWS.",
+    "moc-aws-operators" = "Provides SystemAdministrator access to AWS (https://docs.aws.amazon.com/aws-managed-policy/latest/reference/SystemAdministrator.html)",
   }
 }
 

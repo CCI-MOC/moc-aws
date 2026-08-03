@@ -18,6 +18,13 @@ locals {
       email        = "naved001@bu.edu"
       groups       = ["moc-aws-admins"]
     }
+    "computate" = {
+      display_name = "Christoper Tate"
+      given_name   = "Christopher"
+      family_name  = "Tate"
+      email        = "ctate@redhat.com"
+      groups       = ["moc-aws-operators"]
+    }
   }
 }
 
