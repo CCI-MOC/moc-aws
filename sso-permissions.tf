@@ -23,6 +23,22 @@ module "administrator_access" {
   }
 }
 
+module "operator_access" {
+  source       = "./modules/permission-set"
+  instance_arn = local.sso_instance_arn
+  name         = "OperatorAccess"
+  managed_policy_arns = {
+    operator_access = "arn:aws:iam::aws:policy/SystemAdministrator"
+  }
+  assignments = {
+    moc_aws_admins = {
+      principal_id   = aws_identitystore_group.this["moc-aws-operators"].group_id
+      principal_type = "GROUP"
+      target_id      = var.aws_account_id
+    }
+  }
+}
+
 module "view_only_access" {
   source       = "./modules/permission-set"
   instance_arn = local.sso_instance_arn
