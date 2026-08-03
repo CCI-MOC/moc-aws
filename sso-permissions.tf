@@ -28,7 +28,7 @@ module "operator_access" {
   instance_arn = local.sso_instance_arn
   name         = "OperatorAccess"
   managed_policy_arns = {
-    operator_access = "arn:aws:iam::aws:policy/SystemAdministrator"
+    operator_access = "arn:aws:iam::aws:policy/job-function/SystemAdministrator"
   }
   assignments = {
     moc_aws_admins = {
