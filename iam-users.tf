@@ -1,14 +1,6 @@
 # -----------------------------------------------------------------------------
 # Route53 zone policies
 # -----------------------------------------------------------------------------
-
-module "cert_manager_policy_ocp_massopen" {
-  source             = "./modules/iam-policy/route53-single-zone"
-  zone_name          = "ocp.massopen.cloud"
-  policy_name        = "cert-manager-ocp-massopen-cloud"
-  policy_description = "modify records in ocp.massopen.cloud mainly for the purposes for dns01 challenged."
-}
-
 module "cert_manager_policy_innabox" {
   source             = "./modules/iam-policy/route53-single-zone"
   zone_name          = "box.massopen.cloud"
@@ -64,7 +56,6 @@ module "cert_manager_policy" {
 
 locals {
   policy_arn_map = {
-    cert-manager-ocp-massopen-cloud         = module.cert_manager_policy_ocp_massopen.policy_arn
     cert-manager-box-massopen-cloud         = module.cert_manager_policy_innabox.policy_arn
     cert-manager-infra-ocp-massopen-cloud   = module.cert_manager_policy["cert_manager_policy_infra_ocp_massopen"].policy_arn
     cert-manager-staging-ocp-massopen-cloud = module.cert_manager_policy["cert_manager_policy_staging_ocp_massopen"].policy_arn
@@ -73,12 +64,6 @@ locals {
   }
 
   iam_users = {
-    "cert-manager-ocp-massopen" = {
-      access_keys = {
-        cert-manager-nist-clusters = "Used by cert-manager in NIST clusters for dns01 challenges"
-      }
-      policy_names = ["cert-manager-ocp-massopen-cloud"]
-    }
     "innabox-dns-manager" = {
       access_keys = {
         innabox-dns = "Used by cert-manager in innabox dev cluster"
