@@ -31,6 +31,13 @@ module "github-oidc" {
   dns_policy_arn = aws_iam_policy.route53_records.arn
 }
 
+module "openshift_oidc_oac_infra" {
+  source                  = "./modules/openshift-oidc"
+  cluster_name            = "oac-infra-dev"
+  oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
+  cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_infra"].policy_arn
+}
+
 module "wasabi" {
   source = "./wasabi"
 
