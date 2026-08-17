@@ -38,6 +38,12 @@ locals {
       policy_name        = "cert-manager-esi-massopen-cloud"
       policy_description = "modify records for esi.massopen.cloud for dns01 challenges."
     }
+    "cert_manager_policy_oac_infra" = {
+      cluster_subdomain  = "infra.oac.int.massopen.cloud"
+      zone_name          = "int.massopen.cloud"
+      policy_name        = "cert-manager-oac-infra-int-massopen-cloud"
+      policy_description = "modify records in infra.oac.int.massopen.cloud for dns01 challenges."
+    }
   }
 }
 

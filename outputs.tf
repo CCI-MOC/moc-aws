@@ -42,3 +42,18 @@ output "b2_application_keys" {
   description = "Secrets Manager secrets containing B2 application keys"
   sensitive   = true
 }
+
+output "oac_oidc_bucket" {
+  value       = aws_s3_bucket.oac_oidc.id
+  description = "Shared S3 bucket for OAC OpenShift cluster OIDC discovery documents"
+}
+
+output "oac_infra_oidc" {
+  value = {
+    cert_manager_role_arn = module.openshift_oidc_oac_infra.cert_manager_role_arn
+    eso_role_arn          = module.openshift_oidc_oac_infra.eso_role_arn
+    oidc_issuer_url       = module.openshift_oidc_oac_infra.oidc_issuer_url
+  }
+  description = "OIDC configuration for the oac-infra OpenShift cluster"
+  sensitive   = true
+}
