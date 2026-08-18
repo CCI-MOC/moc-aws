@@ -23,7 +23,7 @@ locals {
       given_name   = "Christopher"
       family_name  = "Tate"
       email        = "ctate@redhat.com"
-      groups       = ["moc-aws-operators", "moc-aws-eks-operators"]
+      groups       = ["moc-aws-eks-operators"]
     }
   }
 }
