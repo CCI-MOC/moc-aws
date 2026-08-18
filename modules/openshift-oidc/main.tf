@@ -11,4 +11,8 @@ resource "aws_iam_openid_connect_provider" "this" {
   url             = local.oidc_issuer_url
   client_id_list  = ["sts.amazonaws.com"]
   thumbprint_list = []
+
+  lifecycle {
+    ignore_changes = [thumbprint_list]
+  }
 }
