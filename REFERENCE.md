@@ -25,7 +25,7 @@
 | <a name="module_eks_operator_access"></a> [eks\_operator\_access](#module\_eks\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_github-oidc"></a> [github-oidc](#module\_github-oidc) | ./modules/github-oidc | n/a |
 | <a name="module_iam_user"></a> [iam\_user](#module\_iam\_user) | ./modules/iam-user | n/a |
-| <a name="module_openshift_oidc_oac_infra"></a> [openshift\_oidc\_oac\_infra](#module\_openshift\_oidc\_oac\_infra) | ./modules/openshift-oidc | n/a |
+| <a name="module_openshift_oidc"></a> [openshift\_oidc](#module\_openshift\_oidc) | ./modules/openshift-oidc | n/a |
 | <a name="module_operator_access"></a> [operator\_access](#module\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_osac_terraform_state"></a> [osac\_terraform\_state](#module\_osac\_terraform\_state) | ./modules/bucket | n/a |
 | <a name="module_route53_records"></a> [route53\_records](#module\_route53\_records) | ./modules/permission-set | n/a |
@@ -70,8 +70,8 @@
 | <a name="output_github_actions_dns_role_arn"></a> [github\_actions\_dns\_role\_arn](#output\_github\_actions\_dns\_role\_arn) | Set AWS\_ROLE\_ARN to this value for GitHub workflows that interact only with Route53 |
 | <a name="output_iam_user_access_keys"></a> [iam\_user\_access\_keys](#output\_iam\_user\_access\_keys) | Show names, access key ids, and corresponding secret ARN for all managed iam users |
 | <a name="output_identity_store_id"></a> [identity\_store\_id](#output\_identity\_store\_id) | ARN of the Identity Store instance associated with our IAM Identity Center instance. Used when creating SSO users and groups. |
-| <a name="output_oac_infra_oidc"></a> [oac\_infra\_oidc](#output\_oac\_infra\_oidc) | OIDC configuration for the oac-infra OpenShift cluster |
 | <a name="output_oac_oidc_bucket"></a> [oac\_oidc\_bucket](#output\_oac\_oidc\_bucket) | Shared S3 bucket for OAC OpenShift cluster OIDC discovery documents |
+| <a name="output_openshift_oidc"></a> [openshift\_oidc](#output\_openshift\_oidc) | OIDC configuration for all OpenShift clusters |
 | <a name="output_sso_instance_arn"></a> [sso\_instance\_arn](#output\_sso\_instance\_arn) | ARN of our AWS Identity Center instance |
 | <a name="output_wasabi_console_secrets"></a> [wasabi\_console\_secrets](#output\_wasabi\_console\_secrets) | Secrets Manager secrets containing initial console passwords for Wasabi users |
 <!-- END_TF_DOCS -->

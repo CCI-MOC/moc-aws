@@ -48,12 +48,14 @@ output "oac_oidc_bucket" {
   description = "Shared S3 bucket for OAC OpenShift cluster OIDC discovery documents"
 }
 
-output "oac_infra_oidc" {
+output "openshift_oidc" {
   value = {
-    cert_manager_role_arn = module.openshift_oidc_oac_infra.cert_manager_role_arn
-    eso_role_arn          = module.openshift_oidc_oac_infra.eso_role_arn
-    oidc_issuer_url       = module.openshift_oidc_oac_infra.oidc_issuer_url
+    for name, instance in module.openshift_oidc : name => {
+      cert_manager_role_arn = instance.cert_manager_role_arn
+      eso_role_arn          = instance.eso_role_arn
+      oidc_issuer_url       = instance.oidc_issuer_url
+    }
   }
-  description = "OIDC configuration for the oac-infra OpenShift cluster"
+  description = "OIDC configuration for all OpenShift clusters"
   sensitive   = true
 }
