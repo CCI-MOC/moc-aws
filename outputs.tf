@@ -54,6 +54,7 @@ output "openshift_oidc" {
       cert_manager_role_arn = instance.cert_manager_role_arn
       eso_role_arn          = instance.eso_role_arn
       oidc_issuer_url       = instance.oidc_issuer_url
+      secret_arn            = instance.secret_arn
     }
   }
   description = "OIDC configuration for all OpenShift clusters"

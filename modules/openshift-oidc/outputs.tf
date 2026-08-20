@@ -12,3 +12,8 @@ output "oidc_issuer_url" {
   description = "OIDC issuer URL (the S3 path used as the cluster's serviceAccountIssuer)"
   value       = local.oidc_issuer_url
 }
+
+output "secret_arn" {
+  description = "ARN of the Secrets Manager secret containing OIDC configuration"
+  value       = aws_secretsmanager_secret.oidc.arn
+}
