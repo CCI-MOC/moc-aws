@@ -36,6 +36,7 @@ No modules.
 | <a name="input_cert_manager_policy_arn"></a> [cert\_manager\_policy\_arn](#input\_cert\_manager\_policy\_arn) | ARN of the IAM policy granting Route53 access for cert-manager DNS-01 challenges | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Short identifier for the cluster, used in resource names and S3 path prefix (e.g., oac-infra, oac-staging) | `string` | n/a | yes |
 | <a name="input_oidc_bucket_domain_name"></a> [oidc\_bucket\_domain\_name](#input\_oidc\_bucket\_domain\_name) | Regional domain name of the shared S3 bucket hosting OIDC discovery documents | `string` | n/a | yes |
+| <a name="input_eso_writable_secret_prefixes"></a> [eso\_writable\_secret\_prefixes](#input\_eso\_writable\_secret\_prefixes) | List of Secrets Manager name prefixes that ESO is allowed to create (e.g. 'cluster/my-cluster/hostedcluster/') | `list(string)` | `[]` | no |
 
 ## Outputs
 

@@ -12,3 +12,9 @@ variable "cert_manager_policy_arn" {
   type        = string
   description = "ARN of the IAM policy granting Route53 access for cert-manager DNS-01 challenges"
 }
+
+variable "eso_writable_secret_prefixes" {
+  type        = list(string)
+  description = "List of Secrets Manager name prefixes that ESO is allowed to create (e.g. 'cluster/my-cluster/hostedcluster/')"
+  default     = []
+}

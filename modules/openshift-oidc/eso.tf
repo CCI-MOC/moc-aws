@@ -42,6 +42,23 @@ data "aws_iam_policy_document" "eso_secrets_manager" {
       "arn:aws:secretsmanager:*:*:secret:cluster/${var.cluster_name}/*",
     ]
   }
+
+  dynamic "statement" {
+    for_each = length(var.eso_writable_secret_prefixes) > 0 ? [1] : []
+    content {
+      effect = "Allow"
+      actions = [
+        "secretsmanager:CreateSecret",
+        "secretsmanager:DeleteResourcePolicy",
+        "secretsmanager:PutSecretValue",
+        "secretsmanager:TagResource",
+      ]
+      resources = [
+        for prefix in var.eso_writable_secret_prefixes :
+        "arn:aws:secretsmanager:*:*:secret:${prefix}*"
+      ]
+    }
+  }
 }
 
 resource "aws_iam_policy" "eso_secrets_manager" {
