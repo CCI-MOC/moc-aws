@@ -2,6 +2,19 @@ data "aws_route53_zone" "this" {
   name = var.zone_name
 }
 
+locals {
+  default_challenge_names = var.cluster_subdomain != null ? [
+    "_acme-challenge.api.${var.cluster_subdomain}",
+    "_acme-challenge.apps.${var.cluster_subdomain}",
+    "_acme-challenge.${var.cluster_subdomain}",
+  ] : []
+
+  all_challenge_names = concat(
+    local.default_challenge_names,
+    [for name in var.additional_challenge_names : "_acme-challenge.${name}"],
+  )
+}
+
 data "aws_iam_policy_document" "this" {
   statement {
     sid    = "ListRecordsInZone"
@@ -29,11 +42,7 @@ data "aws_iam_policy_document" "this" {
     condition {
       test     = "StringLike"
       variable = "route53:ChangeResourceRecordSetsNormalizedRecordNames"
-      values = [
-        "_acme-challenge.api.${var.cluster_subdomain}",
-        "_acme-challenge.apps.${var.cluster_subdomain}",
-        "_acme-challenge.${var.cluster_subdomain}",
-      ]
+      values   = local.all_challenge_names
     }
   }
 

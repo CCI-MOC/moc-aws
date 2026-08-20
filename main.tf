@@ -44,7 +44,7 @@ locals {
     oac_dev_workload0 = {
       cluster_name            = "oac-dev-workload0"
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
-      cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_infra"].policy_arn
+      cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_dev_workload0"].policy_arn
     }
   }
 }

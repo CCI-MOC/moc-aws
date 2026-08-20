@@ -25,9 +25,10 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
-| <a name="input_cluster_subdomain"></a> [cluster\_subdomain](#input\_cluster\_subdomain) | The specific cluster subdomain prefix allowed for DNS-01 challenges (e.g., cluster1.ocp.example.com) | `string` | n/a | yes |
 | <a name="input_policy_name"></a> [policy\_name](#input\_policy\_name) | Name of the IAM Policy | `string` | n/a | yes |
 | <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name) | The Route 53 Hosted Zone Name (e.g., ocp.example.com) | `string` | n/a | yes |
+| <a name="input_additional_challenge_names"></a> [additional\_challenge\_names](#input\_additional\_challenge\_names) | Additional DNS names for which \_acme-challenge TXT records are permitted (e.g., api-cluster.apps.example.com). Each entry is prefixed with \_acme-challenge automatically. | `list(string)` | `[]` | no |
+| <a name="input_cluster_subdomain"></a> [cluster\_subdomain](#input\_cluster\_subdomain) | The specific cluster subdomain prefix allowed for DNS-01 challenges (e.g., cluster1.ocp.example.com). Generates api/apps/\_acme-challenge patterns automatically. | `string` | `null` | no |
 | <a name="input_policy_description"></a> [policy\_description](#input\_policy\_description) | Description of the IAM Policy | `string` | `"Scoped Route53 policy for cert-manager DNS-01 challenges"` | no |
 
 ## Outputs

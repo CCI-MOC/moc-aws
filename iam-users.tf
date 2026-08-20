@@ -43,17 +43,27 @@ locals {
       zone_name          = "int.massopen.cloud"
       policy_name        = "cert-manager-oac-infra-int-massopen-cloud"
       policy_description = "modify records in infra.oac.int.massopen.cloud for dns01 challenges."
+      additional_challenge_names = [
+        "*.apps.infra.oac.int.massopen.cloud"
+      ]
+    }
+    "cert_manager_policy_oac_dev_workload0" = {
+      cluster_subdomain  = "apps.oac-prod.apps.infra.oac.int.massopen.cloud"
+      zone_name          = "int.massopen.cloud"
+      policy_name        = "cert-manager-oac-dev-workload0-int-massopen-cloud"
+      policy_description = "modify records for oac-prod hosted cluster dns01 challenges."
     }
   }
 }
 
 module "cert_manager_policy" {
-  for_each           = local.cert_manager_policies
-  source             = "./modules/iam-policy/cert-manager-route53"
-  cluster_subdomain  = each.value.cluster_subdomain
-  zone_name          = each.value.zone_name
-  policy_name        = each.value.policy_name
-  policy_description = each.value.policy_description
+  for_each                   = local.cert_manager_policies
+  source                     = "./modules/iam-policy/cert-manager-route53"
+  cluster_subdomain          = try(each.value.cluster_subdomain, null)
+  zone_name                  = each.value.zone_name
+  policy_name                = each.value.policy_name
+  policy_description         = each.value.policy_description
+  additional_challenge_names = try(each.value.additional_challenge_names, [])
 }
 
 # -----------------------------------------------------------------------------

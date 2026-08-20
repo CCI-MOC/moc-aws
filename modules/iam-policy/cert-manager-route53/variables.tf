@@ -16,5 +16,12 @@ variable "policy_description" {
 
 variable "cluster_subdomain" {
   type        = string
-  description = "The specific cluster subdomain prefix allowed for DNS-01 challenges (e.g., cluster1.ocp.example.com)"
+  default     = null
+  description = "The specific cluster subdomain prefix allowed for DNS-01 challenges (e.g., cluster1.ocp.example.com). Generates api/apps/_acme-challenge patterns automatically."
+}
+
+variable "additional_challenge_names" {
+  type        = list(string)
+  default     = []
+  description = "Additional DNS names for which _acme-challenge TXT records are permitted (e.g., api-cluster.apps.example.com). Each entry is prefixed with _acme-challenge automatically."
 }
