@@ -4,7 +4,6 @@
 
 locals {
   policy_arn_map = {
-    cert-manager-box-massopen-cloud         = module.cert_manager_policy_innabox.policy_arn
     cert-manager-infra-ocp-massopen-cloud   = module.cert_manager_policy["cert_manager_policy_infra_ocp_massopen"].policy_arn
     cert-manager-staging-ocp-massopen-cloud = module.cert_manager_policy["cert_manager_policy_staging_ocp_massopen"].policy_arn
     cert-manager-moc-infra-massopen-cloud   = module.cert_manager_policy["cert_manager_policy_moc_infra_massopen"].policy_arn
@@ -19,13 +18,6 @@ locals {
         oac-dev-infra-external-dns = "Used by external dns operator on the oac-dev-infra cluster"
       }
       policy_names = ["external-dns-int-massopen-cloud"]
-    }
-    "innabox-dns-manager" = {
-      access_keys = {
-        innabox-dns = "Used by cert-manager in innabox dev cluster"
-        innabox-aap = "Used by AAP in innabox dev cluster"
-      }
-      policy_names = ["cert-manager-box-massopen-cloud"]
     }
     "cert-manager-infra-ocp-massopen" = {
       access_keys = {
