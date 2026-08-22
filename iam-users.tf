@@ -9,9 +9,16 @@ locals {
     cert-manager-staging-ocp-massopen-cloud = module.cert_manager_policy["cert_manager_policy_staging_ocp_massopen"].policy_arn
     cert-manager-moc-infra-massopen-cloud   = module.cert_manager_policy["cert_manager_policy_moc_infra_massopen"].policy_arn
     cert-manager-esi-massopen-cloud         = module.cert_manager_policy["cert_manager_policy_esi_massopen"].policy_arn
+    external-dns-int-massopen-cloud         = module.external_dns_policy_int_massopen.policy_arn
   }
 
   iam_users = {
+    "oac-dev-external-dns" = {
+      access_keys = {
+        oac-dev-infra-external-dns = "Used by external dns operator on the oac-dev-infra cluster"
+      }
+      policy_names = ["external-dns-int-massopen-cloud"]
+    }
     "innabox-dns-manager" = {
       access_keys = {
         innabox-dns = "Used by cert-manager in innabox dev cluster"
