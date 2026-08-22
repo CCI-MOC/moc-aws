@@ -2,13 +2,6 @@
 # Route53 zone policies for cert-manager
 # -----------------------------------------------------------------------------
 
-module "cert_manager_policy_innabox" {
-  source             = "./modules/iam-policy/route53-single-zone"
-  zone_name          = "box.massopen.cloud"
-  policy_name        = "cert-manager-box-massopen-cloud"
-  policy_description = "allow cert-manager in innabox dev cluster to manage box.massopen.cloud"
-}
-
 locals {
   cert_manager_policies = {
     "cert_manager_policy_storage_massopen" = {
