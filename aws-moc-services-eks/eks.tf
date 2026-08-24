@@ -100,5 +100,10 @@ resource "aws_eks_node_group" "default" {
     aws_iam_role_policy_attachment.node_cni,
     aws_iam_role_policy_attachment.node_ecr,
     aws_iam_role_policy_attachment.node_ssm,
+    # Nodes launch into the private subnets and need outbound egress (ECR
+    # image pulls, cluster registration) before they can join. Without these
+    # the node group races ahead of the NAT route and never becomes Ready.
+    aws_route.private_nat,
+    aws_route_table_association.private,
   ]
 }
