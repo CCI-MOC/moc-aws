@@ -46,6 +46,28 @@ resource "aws_iam_openid_connect_provider" "cluster" {
   url             = aws_eks_cluster.cluster.identity[0].oidc[0].issuer
 }
 
+# --- EKS access entries ---
+
+data "aws_iam_roles" "eks_operator_sso" {
+  path_prefix = "/aws-reserved/sso.amazonaws.com/"
+  name_regex  = "^AWSReservedSSO_EKSOperatorAccess_"
+}
+
+resource "aws_eks_access_entry" "eks_operator" {
+  cluster_name  = aws_eks_cluster.cluster.name
+  principal_arn = one(data.aws_iam_roles.eks_operator_sso.arns)
+}
+
+resource "aws_eks_access_policy_association" "eks_operator_admin" {
+  cluster_name  = aws_eks_cluster.cluster.name
+  principal_arn = aws_eks_access_entry.eks_operator.principal_arn
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
+}
+
 # --- Node group IAM role ---
 
 resource "aws_iam_role" "node_group" {
