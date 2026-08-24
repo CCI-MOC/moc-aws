@@ -92,3 +92,35 @@ resource "helm_release" "alb_controller" {
     aws_iam_role_policy_attachment.alb_controller,
   ]
 }
+
+# --- Destroy-time cleanup of controller-managed load balancers ---
+#
+# The ALB controller creates AWS load balancers (and ENIs in the VPC subnets) in
+# response to Ingresses and type: LoadBalancer Services. Those AWS resources are
+# not tracked in state, so on `tofu destroy` they would be orphaned once the
+# controller is uninstalled -- and their lingering ENIs block VPC deletion.
+#
+# This resource depends on the Helm release, so at destroy time it is torn down
+# *before* the controller is uninstalled. Its destroy-time provisioner deletes
+# the Ingresses and type: LoadBalancer Services while the controller is still
+# running, letting the controller remove the backing AWS load balancers first.
+# The script blocks on finalizers and fails the destroy if cleanup does not
+# complete, leaving the controller installed so the operation can be retried.
+resource "terraform_data" "lb_cleanup" {
+  triggers_replace = {
+    cluster_name = aws_eks_cluster.cluster.name
+    region       = var.region
+  }
+
+  depends_on = [helm_release.alb_controller]
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = "${path.module}/scripts/cleanup-load-balancers.sh"
+
+    environment = {
+      CLUSTER_NAME = self.triggers_replace.cluster_name
+      AWS_REGION   = self.triggers_replace.region
+    }
+  }
+}
