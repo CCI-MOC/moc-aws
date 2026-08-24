@@ -31,7 +31,19 @@ resource "aws_eks_cluster" "cluster" {
     public_access_cidrs     = var.public_access_cidrs
   }
 
+  access_config {
+    authentication_mode = "API_AND_CONFIG_MAP"
+  }
+
   depends_on = [aws_iam_role_policy_attachment.cluster_policy]
+
+  lifecycle {
+    # bootstrap_cluster_creator_admin_permissions is a create-only field the
+    # EKS API never returns, so leaving it unmanaged here avoids a spurious
+    # "force replacement" diff when adopting access_config on an existing
+    # cluster.
+    ignore_changes = [access_config[0].bootstrap_cluster_creator_admin_permissions]
+  }
 }
 
 # --- OIDC provider (for IRSA) ---
@@ -45,29 +57,6 @@ resource "aws_iam_openid_connect_provider" "cluster" {
   thumbprint_list = [data.tls_certificate.cluster.certificates[0].sha1_fingerprint]
   url             = aws_eks_cluster.cluster.identity[0].oidc[0].issuer
 }
-
-# --- EKS access entries ---
-
-data "aws_iam_roles" "eks_operator_sso" {
-  path_prefix = "/aws-reserved/sso.amazonaws.com/"
-  name_regex  = "^AWSReservedSSO_EKSOperatorAccess_"
-}
-
-resource "aws_eks_access_entry" "eks_operator" {
-  cluster_name  = aws_eks_cluster.cluster.name
-  principal_arn = one(data.aws_iam_roles.eks_operator_sso.arns)
-}
-
-resource "aws_eks_access_policy_association" "eks_operator_admin" {
-  cluster_name  = aws_eks_cluster.cluster.name
-  principal_arn = aws_eks_access_entry.eks_operator.principal_arn
-  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-
-  access_scope {
-    type = "cluster"
-  }
-}
-
 # --- Node group IAM role ---
 
 resource "aws_iam_role" "node_group" {
@@ -100,6 +89,37 @@ resource "aws_iam_role_policy_attachment" "node_ecr" {
 resource "aws_iam_role_policy_attachment" "node_ssm" {
   role       = aws_iam_role.node_group.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+# --- Cluster access (EKS access entries) ---
+
+locals {
+  # cluster_admins holds role paths (no account ID, per repo convention); build
+  # the full principal ARNs from the current account.
+  cluster_admin_arns = [
+    for role in var.cluster_admins :
+    "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${role}"
+  ]
+}
+
+resource "aws_eks_access_entry" "admin" {
+  for_each      = toset(local.cluster_admin_arns)
+  cluster_name  = aws_eks_cluster.cluster.name
+  principal_arn = each.value
+  type          = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "admin" {
+  for_each      = toset(local.cluster_admin_arns)
+  cluster_name  = aws_eks_cluster.cluster.name
+  principal_arn = each.value
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
+
+  depends_on = [aws_eks_access_entry.admin]
 }
 
 # --- Managed node group ---

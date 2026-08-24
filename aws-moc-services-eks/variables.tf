@@ -64,3 +64,9 @@ variable "public_access_cidrs" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
+
+variable "cluster_admins" {
+  description = "IAM role paths granted cluster-admin via EKS access entries. Omit the account ID prefix; full ARNs are constructed automatically (e.g. aws-reserved/sso.amazonaws.com/AWSReservedSSO_EKSOperatorAccess_...)."
+  type        = list(string)
+  default     = []
+}

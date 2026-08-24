@@ -11,3 +11,7 @@ private_subnet_cidrs = {
   "us-east-1a" = "10.251.10.0/24"
   "us-east-1b" = "10.251.20.0/24"
 }
+
+cluster_admins = [
+  "aws-reserved/sso.amazonaws.com/AWSReservedSSO_EKSOperatorAccess_99332a9a5915b76a",
+]
