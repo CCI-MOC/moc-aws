@@ -54,7 +54,7 @@ locals {
       access_keys = {
         certbot-letsencrypt-sso = "Used for sso.massopen.cloud for dns01 challenges"
       }
-      policy_names = ["cert-manager-esi-massopen-cloud"]
+      policy_names = ["cert-manager-sso-massopen-cloud"]
     }
   }
 }
