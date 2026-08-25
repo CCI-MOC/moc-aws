@@ -51,10 +51,11 @@ output "oac_oidc_bucket" {
 output "openshift_oidc" {
   value = {
     for name, instance in module.openshift_oidc : name => {
-      cert_manager_role_arn = instance.cert_manager_role_arn
-      eso_role_arn          = instance.eso_role_arn
-      oidc_issuer_url       = instance.oidc_issuer_url
-      secret_arn            = instance.secret_arn
+      cert_manager_role_arn     = instance.cert_manager_role_arn
+      eso_role_arn              = instance.eso_role_arn
+      oidc_issuer_url           = instance.oidc_issuer_url
+      secret_arn                = instance.secret_arn
+      service_account_role_arns = instance.service_account_role_arns
     }
   }
   description = "OIDC configuration for all OpenShift clusters"

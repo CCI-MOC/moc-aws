@@ -11,6 +11,14 @@ module "cert_manager_policy_innabox" {
 
 locals {
   cert_manager_policies = {
+    "cert_manager_policy_storage_massopen" = {
+      zone_name          = "massopen.cloud"
+      policy_name        = "cert-manager-storage-massopen-cloud"
+      policy_description = "allow issuing certificate for storage.massopen.cloud object storage proxy"
+      additional_challenge_names = [
+        "storage.massopen.cloud"
+      ]
+    }
     "cert_manager_policy_infra_ocp_massopen" = {
       cluster_subdomain  = "infra.ocp.massopen.cloud"
       zone_name          = "ocp.massopen.cloud"

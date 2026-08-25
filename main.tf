@@ -32,20 +32,45 @@ module "github-oidc" {
 }
 
 locals {
+  # Defaults for every openshift_oidc_clusters entry. Each cluster below is
+  # built with merge(local.openshift_oidc_cluster_defaults, { ... }) so that
+  # every entry ends up with an identical set of keys. This keeps the map
+  # homogeneous, which OpenTofu requires: if entries had differing key sets it
+  # would unify them into a single object type and backfill the missing keys as
+  # "known after apply", causing a cryptic for_each error downstream.
+  #
+  # Required keys default to null; the module marks them nullable = false so an
+  # omitted required key fails with a clear message naming the cluster. Optional
+  # keys default to a usable empty value.
+  openshift_oidc_cluster_defaults = {
+    cluster_name                 = null # required
+    oidc_bucket_domain_name      = null # required
+    cert_manager_policy_arn      = null # required
+    eso_writable_secret_prefixes = []   # optional
+    service_account_roles        = {}   # optional
+  }
+
   openshift_oidc_clusters = {
-    oac_infra = {
+    oac_infra = merge(local.openshift_oidc_cluster_defaults, {
       cluster_name            = "oac-infra-dev"
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_infra"].policy_arn
       eso_writable_secret_prefixes = [
         "cluster/oac-infra-dev/hostedcluster/",
       ]
-    }
-    oac_dev_workload0 = {
+      service_account_roles = {
+        object-storage-certificate = {
+          namespace       = "object-storage-certificate"
+          service_account = "object-storage-certificate"
+          policy_arns     = [module.cert_manager_policy["cert_manager_policy_storage_massopen"].policy_arn]
+        }
+      }
+    })
+    oac_dev_workload0 = merge(local.openshift_oidc_cluster_defaults, {
       cluster_name            = "oac-dev-workload0"
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_dev_workload0"].policy_arn
-    }
+    })
   }
 }
 
@@ -56,7 +81,8 @@ module "openshift_oidc" {
   cluster_name                 = each.value.cluster_name
   oidc_bucket_domain_name      = each.value.oidc_bucket_domain_name
   cert_manager_policy_arn      = each.value.cert_manager_policy_arn
-  eso_writable_secret_prefixes = try(each.value.eso_writable_secret_prefixes, [])
+  eso_writable_secret_prefixes = each.value.eso_writable_secret_prefixes
+  service_account_roles        = each.value.service_account_roles
 }
 
 module "wasabi" {
