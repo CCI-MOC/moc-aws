@@ -40,6 +40,7 @@ data "aws_iam_policy_document" "eso_secrets_manager" {
     ]
     resources = [
       "arn:aws:secretsmanager:*:*:secret:cluster/${var.cluster_name}/*",
+      "arn:aws:secretsmanager:*:*:secret:cluster/common/*",
     ]
   }
 

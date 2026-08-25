@@ -57,6 +57,7 @@ locals {
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_infra"].policy_arn
       eso_writable_secret_prefixes = [
         "cluster/oac-infra-dev/hostedcluster/",
+        "cluster/common/object-storage-proxy/certificate",
       ]
       service_account_roles = {
         object-storage-certificate = {
