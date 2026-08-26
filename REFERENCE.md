@@ -29,6 +29,7 @@
 | <a name="module_operator_access"></a> [operator\_access](#module\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_osac_terraform_state"></a> [osac\_terraform\_state](#module\_osac\_terraform\_state) | ./modules/bucket | n/a |
 | <a name="module_route53_records"></a> [route53\_records](#module\_route53\_records) | ./modules/permission-set | n/a |
+| <a name="module_secrets_manager_operator_access"></a> [secrets\_manager\_operator\_access](#module\_secrets\_manager\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_view_only_access"></a> [view\_only\_access](#module\_view\_only\_access) | ./modules/permission-set | n/a |
 | <a name="module_wasabi"></a> [wasabi](#module\_wasabi) | ./wasabi | n/a |
 

@@ -25,6 +25,13 @@ locals {
       email        = "ctate@redhat.com"
       groups       = ["moc-aws-eks-operators"]
     }
+    "quanmp" = {
+      display_name = "Quan Pham"
+      given_name   = "Quan"
+      family_name  = "Pham"
+      email        = "quanmp@bu.com"
+      groups       = ["moc-aws-secrets-manager-operators"]
+    }
   }
 }
 
