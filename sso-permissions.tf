@@ -59,6 +59,23 @@ module "eks_operator_access" {
   }
 }
 
+module "secrets_manager_operator_access" {
+  source       = "./modules/permission-set"
+  instance_arn = local.sso_instance_arn
+  name         = "SecretsManagerOperatorAccess"
+  description  = "Read and write access for AWS Secrets Manager"
+  managed_policy_arns = {
+    operator_access = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+  }
+  assignments = {
+    moc_aws_secrets_manager_operators = {
+      principal_id   = aws_identitystore_group.this["moc-aws-secrets-manager-operators"].group_id
+      principal_type = "GROUP"
+      target_id      = var.aws_account_id
+    }
+  }
+}
+
 module "view_only_access" {
   source       = "./modules/permission-set"
   instance_arn = local.sso_instance_arn

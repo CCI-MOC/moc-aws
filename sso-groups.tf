@@ -4,9 +4,10 @@
 
 locals {
   sso_groups = {
-    "moc-aws-admins"        = "Users with admin access to AWS.",
-    "moc-aws-operators"     = "Provides SystemAdministrator access to AWS (https://docs.aws.amazon.com/aws-managed-policy/latest/reference/SystemAdministrator.html)",
-    "moc-aws-eks-operators" = "Provides SystemAdministrator and EKS cluster management access to AWS.",
+    "moc-aws-admins"                    = "Users with admin access to AWS.",
+    "moc-aws-operators"                 = "Provides SystemAdministrator access to AWS (https://docs.aws.amazon.com/aws-managed-policy/latest/reference/SystemAdministrator.html)",
+    "moc-aws-eks-operators"             = "Provides SystemAdministrator and EKS cluster management access to AWS.",
+    "moc-aws-secrets-manager-operators" = "Provides read and write access for AWS Secrets Manager."
   }
 }
 
