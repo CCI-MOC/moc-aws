@@ -14,7 +14,8 @@ locals {
 }
 
 resource "aws_route53_zone" "this" {
-  for_each = local.hosted_zones
-  name     = each.key
-  comment  = each.value
+  for_each      = local.hosted_zones
+  name          = each.key
+  comment       = each.value
+  force_destroy = true
 }
