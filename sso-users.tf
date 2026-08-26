@@ -32,6 +32,13 @@ locals {
       email        = "quanmp@bu.com"
       groups       = ["moc-aws-secrets-manager-operators"]
     }
+    "tzumainn" = {
+      display_name = "Tzu-Mainn Chen"
+      given_name   = "Tzu-Mainn"
+      family_name  = "Chen"
+      email        = "tzumainn@redhat.com"
+      groups       = ["moc-aws-secrets-manager-operators"]
+    }
   }
 }
 
