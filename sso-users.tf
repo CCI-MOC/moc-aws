@@ -18,6 +18,13 @@ locals {
       email        = "naved001@bu.edu"
       groups       = ["moc-aws-admins"]
     }
+    "knikolla" = {
+      display_name = "Kristi Nikolla"
+      given_name   = "Kristi"
+      family_name  = "Nikolla"
+      email        = "knikolla@bu.edu"
+      groups       = ["moc-aws-admins"]
+    }
     "computate" = {
       display_name = "Christoper Tate"
       given_name   = "Christopher"
