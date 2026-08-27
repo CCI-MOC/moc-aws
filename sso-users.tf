@@ -39,6 +39,13 @@ locals {
       email        = "tzumainn@redhat.com"
       groups       = ["moc-aws-secrets-manager-operators"]
     }
+    "sdanni" = {
+      display_name = "Danni Shi"
+      given_name   = "Danni"
+      family_name  = "Shi"
+      email        = "sdanni@redhat.com"
+      groups       = ["moc-aws-secrets-manager-operators"]
+    }
   }
 }
 
