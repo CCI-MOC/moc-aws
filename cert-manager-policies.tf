@@ -5,6 +5,7 @@
 locals {
   cert_manager_policies = {
     "cert_manager_policy_oac_prod_infra" = {
+      zone_name          = "ocp.massopen.cloud"
       cluster_subdomain  = "infra.oac.ocp.massopen.cloud"
       policy_name        = "cert-manager-oac-prod-infra"
       policy_description = "modify records in infra.oac.ocp.massopen.cloud for dns01 challenges."
