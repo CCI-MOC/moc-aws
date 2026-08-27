@@ -24,6 +24,32 @@ with each other.
 [opentofu]: https://opentofu.org/
 [terraform]: https://developer.hashicorp.com/terraform
 
+## Adding a new user
+
+1. Update [`sso-users.tf``](sso-users.tf) with information about the new account. To grant administrator access:
+
+    ```
+    "USERNAME" = {
+      display_name = "Full Name"
+      given_name   = "GivenName"
+      family_name  = "FamilyName"
+      email        = "you@yourdomain"
+      groups       = ["moc-aws-admins"]
+    }
+    ```
+
+    To grant non-administrative access, see if there is an appropriate group already defined (like `moc-aws-secrets-manager-operators`) and use that in place of `moc-aws-admins`. If you need to define a new access policy, please open an issue in this repository.
+
+2. Create a pull request and wait for it to merge.
+
+Once the pull request has merged to `main`, there are two manual administrator actions that need to be performed:
+
+1. The administrator must trigger an account verification email from the identify center web ui.
+2. Once the user has verified their email address, the administrator must trigger a password reset email for the new user.
+
+At this point, the new user will receive a password reset email and can provision their password and MFA device and start accessing AWS.
+
+
 ## Authenticating to AWS
 
 *Preqrequisites*: you must have an SSO acount in the MOC IAM Identity Center.
