@@ -9,10 +9,17 @@ locals {
     cert-manager-moc-infra-massopen-cloud   = module.cert_manager_policy["cert_manager_policy_moc_infra_massopen"].policy_arn
     cert-manager-esi-massopen-cloud         = module.cert_manager_policy["cert_manager_policy_esi_massopen"].policy_arn
     external-dns-int-massopen-cloud         = module.external_dns_policy_int_massopen.policy_arn
+    external-dns-hcp-oac-massopen-cloud     = module.external_dns_policy_hcp_oac_massopen.policy_arn
     cert-manager-sso-massopen-cloud         = module.cert_manager_policy["cert_manager_policy_sso_massopen"].policy_arn
   }
 
   iam_users = {
+    "oac-prod-external-dns" = {
+      access_keys = {
+        oac-prod-infra-external-dns = "Used by external dns operator on the oac-prod-infra cluster"
+      }
+      policy_names = ["external-dns-hcp-oac-massopen-cloud"]
+    }
     "oac-dev-external-dns" = {
       access_keys = {
         oac-dev-infra-external-dns = "Used by external dns operator on the oac-dev-infra cluster"
