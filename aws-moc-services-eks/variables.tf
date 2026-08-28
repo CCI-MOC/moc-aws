@@ -70,3 +70,15 @@ variable "cluster_admins" {
   type        = list(string)
   default     = []
 }
+
+variable "secrets_reader_namespace" {
+  description = "Kubernetes namespace of the service account granted Secrets Manager read access via Pod Identity."
+  type        = string
+  default     = "external-secrets"
+}
+
+variable "secrets_reader_service_account" {
+  description = "Kubernetes service account granted Secrets Manager read access via Pod Identity."
+  type        = string
+  nullable    = false
+}
