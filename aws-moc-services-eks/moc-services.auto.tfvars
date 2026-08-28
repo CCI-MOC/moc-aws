@@ -15,3 +15,5 @@ private_subnet_cidrs = {
 cluster_admins = [
   "aws-reserved/sso.amazonaws.com/AWSReservedSSO_EKSOperatorAccess_99332a9a5915b76a",
 ]
+
+secrets_reader_service_account = "external-secrets"
