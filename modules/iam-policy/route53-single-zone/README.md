@@ -30,8 +30,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_policy_name"></a> [policy\_name](#input\_policy\_name) | Name for the IAM policy | `string` | n/a | yes |
-| <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name) | Name of the Route53 hosted zone (e.g. example.com) | `string` | n/a | yes |
 | <a name="input_policy_description"></a> [policy\_description](#input\_policy\_description) | Description for the IAM policy | `string` | `""` | no |
+| <a name="input_zone_arn"></a> [zone\_arn](#input\_zone\_arn) | ARN of a hosted zone managed elsewhere in this config. When set, skips the data-source lookup and depends on the resource directly. | `string` | `null` | no |
+| <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name) | Name of the Route53 hosted zone to look up (used only when zone\_arn is not set) | `string` | `null` | no |
 
 ## Outputs
 
@@ -39,5 +40,4 @@ No modules.
 | ---- | ----------- |
 | <a name="output_policy_arn"></a> [policy\_arn](#output\_policy\_arn) | n/a |
 | <a name="output_zone_arn"></a> [zone\_arn](#output\_zone\_arn) | n/a |
-| <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | n/a |
 <!-- END_TF_DOCS -->

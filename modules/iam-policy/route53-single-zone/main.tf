@@ -1,5 +1,10 @@
 data "aws_route53_zone" "this" {
-  name = var.zone_name
+  count = var.zone_name == null ? 0 : 1
+  name  = var.zone_name
+}
+
+locals {
+  zone_arn = coalesce(var.zone_arn, one(data.aws_route53_zone.this[*].arn))
 }
 
 data "aws_iam_policy_document" "this" {
@@ -10,7 +15,7 @@ data "aws_iam_policy_document" "this" {
       "route53:ChangeResourceRecordSets",
       "route53:ListResourceRecordSets",
     ]
-    resources = [data.aws_route53_zone.this.arn]
+    resources = [local.zone_arn]
   }
 
   statement {
