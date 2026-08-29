@@ -2,6 +2,11 @@ data "aws_route53_zone" "this" {
   name = var.zone_name
 }
 
+data "aws_route53_zone" "additional" {
+  for_each = toset(var.additional_zone_names)
+  name     = each.value
+}
+
 locals {
   default_challenge_names = var.cluster_subdomain != null ? [
     "_acme-challenge.api.${var.cluster_subdomain}",
@@ -12,6 +17,17 @@ locals {
   all_challenge_names = concat(
     local.default_challenge_names,
     [for name in var.additional_challenge_names : "_acme-challenge.${name}"],
+    # Every additional zone implicitly permits ACME challenges for any name
+    # within it, so declaring the zone is enough -- no separate
+    # additional_challenge_names entry is required for its own records.
+    [for z in var.additional_zone_names : "_acme-challenge.*.${z}"],
+  )
+
+  # Every hosted zone whose records this policy may touch: the primary zone
+  # plus any delegated subdomain zones passed via additional_zone_names.
+  zone_arns = concat(
+    [data.aws_route53_zone.this.arn],
+    [for z in data.aws_route53_zone.additional : z.arn],
   )
 }
 
@@ -22,7 +38,7 @@ data "aws_iam_policy_document" "this" {
     actions = [
       "route53:ListResourceRecordSets",
     ]
-    resources = [data.aws_route53_zone.this.arn]
+    resources = local.zone_arns
   }
 
   statement {
@@ -31,7 +47,7 @@ data "aws_iam_policy_document" "this" {
     actions = [
       "route53:ChangeResourceRecordSets",
     ]
-    resources = [data.aws_route53_zone.this.arn]
+    resources = local.zone_arns
 
     condition {
       test     = "StringEquals"

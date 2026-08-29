@@ -9,9 +9,12 @@ locals {
       cluster_subdomain  = "infra.oac.ocp.massopen.cloud"
       policy_name        = "cert-manager-oac-prod-infra"
       policy_description = "modify records in infra.oac.ocp.massopen.cloud for dns01 challenges."
-      additional_challenge_names = [
-        "*.hcp.oac.massopen.cloud",
-        "*.hcp-int.oac.massopen.cloud"
+      # The hcp/hcp-int records live in their own delegated hosted zones;
+      # listing them here grants record changes in those zones and implicitly
+      # permits _acme-challenge.*.<zone> challenges for each.
+      additional_zone_names = [
+        "hcp.oac.massopen.cloud",
+        "hcp-int.oac.massopen.cloud"
       ]
     }
     "cert_manager_policy_storage_massopen" = {
@@ -78,4 +81,5 @@ module "cert_manager_policy" {
   policy_name                = each.value.policy_name
   policy_description         = each.value.policy_description
   additional_challenge_names = try(each.value.additional_challenge_names, [])
+  additional_zone_names      = try(each.value.additional_zone_names, [])
 }

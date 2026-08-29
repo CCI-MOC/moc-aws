@@ -25,3 +25,9 @@ variable "additional_challenge_names" {
   default     = []
   description = "Additional DNS names for which _acme-challenge TXT records are permitted (e.g., api-cluster.apps.example.com). Each entry is prefixed with _acme-challenge automatically."
 }
+
+variable "additional_zone_names" {
+  type        = list(string)
+  default     = []
+  description = "Additional Route 53 Hosted Zone names whose records this policy may modify. Use when challenge names live in delegated subdomains that have their own hosted zones (e.g., hcp.oac.massopen.cloud)."
+}
