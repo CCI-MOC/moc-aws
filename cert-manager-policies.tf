@@ -10,7 +10,8 @@ locals {
       policy_name        = "cert-manager-oac-prod-infra"
       policy_description = "modify records in infra.oac.ocp.massopen.cloud for dns01 challenges."
       additional_challenge_names = [
-        "*.hcp.infra.oac.int.massopen.cloud"
+        "*.hcp.oac.massopen.cloud",
+        "*.hcp-int.oac.massopen.cloud"
       ]
     }
     "cert_manager_policy_storage_massopen" = {
