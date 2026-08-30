@@ -4,6 +4,12 @@
 
 locals {
   cert_manager_policies = {
+    "cert_manager_policy_oac_prod_workload0" = {
+      zone_name          = "hcp.oac.massopen.cloud",
+      cluster_subdomain  = "oac-prod-workload0.hcp.oac.massopen.cloud"
+      policy_name        = "cert-manager-oac-prod-workload0"
+      policy_description = "modify records in hcp.oac.massopen.cloud for dns01 challenges"
+    }
     "cert_manager_policy_oac_prod_infra" = {
       zone_name          = "ocp.massopen.cloud"
       cluster_subdomain  = "infra.oac.ocp.massopen.cloud"
