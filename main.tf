@@ -76,6 +76,9 @@ locals {
       cluster_name            = "oac-prod-infra"
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_prod_infra"].policy_arn
+      eso_writable_secret_prefixes = [
+        "cluster/oac-prod-infra/hostedcluster/",
+      ]
     })
   }
 }
