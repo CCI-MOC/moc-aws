@@ -28,7 +28,8 @@ module "operator_access" {
   instance_arn = local.sso_instance_arn
   name         = "OperatorAccess"
   managed_policy_arns = {
-    operator_access = "arn:aws:iam::aws:policy/job-function/SystemAdministrator"
+    operator_access        = "arn:aws:iam::aws:policy/job-function/SystemAdministrator"
+    secrets_manager_access = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
   }
   assignments = {
     moc_aws_operators = {
@@ -45,7 +46,8 @@ module "eks_operator_access" {
   name         = "EKSOperatorAccess"
   description  = "SystemAdministrator plus EKS cluster management and scoped IAM for service roles"
   managed_policy_arns = {
-    operator_access = "arn:aws:iam::aws:policy/job-function/SystemAdministrator"
+    operator_access        = "arn:aws:iam::aws:policy/job-function/SystemAdministrator"
+    secrets_manager_access = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
   }
   customer_managed_policy_names = {
     eks_access = aws_iam_policy.eks_access.name
