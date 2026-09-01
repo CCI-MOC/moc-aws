@@ -67,10 +67,10 @@ data "aws_ami" "amazon_linux" {
 # --- Bastion instance ---
 
 resource "aws_instance" "bastion" {
-  ami                  = data.aws_ami.amazon_linux.id
-  instance_type        = var.bastion_instance_type
-  subnet_id            = values(aws_subnet.private)[0].id
-  iam_instance_profile = aws_iam_instance_profile.bastion.name
+  ami                    = data.aws_ami.amazon_linux.id
+  instance_type          = var.bastion_instance_type
+  subnet_id              = values(aws_subnet.private)[0].id
+  iam_instance_profile   = aws_iam_instance_profile.bastion.name
   vpc_security_group_ids = [aws_security_group.bastion.id]
 
   metadata_options {
@@ -78,4 +78,11 @@ resource "aws_instance" "bastion" {
   }
 
   tags = { Name = "${var.cluster_name}-bastion" }
+
+  # The AMI is resolved via a most_recent data source lookup, so a newly
+  # published AL2023 image would otherwise force the instance to be replaced
+  # on every plan. Keep the current AMI until it is changed explicitly.
+  lifecycle {
+    ignore_changes = [ami]
+  }
 }
