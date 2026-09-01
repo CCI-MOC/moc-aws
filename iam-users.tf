@@ -11,7 +11,6 @@ locals {
     external-dns-int-massopen-cloud         = module.external_dns_policy_int_massopen.policy_arn
     external-dns-hcp-oac-massopen-cloud     = module.external_dns_policy_hcp_oac_massopen.policy_arn
     external-dns-hcp-int-oac-massopen-cloud = module.external_dns_policy_hcp_int_oac_massopen.policy_arn
-    cert-manager-sso-massopen-cloud         = module.cert_manager_policy["cert_manager_policy_sso_massopen"].policy_arn
   }
 
   iam_users = {
@@ -50,12 +49,6 @@ locals {
         certbot-letsencrypt-esi = "Used by certbot in ESI cluster for dns01 challenges"
       }
       policy_names = ["cert-manager-esi-massopen-cloud"]
-    }
-    "certbot-letsencrypt-sso" = {
-      access_keys = {
-        certbot-letsencrypt-sso = "Used for sso.massopen.cloud for dns01 challenges"
-      }
-      policy_names = ["cert-manager-sso-massopen-cloud"]
     }
   }
 }
