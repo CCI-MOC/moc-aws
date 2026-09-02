@@ -25,6 +25,12 @@ output "github_actions_dns_role_arn" {
   sensitive   = true
 }
 
+output "github_actions_consumer_role_arns" {
+  value       = module.github-oidc.github_actions_consumer_role_arns
+  description = "Map of consumer repo key to its reduced-privilege GitHub Actions role ARN; set AWS_ROLE_ARN in the consuming repo to the matching entry"
+  sensitive   = true
+}
+
 output "iam_user_access_keys" {
   value       = { for name, user in module.iam_user : name => user.access_keys }
   description = "Show names, access key ids, and corresponding secret ARN for all managed iam users"
