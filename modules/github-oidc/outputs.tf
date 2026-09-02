@@ -7,3 +7,8 @@ output "github_actions_dns_role_arn" {
   description = "ARN of the IAM role for GitHub Actions with DNS management permissions"
   value       = aws_iam_role.github_actions_dns.arn
 }
+
+output "github_actions_consumer_role_arns" {
+  description = "Map of consumer repo key to its GitHub Actions role ARN"
+  value       = { for k, r in aws_iam_role.github_actions_consumer : k => r.arn }
+}

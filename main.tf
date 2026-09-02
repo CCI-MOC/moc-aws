@@ -29,6 +29,19 @@ provider "aws" {
 module "github-oidc" {
   source         = "./modules/github-oidc"
   dns_policy_arn = aws_iam_policy.route53_records.arn
+
+  consumer_repos = {
+    moc-keycloak = {
+      repository         = "CCI-MOC/moc-keycloak"
+      state_keys         = ["moc-keycloak"]
+      ro_secret_prefixes = ["cluster/moc-services/"]
+      rw_secret_prefixes = ["cluster/*/keycloak-oidc"]
+      # moc-keycloak's OIDC subject uses GitHub's immutable org/repo IDs, so the
+      # default "repo:CCI-MOC/moc-keycloak:*" cannot match. Value obtained with:
+      #   gh api repos/CCI-MOC/moc-keycloak/actions/oidc/customization/sub --jq .sub_claim_prefix
+      subject_claims = ["repo:CCI-MOC@3578683/moc-keycloak@1352835750:*"]
+    }
+  }
 }
 
 locals {
