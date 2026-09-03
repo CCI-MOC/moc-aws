@@ -74,6 +74,17 @@ locals {
     "github-tf-workflow" = {
       capabilities = local.b2_caps_admin
     }
+    "oac-prod-workload0-rw" = {
+      capabilities = local.b2_caps_read_write
+      bucket_ids   = [module.bucket["oac-prod-workload0-metrics"].id]
+      description  = "Read/Write key for oac-prod-workload0-metrics"
+    }
+
+    "oac-prod-workload0-ro" = {
+      capabilities = local.b2_caps_read_only
+      bucket_ids   = [module.bucket["oac-prod-workload0-metrics"].id]
+      description  = "Read-Only key for oac-prod-workload0-metrics"
+    }
   }
 }
 

@@ -14,6 +14,7 @@ locals {
     "openshift-metrics"               = {}
     "openshift-metrics-backup-source" = {}
     "openshift-metrics-hf"            = {}
+    "oac-prod-workload0-metrics"      = {}
   }
 }
 
