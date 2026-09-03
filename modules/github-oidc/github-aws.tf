@@ -53,7 +53,7 @@ data "aws_iam_policy_document" "github_actions_admin_deny_dangerous" {
       "config:DeleteConfigurationRecorder",
       "config:StopConfigurationRecorder",
       "aws-marketplace:Subscribe",
-      "aws-marketplace:CreatePrivateMarketplace",
+      "aws-marketplace:StartChangeSet",
       "savingsplans:CreateSavingsPlan",
       "ce:UpdatePreferences",
     ]
