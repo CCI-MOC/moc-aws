@@ -158,6 +158,290 @@ resource "aws_iam_policy" "eks_access" {
 }
 
 # -----------------------------------------------------------------------------
+# Managed policy – MOC2 monitoring operators
+# Statement SIDs are pack boundaries so this can be split into separate
+# permission sets later without rewriting the action lists.
+# -----------------------------------------------------------------------------
+
+data "aws_iam_policy_document" "monitoring_operators" {
+  statement {
+    sid    = "AuditLoggingRead"
+    effect = "Allow"
+
+    actions = [
+      "cloudtrail:DescribeTrails",
+      "cloudtrail:GetEventSelectors",
+      "cloudtrail:GetTrail",
+      "cloudtrail:GetTrailStatus",
+      "cloudtrail:ListTrails",
+      "cloudtrail:LookupEvents",
+      "config:Describe*",
+      "config:Get*",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "AuditLoggingWrite"
+    effect = "Allow"
+
+    actions = [
+      "cloudwatch:DeleteAlarms",
+      "cloudwatch:PutMetricAlarm",
+      "events:DeleteRule",
+      "events:PutRule",
+      "events:PutTargets",
+      "events:RemoveTargets",
+      "sns:Publish",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "AuditLoggingDeny"
+    effect = "Deny"
+
+    actions = [
+      "cloudtrail:DeleteTrail",
+      "cloudtrail:PutEventSelectors",
+      "cloudtrail:StopLogging",
+      "cloudtrail:UpdateTrail",
+      "s3:DeleteObject",
+      "s3:PutBucketPolicy",
+      "s3:PutObject",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "ConfigComplianceRead"
+    effect = "Allow"
+
+    actions = [
+      "config:Describe*",
+      "config:Get*",
+      "config:List*",
+      "config:SelectResourceConfig",
+      "securityhub:GetFindings",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "ConfigComplianceWrite"
+    effect = "Allow"
+
+    actions = [
+      "config:DeleteConfigRule",
+      "config:DeleteConformancePack",
+      "config:PutConfigRule",
+      "config:PutConformancePack",
+      "config:PutRemediationConfigurations",
+      "config:StartConfigRulesEvaluation",
+      "config:StartRemediationExecution",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "ConfigComplianceDeny"
+    effect = "Deny"
+
+    actions = [
+      "config:DeleteConfigurationRecorder",
+      "config:DeleteDeliveryChannel",
+      "config:StopConfigurationRecorder",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "CertificateRead"
+    effect = "Allow"
+
+    actions = [
+      "acm:DescribeCertificate",
+      "acm:ListCertificates",
+      "acm:ListTagsForCertificate",
+      "cloudfront:GetDistribution",
+      "cloudfront:ListDistributions",
+      "cloudwatch:GetMetricData",
+      "elasticloadbalancing:DescribeListeners",
+      "elasticloadbalancing:DescribeLoadBalancers",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "CertificateWrite"
+    effect = "Allow"
+
+    actions = [
+      "acm:AddTagsToCertificate",
+      "acm:RenewCertificate",
+      "acm:RequestCertificate",
+      "cloudwatch:PutMetricAlarm",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "SecretsRead"
+    effect = "Allow"
+
+    actions = [
+      "cloudtrail:GetEventSelectors",
+      "cloudtrail:LookupEvents",
+      "cloudwatch:DescribeAlarms",
+      "events:DescribeRule",
+      "events:ListRules",
+      "secretsmanager:DescribeSecret",
+      "secretsmanager:ListSecrets",
+      "secretsmanager:ListSecretVersionIds",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "SecretsWrite"
+    effect = "Allow"
+
+    actions = [
+      "secretsmanager:CancelRotateSecret",
+      "secretsmanager:RotateSecret",
+      "secretsmanager:TagResource",
+      "secretsmanager:UpdateSecretVersionStage",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "SecretsDeny"
+    effect = "Deny"
+
+    actions = [
+      "secretsmanager:BatchGetSecretValue",
+      "secretsmanager:GetSecretValue",
+      "secretsmanager:PutSecretValue",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "KmsRead"
+    effect = "Allow"
+
+    actions = [
+      "cloudtrail:LookupEvents",
+      "kms:DescribeKey",
+      "kms:GetKeyPolicy",
+      "kms:GetKeyRotationStatus",
+      "kms:ListAliases",
+      "kms:ListGrants",
+      "kms:ListKeys",
+      "kms:ListResourceTags",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "KmsWrite"
+    effect = "Allow"
+
+    actions = [
+      "kms:EnableKeyRotation",
+      "kms:PutKeyPolicy",
+      "kms:RevokeGrant",
+      "kms:TagResource",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "KmsDeny"
+    effect = "Deny"
+
+    actions = [
+      "kms:DeleteImportedKeyMaterial",
+      "kms:DisableKey",
+      "kms:DisableKeyRotation",
+      "kms:ScheduleKeyDeletion",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "MonitoringCommonRead"
+    effect = "Allow"
+
+    actions = [
+      "cloudwatch:DescribeAlarms",
+      "cloudwatch:ListMetrics",
+      "events:ListTargetsByRule",
+      "sns:GetTopicAttributes",
+      "sns:ListTopics",
+      "tag:GetResources",
+    ]
+
+    resources = ["*"]
+  }
+
+  statement {
+    sid    = "PrivilegeEscalationDeny"
+    effect = "Deny"
+
+    actions = [
+      "iam:AttachRolePolicy",
+      "iam:CreateAccessKey",
+      "iam:CreatePolicyVersion",
+      "iam:CreateUser",
+      "iam:DeleteRolePermissionsBoundary",
+      "iam:PutRolePolicy",
+      "iam:SetDefaultPolicyVersion",
+      "iam:UpdateAssumeRolePolicy",
+    ]
+
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "monitoring_operators" {
+  name   = "MonitoringOperators"
+  policy = data.aws_iam_policy_document.monitoring_operators.json
+}
+
+module "monitoring_operator_access" {
+  source       = "./modules/permission-set"
+  instance_arn = local.sso_instance_arn
+  name         = "MonitoringOperatorAccess"
+  description  = "MOC2 monitoring operators: read/write access for CloudTrail, Config, ACM, Secrets metadata, KMS"
+  customer_managed_policy_names = {
+    monitoring_operators = aws_iam_policy.monitoring_operators.name
+  }
+  assignments = {
+    moc_aws_monitoring_operators = {
+      principal_id   = aws_identitystore_group.this["moc-aws-monitoring-operators"].group_id
+      principal_type = "GROUP"
+      target_id      = var.aws_account_id
+    }
+  }
+}
+
+# -----------------------------------------------------------------------------
 # Managed policy – Route53 record management
 # -----------------------------------------------------------------------------
 
