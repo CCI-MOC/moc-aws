@@ -15,3 +15,13 @@ output "access_keys" {
     }
   }
 }
+
+output "smtp_access_keys" {
+  value = {
+    for label, key in aws_iam_access_key.smtp : label => {
+      id          = key.id
+      secret_arn  = aws_secretsmanager_secret.smtp_access_key[label].arn
+      secret_name = aws_secretsmanager_secret.smtp_access_key[label].name
+    }
+  }
+}

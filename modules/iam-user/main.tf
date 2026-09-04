@@ -26,6 +26,27 @@ resource "aws_secretsmanager_secret_version" "access_key" {
   })
 }
 
+resource "aws_iam_access_key" "smtp" {
+  for_each = var.smtp_access_keys
+  user     = aws_iam_user.this.name
+}
+
+resource "aws_secretsmanager_secret" "smtp_access_key" {
+  for_each                = var.smtp_access_keys
+  name                    = each.value.secret_name
+  description             = each.value.description
+  recovery_window_in_days = var.secret_recovery_window_in_days
+}
+
+resource "aws_secretsmanager_secret_version" "smtp_access_key" {
+  for_each  = var.smtp_access_keys
+  secret_id = aws_secretsmanager_secret.smtp_access_key[each.key].id
+  secret_string = jsonencode({
+    username = aws_iam_access_key.smtp[each.key].id
+    password = aws_iam_access_key.smtp[each.key].ses_smtp_password_v4
+  })
+}
+
 resource "aws_iam_user_policy_attachment" "this" {
   for_each   = var.policy_arns
   user       = aws_iam_user.this.name
