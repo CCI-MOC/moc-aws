@@ -55,18 +55,19 @@ locals {
       policy_name        = "cert-manager-esi-massopen-cloud"
       policy_description = "modify records for esi.massopen.cloud for dns01 challenges."
     }
-    "cert_manager_policy_oac_infra" = {
+    "cert_manager_policy_oac_dev_infra" = {
       cluster_subdomain  = "infra.oac.int.massopen.cloud"
       zone_name          = "int.massopen.cloud"
       policy_name        = "cert-manager-oac-infra-int-massopen-cloud"
       policy_description = "modify records in infra.oac.int.massopen.cloud for dns01 challenges."
-      additional_challenge_names = [
-        "*.apps.infra.oac.int.massopen.cloud"
+      additional_zone_names = [
+        "hcp.oac.int.massopen.cloud",
+        "hcp-int.oac.int.massopen.cloud"
       ]
     }
     "cert_manager_policy_oac_dev_workload0" = {
-      cluster_subdomain  = "apps.oac-prod.apps.infra.oac.int.massopen.cloud"
-      zone_name          = "int.massopen.cloud"
+      cluster_subdomain  = "oac-dev-workload0.hcp.oac.int.massopen.cloud"
+      zone_name          = "hcp.oac.int.massopen.cloud"
       policy_name        = "cert-manager-oac-dev-workload0-int-massopen-cloud"
       policy_description = "modify records for oac-prod hosted cluster dns01 challenges."
     }
