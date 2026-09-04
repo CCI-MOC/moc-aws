@@ -27,6 +27,7 @@
 | <a name="module_external_dns_policy_int_massopen"></a> [external\_dns\_policy\_int\_massopen](#module\_external\_dns\_policy\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_github-oidc"></a> [github-oidc](#module\_github-oidc) | ./modules/github-oidc | n/a |
 | <a name="module_iam_user"></a> [iam\_user](#module\_iam\_user) | ./modules/iam-user | n/a |
+| <a name="module_monitoring_operator_access"></a> [monitoring\_operator\_access](#module\_monitoring\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_openshift_oidc"></a> [openshift\_oidc](#module\_openshift\_oidc) | ./modules/openshift-oidc | n/a |
 | <a name="module_operator_access"></a> [operator\_access](#module\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_osac_terraform_state"></a> [osac\_terraform\_state](#module\_osac\_terraform\_state) | ./modules/bucket | n/a |
@@ -41,6 +42,7 @@
 | Name | Type |
 | ---- | ---- |
 | [aws_iam_policy.eks_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.monitoring_operators](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.route53_records](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.ses_sender](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_identitystore_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_group) | resource |
@@ -55,6 +57,7 @@
 | [aws_ses_domain_identity.domain](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_domain_identity) | resource |
 | [aws_ses_email_identity.contact](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_email_identity) | resource |
 | [aws_iam_policy_document.eks_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.monitoring_operators](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.oac_oidc_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.route53_records](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.ses_sender](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
