@@ -15,6 +15,15 @@ variable "access_keys" {
   default     = {}
 }
 
+variable "smtp_access_keys" {
+  description = "Map of SMTP access key labels to their configuration (description and secret_name)"
+  type = map(object({
+    description = string
+    secret_name = string
+  }))
+  default = {}
+}
+
 variable "policy_arns" {
   description = "Map of managed policy ARNs to attach to the user (key = stable name, value = ARN)"
   type        = map(string)

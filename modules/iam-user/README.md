@@ -43,11 +43,14 @@ No modules.
 
 | Name | Type |
 | ---- | ---- |
+| [aws_iam_access_key.smtp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_access_key) | resource |
 | [aws_iam_access_key.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_access_key) | resource |
 | [aws_iam_user.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user) | resource |
 | [aws_iam_user_policy_attachment.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy_attachment) | resource |
 | [aws_secretsmanager_secret.access_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
+| [aws_secretsmanager_secret.smtp_access_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
 | [aws_secretsmanager_secret_version.access_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
+| [aws_secretsmanager_secret_version.smtp_access_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 
 ## Inputs
 
@@ -58,6 +61,7 @@ No modules.
 | <a name="input_path"></a> [path](#input\_path) | Used to organize users in a hierarchical structure | `string` | `"/"` | no |
 | <a name="input_policy_arns"></a> [policy\_arns](#input\_policy\_arns) | Map of managed policy ARNs to attach to the user (key = stable name, value = ARN) | `map(string)` | `{}` | no |
 | <a name="input_secret_recovery_window_in_days"></a> [secret\_recovery\_window\_in\_days](#input\_secret\_recovery\_window\_in\_days) | Number of days that AWS Secrets Manager waits before deleting a secret (0 for immediate deletion) | `number` | `30` | no |
+| <a name="input_smtp_access_keys"></a> [smtp\_access\_keys](#input\_smtp\_access\_keys) | Map of SMTP access key labels to their configuration (description and secret\_name) | <pre>map(object({<br/>    description = string<br/>    secret_name = string<br/>  }))</pre> | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to the IAM user | `map(string)` | `{}` | no |
 
 ## Outputs
@@ -67,4 +71,5 @@ No modules.
 | <a name="output_access_keys"></a> [access\_keys](#output\_access\_keys) | n/a |
 | <a name="output_arn"></a> [arn](#output\_arn) | n/a |
 | <a name="output_name"></a> [name](#output\_name) | n/a |
+| <a name="output_smtp_access_keys"></a> [smtp\_access\_keys](#output\_smtp\_access\_keys) | n/a |
 <!-- END_TF_DOCS -->

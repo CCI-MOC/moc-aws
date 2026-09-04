@@ -32,6 +32,7 @@
 | <a name="module_osac_terraform_state"></a> [osac\_terraform\_state](#module\_osac\_terraform\_state) | ./modules/bucket | n/a |
 | <a name="module_route53_records"></a> [route53\_records](#module\_route53\_records) | ./modules/permission-set | n/a |
 | <a name="module_secrets_manager_operator_access"></a> [secrets\_manager\_operator\_access](#module\_secrets\_manager\_operator\_access) | ./modules/permission-set | n/a |
+| <a name="module_ses_smtp_user"></a> [ses\_smtp\_user](#module\_ses\_smtp\_user) | ./modules/iam-user | n/a |
 | <a name="module_view_only_access"></a> [view\_only\_access](#module\_view\_only\_access) | ./modules/permission-set | n/a |
 | <a name="module_wasabi"></a> [wasabi](#module\_wasabi) | ./wasabi | n/a |
 
@@ -41,6 +42,7 @@
 | ---- | ---- |
 | [aws_iam_policy.eks_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.route53_records](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.ses_sender](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_identitystore_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_group) | resource |
 | [aws_identitystore_group_membership.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_group_membership) | resource |
 | [aws_identitystore_user.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_user) | resource |
@@ -50,9 +52,12 @@
 | [aws_s3_bucket.oac_oidc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_policy.oac_oidc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
 | [aws_s3_bucket_public_access_block.oac_oidc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_ses_domain_identity.domain](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_domain_identity) | resource |
+| [aws_ses_email_identity.contact](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_email_identity) | resource |
 | [aws_iam_policy_document.eks_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.oac_oidc_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.route53_records](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.ses_sender](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_ssoadmin_instances.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssoadmin_instances) | data source |
 
 ## Inputs
@@ -75,6 +80,7 @@
 | <a name="output_github_actions_consumer_role_arns"></a> [github\_actions\_consumer\_role\_arns](#output\_github\_actions\_consumer\_role\_arns) | Map of consumer repo key to its reduced-privilege GitHub Actions role ARN; set AWS\_ROLE\_ARN in the consuming repo to the matching entry |
 | <a name="output_github_actions_dns_role_arn"></a> [github\_actions\_dns\_role\_arn](#output\_github\_actions\_dns\_role\_arn) | Set AWS\_ROLE\_ARN to this value for GitHub workflows that interact only with Route53 |
 | <a name="output_iam_user_access_keys"></a> [iam\_user\_access\_keys](#output\_iam\_user\_access\_keys) | Show names, access key ids, and corresponding secret ARN for all managed iam users |
+| <a name="output_iam_user_smtp_access_keys"></a> [iam\_user\_smtp\_access\_keys](#output\_iam\_user\_smtp\_access\_keys) | Show names, access key ids, and corresponding secret ARN for all managed iam users with SMTP credentials |
 | <a name="output_identity_store_id"></a> [identity\_store\_id](#output\_identity\_store\_id) | ARN of the Identity Store instance associated with our IAM Identity Center instance. Used when creating SSO users and groups. |
 | <a name="output_oac_oidc_bucket"></a> [oac\_oidc\_bucket](#output\_oac\_oidc\_bucket) | Shared S3 bucket for OAC OpenShift cluster OIDC discovery documents |
 | <a name="output_openshift_oidc"></a> [openshift\_oidc](#output\_openshift\_oidc) | OIDC configuration for all OpenShift clusters |

@@ -37,6 +37,12 @@ output "iam_user_access_keys" {
   sensitive   = true
 }
 
+output "iam_user_smtp_access_keys" {
+  value       = { for name, user in module.ses_smtp_user : name => user.smtp_access_keys }
+  description = "Show names, access key ids, and corresponding secret ARN for all managed iam users with SMTP credentials"
+  sensitive   = true
+}
+
 output "wasabi_console_secrets" {
   value       = module.wasabi.console_secrets
   description = "Secrets Manager secrets containing initial console passwords for Wasabi users"
