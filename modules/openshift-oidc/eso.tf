@@ -52,6 +52,7 @@ data "aws_iam_policy_document" "eso_secrets_manager" {
         "secretsmanager:CreateSecret",
         "secretsmanager:DeleteResourcePolicy",
         "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue",
         "secretsmanager:PutSecretValue",
         "secretsmanager:TagResource",
       ]
