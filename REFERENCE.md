@@ -18,6 +18,7 @@
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
+| <a name="module_access_management_operator_access"></a> [access\_management\_operator\_access](#module\_access\_management\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_administrator_access"></a> [administrator\_access](#module\_administrator\_access) | ./modules/permission-set | n/a |
 | <a name="module_b2"></a> [b2](#module\_b2) | ./b2 | n/a |
 | <a name="module_cert_manager_policy"></a> [cert\_manager\_policy](#module\_cert\_manager\_policy) | ./modules/iam-policy/cert-manager-route53 | n/a |
