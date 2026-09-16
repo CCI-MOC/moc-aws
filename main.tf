@@ -86,6 +86,11 @@ locals {
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_dev_workload0"].policy_arn
     })
+    oac_dev_workload1 = merge(local.openshift_oidc_cluster_defaults, {
+      cluster_name            = "oac-dev-workload1"
+      oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
+      cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_dev_workload1"].policy_arn
+    })
     oac_prod_infra = merge(local.openshift_oidc_cluster_defaults, {
       cluster_name            = "oac-prod-infra"
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
