@@ -78,6 +78,26 @@ module "secrets_manager_operator_access" {
   }
 }
 
+module "access_management_operator_access" {
+  source       = "./modules/permission-set"
+  instance_arn = local.sso_instance_arn
+  name         = "AccessManagementOperatorAccess"
+  description  = "Full access to AWS Security Hub, IAM, Lambda, and CloudWatch"
+  managed_policy_arns = {
+    security_hub_access = "arn:aws:iam::aws:policy/AWSSecurityHubFullAccess"
+    iam_access          = "arn:aws:iam::aws:policy/IAMFullAccess"
+    lambda_access       = "arn:aws:iam::aws:policy/AWSLambda_FullAccess"
+    cloudwatch_access   = "arn:aws:iam::aws:policy/CloudWatchFullAccess"
+  }
+  assignments = {
+    moc_aws_access_management_operators = {
+      principal_id   = aws_identitystore_group.this["moc-aws-access-management-operators"].group_id
+      principal_type = "GROUP"
+      target_id      = var.aws_account_id
+    }
+  }
+}
+
 module "view_only_access" {
   source       = "./modules/permission-set"
   instance_arn = local.sso_instance_arn
