@@ -8,6 +8,7 @@ locals {
     "moc-aws-operators"                 = "Provides SystemAdministrator access to AWS (https://docs.aws.amazon.com/aws-managed-policy/latest/reference/SystemAdministrator.html)",
     "moc-aws-eks-operators"             = "Provides SystemAdministrator and EKS cluster management access to AWS.",
     "moc-aws-secrets-manager-operators" = "Provides read and write access for AWS Secrets Manager."
+    "moc-aws-monitoring-operators"      = "Provides lumped read/write access for MOC2 monitoring (CloudTrail, Config, ACM, Secrets metadata, KMS) with destructive-action denies.",
   }
 }
 
