@@ -158,6 +158,58 @@ resource "aws_iam_policy" "eks_access" {
 }
 
 # -----------------------------------------------------------------------------
+# Managed policy – OAC OIDC bucket write access
+# -----------------------------------------------------------------------------
+
+data "aws_iam_policy_document" "oac_oidc_bucket_write" {
+  statement {
+    sid    = "AllowOACOIDCBucketWrite"
+    effect = "Allow"
+
+    actions = [
+      "s3:PutObject",
+      "s3:DeleteObject",
+      "s3:ListBucket",
+      "s3:GetObject",
+    ]
+
+    resources = [
+      aws_s3_bucket.oac_oidc.arn,
+      "${aws_s3_bucket.oac_oidc.arn}/*",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "oac_oidc_bucket_write" {
+  name   = "OACOIDCBucketWrite"
+  policy = data.aws_iam_policy_document.oac_oidc_bucket_write.json
+}
+
+# -----------------------------------------------------------------------------
+# SSO – ClusterOperatorAccess permission set
+# -----------------------------------------------------------------------------
+
+module "cluster_operator_access" {
+  source       = "./modules/permission-set"
+  instance_arn = local.sso_instance_arn
+  name         = "ClusterOperatorAccess"
+  description  = "Secrets Manager access and OAC OIDC bucket write access for deploying OpenShift clusters"
+  managed_policy_arns = {
+    secrets_manager_access = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+  }
+  customer_managed_policy_names = {
+    oac_oidc_bucket_write = aws_iam_policy.oac_oidc_bucket_write.name
+  }
+  assignments = {
+    moc_aws_cluster_operators = {
+      principal_id   = aws_identitystore_group.this["moc-aws-cluster-operators"].group_id
+      principal_type = "GROUP"
+      target_id      = var.aws_account_id
+    }
+  }
+}
+
+# -----------------------------------------------------------------------------
 # Managed policy – Route53 record management
 # -----------------------------------------------------------------------------
 
