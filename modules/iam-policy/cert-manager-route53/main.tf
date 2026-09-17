@@ -12,6 +12,7 @@ locals {
     "_acme-challenge.api.${var.cluster_subdomain}",
     "_acme-challenge.apps.${var.cluster_subdomain}",
     "_acme-challenge.${var.cluster_subdomain}",
+    "_acme-challenge.*.${var.cluster_subdomain}",
   ] : []
 
   all_challenge_names = concat(
