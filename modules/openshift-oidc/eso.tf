@@ -45,6 +45,21 @@ data "aws_iam_policy_document" "eso_secrets_manager" {
   }
 
   dynamic "statement" {
+    for_each = length(var.eso_readable_secret_prefixes) > 0 ? [1] : []
+    content {
+      effect = "Allow"
+      actions = [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue",
+      ]
+      resources = [
+        for prefix in var.eso_readable_secret_prefixes :
+        "arn:aws:secretsmanager:*:*:secret:${prefix}*"
+      ]
+    }
+  }
+
+  dynamic "statement" {
     for_each = length(var.eso_writable_secret_prefixes) > 0 ? [1] : []
     content {
       effect = "Allow"

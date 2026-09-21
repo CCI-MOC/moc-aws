@@ -16,6 +16,12 @@ variable "cert_manager_policy_arn" {
   nullable    = false
 }
 
+variable "eso_readable_secret_prefixes" {
+  type        = list(string)
+  description = "List of additional Secrets Manager name prefixes that ESO is allowed to read"
+  default     = []
+}
+
 variable "eso_writable_secret_prefixes" {
   type        = list(string)
   description = "List of Secrets Manager name prefixes that ESO is allowed to create (e.g. 'cluster/my-cluster/hostedcluster/')"

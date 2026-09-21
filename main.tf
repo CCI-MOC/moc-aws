@@ -59,6 +59,7 @@ locals {
     cluster_name                 = null # required
     oidc_bucket_domain_name      = null # required
     cert_manager_policy_arn      = null # required
+    eso_readable_secret_prefixes = []   # optional
     eso_writable_secret_prefixes = []   # optional
     service_account_roles        = {}   # optional
   }
@@ -68,6 +69,9 @@ locals {
       cluster_name            = "oac-infra-dev"
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_dev_infra"].policy_arn
+      eso_readable_secret_prefixes = [
+        "cluster/oac-dev-infra/",
+      ]
       eso_writable_secret_prefixes = [
         "cluster/oac-infra-dev/hostedcluster/",
         "cluster/oac-dev-infra/hostedcluster/",
@@ -114,6 +118,7 @@ module "openshift_oidc" {
   cluster_name                 = each.value.cluster_name
   oidc_bucket_domain_name      = each.value.oidc_bucket_domain_name
   cert_manager_policy_arn      = each.value.cert_manager_policy_arn
+  eso_readable_secret_prefixes = each.value.eso_readable_secret_prefixes
   eso_writable_secret_prefixes = each.value.eso_writable_secret_prefixes
   service_account_roles        = each.value.service_account_roles
 }
