@@ -85,6 +85,12 @@ locals {
       bucket_ids   = [module.bucket["oac-prod-workload0-metrics"].id]
       description  = "Read-Only key for oac-prod-workload0-metrics"
     }
+
+    "moc-services-keycloak-backup-rw" = {
+      capabilities = local.b2_caps_read_write
+      bucket_ids   = [module.bucket["moc-services-keycloak-backup"].id]
+      description  = "Read/Write key for moc-services-keycloak-backup"
+    }
   }
 }
 

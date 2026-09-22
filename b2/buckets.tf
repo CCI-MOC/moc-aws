@@ -15,6 +15,7 @@ locals {
     "openshift-metrics-backup-source" = {}
     "openshift-metrics-hf"            = {}
     "oac-prod-workload0-metrics"      = {}
+    "moc-services-keycloak-backup"    = {}
   }
 }
 
