@@ -37,7 +37,7 @@ locals {
       given_name   = "Quan"
       family_name  = "Pham"
       email        = "quanmp@bu.edu"
-      groups       = ["moc-aws-secrets-manager-operators"]
+      groups       = ["moc-aws-admins"]
     }
     "tzumainn" = {
       display_name = "Tzu-Mainn Chen"
