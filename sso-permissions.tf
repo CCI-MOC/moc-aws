@@ -158,6 +158,34 @@ resource "aws_iam_policy" "eks_access" {
 }
 
 # -----------------------------------------------------------------------------
+# Managed policy – MOC OpenTofu state bucket write access
+# -----------------------------------------------------------------------------
+
+data "aws_iam_policy_document" "moc_tofu_state_bucket_write" {
+  statement {
+    sid    = "AllowMocTofuStateBucketWrite"
+    effect = "Allow"
+
+    actions = [
+      "s3:PutObject",
+      "s3:DeleteObject",
+      "s3:ListBucket",
+      "s3:GetObject",
+    ]
+
+    resources = [
+      "arn:aws:s3:::moc-tf-state",
+      "arn:aws:s3:::moc-tf-state/*",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "moc_tofu_state_bucket_write" {
+  name   = "AllowMocTofuStateBucketWrite"
+  policy = data.aws_iam_policy_document.moc_tofu_state_bucket_write.json
+}
+
+# -----------------------------------------------------------------------------
 # Managed policy – OAC OIDC bucket write access
 # -----------------------------------------------------------------------------
 
@@ -251,6 +279,27 @@ module "route53_records" {
   assignments = {
     moc_aws_admins = {
       principal_id   = aws_identitystore_group.this["moc-aws-admins"].group_id
+      principal_type = "GROUP"
+      target_id      = var.aws_account_id
+    }
+  }
+}
+
+# -----------------------------------------------------------------------------
+# SSO – TofuState permission set
+# -----------------------------------------------------------------------------
+
+module "tofu_state_access" {
+  source       = "./modules/permission-set"
+  instance_arn = local.sso_instance_arn
+  name         = "TofuStateAccess"
+  description  = "Read/write access to Tofu state bucket"
+  customer_managed_policy_names = {
+    oac_oidc_bucket_write = aws_iam_policy.moc_tofu_state_bucket_write.name
+  }
+  assignments = {
+    moc_aws_cluster_operators = {
+      principal_id   = aws_identitystore_group.this["moc-tofu-makers"].group_id
       principal_type = "GROUP"
       target_id      = var.aws_account_id
     }

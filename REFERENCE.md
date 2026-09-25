@@ -35,6 +35,7 @@
 | <a name="module_route53_records"></a> [route53\_records](#module\_route53\_records) | ./modules/permission-set | n/a |
 | <a name="module_secrets_manager_operator_access"></a> [secrets\_manager\_operator\_access](#module\_secrets\_manager\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_ses_smtp_user"></a> [ses\_smtp\_user](#module\_ses\_smtp\_user) | ./modules/iam-user | n/a |
+| <a name="module_tofu_state_access"></a> [tofu\_state\_access](#module\_tofu\_state\_access) | ./modules/permission-set | n/a |
 | <a name="module_view_only_access"></a> [view\_only\_access](#module\_view\_only\_access) | ./modules/permission-set | n/a |
 | <a name="module_wasabi"></a> [wasabi](#module\_wasabi) | ./wasabi | n/a |
 
@@ -43,6 +44,7 @@
 | Name | Type |
 | ---- | ---- |
 | [aws_iam_policy.eks_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.moc_tofu_state_bucket_write](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.oac_oidc_bucket_write](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.route53_records](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.ses_sender](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -60,6 +62,7 @@
 | [aws_ses_domain_identity.domain](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_domain_identity) | resource |
 | [aws_ses_email_identity.contact](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ses_email_identity) | resource |
 | [aws_iam_policy_document.eks_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.moc_tofu_state_bucket_write](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.oac_oidc_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.oac_oidc_bucket_write](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.route53_records](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
