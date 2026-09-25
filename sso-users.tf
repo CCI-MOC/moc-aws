@@ -44,7 +44,7 @@ locals {
       given_name   = "Tzu-Mainn"
       family_name  = "Chen"
       email        = "tzumainn@redhat.com"
-      groups       = ["moc-aws-cluster-operators"]
+      groups       = ["moc-aws-cluster-operators", "moc-tofu-makers"]
     }
     "sdanni" = {
       display_name = "Danni Shi"
