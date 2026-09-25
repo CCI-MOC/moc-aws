@@ -10,6 +10,7 @@ locals {
     "moc-aws-secrets-manager-operators" = "Provides read and write access for AWS Secrets Manager.",
     "moc-aws-monitoring-operators"      = "Provides lumped read/write access for MOC2 monitoring (CloudTrail, Config, ACM, Secrets metadata, KMS) with destructive-action denies.",
     "moc-aws-cluster-operators"         = "Provides Secrets Manager access and write access to the OAC OIDC bucket for deploying OpenShift clusters."
+    "moc-tofu-makers"                   = "Provides read/write access to tofu state bucket",
   }
 }
 
