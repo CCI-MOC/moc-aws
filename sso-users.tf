@@ -53,6 +53,20 @@ locals {
       email        = "sdanni@redhat.com"
       groups       = ["moc-aws-secrets-manager-operators"]
     }
+    "suijs" = {
+      display_name = "Jimmy Sui"
+      given_name   = "Jimmy"
+      family_name  = "Sui"
+      email        = "suijs@bu.edu"
+      groups       = ["moc-aws-monitoring-operators"]
+    }
+    "renm" = {
+      display_name = "Mallory Ren"
+      given_name   = "Mallory"
+      family_name  = "Ren"
+      email        = "renm@bu.edu"
+      groups       = ["moc-aws-monitoring-operators"]
+    }
   }
 }
 
