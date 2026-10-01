@@ -67,6 +67,13 @@ locals {
       email        = "renm@bu.edu"
       groups       = ["moc-aws-monitoring-operators"]
     }
+    "jschless" = {
+      display_name = "Jason Schlessman"
+      given_name   = "Schlessman"
+      family_name  = "Jason"
+      email        = "jschless@redhat.com"
+      groups       = ["moc-aws-secrets-manager-operators"]
+    }
   }
 }
 
