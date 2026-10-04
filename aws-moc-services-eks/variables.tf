@@ -34,6 +34,11 @@ variable "kubernetes_version" {
   default = "1.36"
 }
 
+variable "eks_instance_type_v2" {
+  type    = string
+  default = "t3.large"
+}
+
 variable "eks_instance_type" {
   type    = string
   default = "t3.medium"
