@@ -122,6 +122,38 @@ resource "aws_eks_access_policy_association" "admin" {
   depends_on = [aws_eks_access_entry.admin]
 }
 
+# --- Node group launch template ---
+#
+# Overrides kubelet's max-pods via a nodeadm NodeConfig (AL2023) so nodes
+# actually use the higher pod density that prefix delegation (vpc-cni.tf)
+# makes available. Without this, EKS's generated bootstrap config still caps
+# pods using the non-prefix ENI table (17 on t3.medium). EKS merges this
+# NodeConfig with the cluster-join config it generates itself.
+resource "aws_launch_template" "node_group" {
+  name_prefix = "${var.cluster_name}-node-"
+
+  user_data = base64encode(<<-EOT
+    apiVersion: node.eks.aws/v1alpha1
+    kind: NodeConfig
+    spec:
+      kubelet:
+        config:
+          maxPods: 110
+  EOT
+  )
+
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "${var.cluster_name}-node"
+    }
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 # --- Managed node group ---
 
 resource "aws_eks_node_group" "default" {
@@ -147,5 +179,46 @@ resource "aws_eks_node_group" "default" {
     # the node group races ahead of the NAT route and never becomes Ready.
     aws_route.private_nat,
     aws_route_table_association.private,
+  ]
+}
+
+# --- Managed node group (prefix delegation, max-pods override) ---
+#
+# A second node group running the launch template above, so adopting it
+# doesn't force-replace the existing "default" node group (attaching a
+# launch_template to a node group that doesn't have one is a destructive
+# replace in both the EKS API and this provider). Once workloads have
+# migrated over, scale "default" to zero and remove it from this config.
+resource "aws_eks_node_group" "default_v2" {
+  cluster_name    = aws_eks_cluster.cluster.name
+  node_group_name = "default-v2"
+  node_role_arn   = aws_iam_role.node_group.arn
+  subnet_ids      = values(aws_subnet.private)[*].id
+  instance_types  = [var.eks_instance_type_v2]
+  ami_type        = "AL2023_x86_64_STANDARD"
+
+  launch_template {
+    id      = aws_launch_template.node_group.id
+    version = aws_launch_template.node_group.latest_version
+  }
+
+  scaling_config {
+    desired_size = var.node_desired_count
+    min_size     = var.node_min_count
+    max_size     = var.node_max_count
+  }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.node_worker,
+    aws_iam_role_policy_attachment.node_cni,
+    aws_iam_role_policy_attachment.node_ecr,
+    aws_iam_role_policy_attachment.node_ssm,
+    aws_route.private_nat,
+    aws_route_table_association.private,
+    # Nodes advertise maxPods: 110 via the launch template's NodeConfig
+    # regardless of CNI mode. Without this, nodes can join before vpc-cni
+    # has prefix delegation enabled and get stuck unable to allocate IPs
+    # for pods beyond the non-prefix ENI limit.
+    aws_eks_addon.vpc_cni,
   ]
 }
