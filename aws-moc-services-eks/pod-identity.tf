@@ -10,5 +10,5 @@ resource "aws_eks_addon" "pod_identity_agent" {
   addon_name   = "eks-pod-identity-agent"
 
   # The agent is a DaemonSet, so it needs schedulable nodes to come up.
-  depends_on = [aws_eks_node_group.default]
+  depends_on = [aws_eks_node_group.default_v2]
 }

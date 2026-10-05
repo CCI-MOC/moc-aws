@@ -162,34 +162,6 @@ resource "aws_launch_template" "node_group" {
   }
 }
 
-# --- Managed node group ---
-
-resource "aws_eks_node_group" "default" {
-  cluster_name    = aws_eks_cluster.cluster.name
-  node_group_name = "default"
-  node_role_arn   = aws_iam_role.node_group.arn
-  subnet_ids      = values(aws_subnet.private)[*].id
-  instance_types  = [var.eks_instance_type]
-
-  scaling_config {
-    desired_size = var.node_desired_count
-    min_size     = var.node_min_count
-    max_size     = var.node_max_count
-  }
-
-  depends_on = [
-    aws_iam_role_policy_attachment.node_worker,
-    aws_iam_role_policy_attachment.node_cni,
-    aws_iam_role_policy_attachment.node_ecr,
-    aws_iam_role_policy_attachment.node_ssm,
-    # Nodes launch into the private subnets and need outbound egress (ECR
-    # image pulls, cluster registration) before they can join. Without these
-    # the node group races ahead of the NAT route and never becomes Ready.
-    aws_route.private_nat,
-    aws_route_table_association.private,
-  ]
-}
-
 # --- Managed node group (prefix delegation, max-pods override) ---
 #
 # A second node group running the launch template above, so adopting it
