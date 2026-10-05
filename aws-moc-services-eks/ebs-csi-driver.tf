@@ -42,7 +42,7 @@ resource "aws_eks_addon" "ebs_csi" {
   service_account_role_arn = aws_iam_role.ebs_csi.arn
 
   depends_on = [
-    aws_eks_node_group.default,
+    aws_eks_node_group.default_v2,
     aws_iam_role_policy_attachment.ebs_csi,
   ]
 }

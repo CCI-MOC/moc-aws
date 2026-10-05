@@ -88,7 +88,7 @@ resource "helm_release" "alb_controller" {
   }
 
   depends_on = [
-    aws_eks_node_group.default,
+    aws_eks_node_group.default_v2,
     aws_iam_role_policy_attachment.alb_controller,
   ]
 }
