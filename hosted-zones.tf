@@ -45,6 +45,14 @@ resource "aws_route53_record" "hcp-dev-ext-wildcard" {
   records = ["129.10.5.101"]
 }
 
+resource "aws_route53_record" "hcp-dev-workload2-apps-wildcard" {
+  zone_id = aws_route53_zone.this["hcp.oac.int.massopen.cloud"].zone_id
+  name    = "*.apps.oac-dev-workload2.hcp.oac.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["10.20.15.200"]
+}
+
 resource "aws_route53_record" "hcp-dev-int-wildcard" {
   zone_id = aws_route53_zone.this["hcp-int.oac.int.massopen.cloud"].zone_id
   name    = "*.hcp-int.oac.int.massopen.cloud"
