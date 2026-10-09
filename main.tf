@@ -41,6 +41,14 @@ module "github-oidc" {
       #   gh api repos/CCI-MOC/moc-keycloak/actions/oidc/customization/sub --jq .sub_claim_prefix
       subject_claims = ["repo:CCI-MOC@3578683/moc-keycloak@1352835750:*"]
     }
+
+    moc-github = {
+      repository         = "CCI-MOC/moc-github"
+      state_keys         = ["moc-github"]
+      ro_secret_prefixes = []
+      rw_secret_prefixes = []
+      subject_claims     = ["repo:CCI-MOC@3578683/moc-github@1382173862"]
+    }
   }
 }
 
