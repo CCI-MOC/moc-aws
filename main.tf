@@ -47,7 +47,7 @@ module "github-oidc" {
       state_keys         = ["moc-github"]
       ro_secret_prefixes = []
       rw_secret_prefixes = []
-      subject_claims     = ["repo:CCI-MOC@3578683/moc-github@1382173862"]
+      subject_claims     = ["repo:CCI-MOC@3578683/moc-github@1382173862:*"]
     }
   }
 }
