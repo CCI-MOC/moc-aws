@@ -32,7 +32,6 @@
 | <a name="module_monitoring_operator_access"></a> [monitoring\_operator\_access](#module\_monitoring\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_openshift_oidc"></a> [openshift\_oidc](#module\_openshift\_oidc) | ./modules/openshift-oidc | n/a |
 | <a name="module_operator_access"></a> [operator\_access](#module\_operator\_access) | ./modules/permission-set | n/a |
-| <a name="module_osac_terraform_state"></a> [osac\_terraform\_state](#module\_osac\_terraform\_state) | ./modules/bucket | n/a |
 | <a name="module_route53_records"></a> [route53\_records](#module\_route53\_records) | ./modules/permission-set | n/a |
 | <a name="module_secrets_manager_operator_access"></a> [secrets\_manager\_operator\_access](#module\_secrets\_manager\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_ses_smtp_user"></a> [ses\_smtp\_user](#module\_ses\_smtp\_user) | ./modules/iam-user | n/a |
