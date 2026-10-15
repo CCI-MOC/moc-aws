@@ -35,6 +35,7 @@ data "aws_iam_policy_document" "secrets_reader" {
     resources = [
       "arn:aws:secretsmanager:*:*:secret:cluster/${var.cluster_name}/*",
       "arn:aws:secretsmanager:*:*:secret:cluster/common/*",
+      "arn:aws:secretsmanager:*:*:secret:b2-key/moc-services-backup-rw",
     ]
   }
 }
