@@ -86,10 +86,10 @@ locals {
       description  = "Read-Only key for oac-prod-workload0-metrics"
     }
 
-    "moc-services-keycloak-backup-rw" = {
+    "moc-services-backup-rw" = {
       capabilities = local.b2_caps_read_write
-      bucket_ids   = [module.bucket["moc-services-keycloak-backup"].id]
-      description  = "Read/Write key for moc-services-keycloak-backup"
+      bucket_ids   = [module.bucket["moc-services-backup"].id]
+      description  = "Read/Write key for moc-services-backup"
     }
   }
 }
