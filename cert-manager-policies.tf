@@ -57,7 +57,7 @@ locals {
     }
     "cert_manager_policy_oac_dev_infra" = {
       cluster_subdomain  = "infra.oac.int.massopen.cloud"
-      zone_name          = "nist.int.massopen.cloud"
+      zone_name          = "int.massopen.cloud"
       policy_name        = "cert-manager-oac-infra-int-massopen-cloud"
       policy_description = "modify records in infra.oac.int.massopen.cloud for dns01 challenges."
       additional_zone_names = [
