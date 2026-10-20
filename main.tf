@@ -120,6 +120,14 @@ locals {
       cluster_name            = "nist-dev-infra"
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_nist_dev_infra"].policy_arn
+      # external-dns reads its access key where the iam-user module stores it.
+      eso_readable_secret_prefixes = [
+        "iam-user/nist-dev-external-dns/",
+      ]
+      # HyperShift's kubeconfig and etcd encryption key for each hosted cluster.
+      eso_writable_secret_prefixes = [
+        "cluster/nist-dev-infra/hostedcluster/",
+      ]
     })
   }
 }
