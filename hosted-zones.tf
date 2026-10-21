@@ -118,3 +118,13 @@ resource "aws_route53_record" "hcp-nist-delegation" {
   ttl      = 300
   records  = aws_route53_zone.this[each.value].name_servers
 }
+
+# The hosted control planes' Ignition, Konnectivity and OAuth routes, served by
+# the hub's hosted-clusters router (hcp-config's MetalLB address).
+resource "aws_route53_record" "hcp-nist-int-wildcard" {
+  zone_id = aws_route53_zone.this["hcp-int.nist.int.massopen.cloud"].zone_id
+  name    = "*.hcp-int.nist.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["10.20.19.10"]
+}
