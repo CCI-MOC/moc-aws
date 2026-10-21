@@ -82,6 +82,10 @@ locals {
       zone_name          = "nist.int.massopen.cloud"
       policy_name        = "cert-manager-nist-dev-infra-int-massopen-cloud"
       policy_description = "modify records in nist-dev-infra.nist.int.massopen.cloud for dns01 challenges."
+      additional_zone_names = [
+        "hcp.nist.int.massopen.cloud",
+        "hcp-int.nist.int.massopen.cloud"
+      ]
     }
   }
 }
