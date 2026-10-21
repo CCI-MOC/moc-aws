@@ -23,8 +23,10 @@
 | <a name="module_cert_manager_policy"></a> [cert\_manager\_policy](#module\_cert\_manager\_policy) | ./modules/iam-policy/cert-manager-route53 | n/a |
 | <a name="module_cluster_operator_access"></a> [cluster\_operator\_access](#module\_cluster\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_eks_operator_access"></a> [eks\_operator\_access](#module\_eks\_operator\_access) | ./modules/permission-set | n/a |
+| <a name="module_external_dns_policy_hcp_int_nist_int_massopen"></a> [external\_dns\_policy\_hcp\_int\_nist\_int\_massopen](#module\_external\_dns\_policy\_hcp\_int\_nist\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_hcp_int_oac_int_massopen"></a> [external\_dns\_policy\_hcp\_int\_oac\_int\_massopen](#module\_external\_dns\_policy\_hcp\_int\_oac\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_hcp_int_oac_massopen"></a> [external\_dns\_policy\_hcp\_int\_oac\_massopen](#module\_external\_dns\_policy\_hcp\_int\_oac\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
+| <a name="module_external_dns_policy_hcp_nist_int_massopen"></a> [external\_dns\_policy\_hcp\_nist\_int\_massopen](#module\_external\_dns\_policy\_hcp\_nist\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_hcp_oac_int_massopen"></a> [external\_dns\_policy\_hcp\_oac\_int\_massopen](#module\_external\_dns\_policy\_hcp\_oac\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_hcp_oac_massopen"></a> [external\_dns\_policy\_hcp\_oac\_massopen](#module\_external\_dns\_policy\_hcp\_oac\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_github-oidc"></a> [github-oidc](#module\_github-oidc) | ./modules/github-oidc | n/a |
@@ -57,6 +59,7 @@
 | [aws_route53_record.hcp-dev-workload2-apps-wildcard](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.hcp-ext-wildcard](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.hcp-int-wildcard](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_record.hcp-nist-delegation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.nist-dev-infra-api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.nist-dev-infra-api-int](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.nist-dev-infra-apps-wildcard](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |

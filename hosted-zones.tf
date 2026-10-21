@@ -4,14 +4,16 @@
 
 locals {
   hosted_zones = {
-    "massopen.cloud"                 = "Top-level MOC domain"
-    "int.massopen.cloud"             = "Internal MOC systems"
-    "ocp.massopen.cloud"             = "For MOCs OpenShift clusters. Initially they will host the NIST cluster."
-    "hcp.oac.massopen.cloud"         = "For prod hosted control plane external services"
-    "hcp-int.oac.massopen.cloud"     = "For prod hosted control plane internal services"
-    "hcp.oac.int.massopen.cloud"     = "For dev hosted control plane external services"
-    "hcp-int.oac.int.massopen.cloud" = "For dev hosted control plane internal services"
-    "nist.int.massopen.cloud"        = "For NIST 800-171 compliant clusters"
+    "massopen.cloud"                  = "Top-level MOC domain"
+    "int.massopen.cloud"              = "Internal MOC systems"
+    "ocp.massopen.cloud"              = "For MOCs OpenShift clusters. Initially they will host the NIST cluster."
+    "hcp.oac.massopen.cloud"          = "For prod hosted control plane external services"
+    "hcp-int.oac.massopen.cloud"      = "For prod hosted control plane internal services"
+    "hcp.oac.int.massopen.cloud"      = "For dev hosted control plane external services"
+    "hcp-int.oac.int.massopen.cloud"  = "For dev hosted control plane internal services"
+    "nist.int.massopen.cloud"         = "For NIST 800-171 compliant clusters"
+    "hcp.nist.int.massopen.cloud"     = "For nist-dev-infra hosted cluster ingress"
+    "hcp-int.nist.int.massopen.cloud" = "For nist-dev-infra hosted control plane services"
   }
 }
 
@@ -103,4 +105,16 @@ resource "aws_route53_record" "nist-int-delegation" {
     aws_route53_record.nist-dev-infra-api-int,
     aws_route53_record.nist-dev-infra-apps-wildcard,
   ]
+}
+
+# nist-dev-infra's hosted clusters. external-dns on the hub writes each
+# cluster's API and ingress records; cert-manager writes its challenges.
+# Both zones are new names, so delegating them while empty breaks nothing.
+resource "aws_route53_record" "hcp-nist-delegation" {
+  for_each = toset(["hcp.nist.int.massopen.cloud", "hcp-int.nist.int.massopen.cloud"])
+  zone_id  = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
+  name     = each.value
+  type     = "NS"
+  ttl      = 300
+  records  = aws_route53_zone.this[each.value].name_servers
 }
