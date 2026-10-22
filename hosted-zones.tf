@@ -128,3 +128,15 @@ resource "aws_route53_record" "hcp-nist-int-wildcard" {
   ttl     = 300
   records = ["10.20.19.10"]
 }
+
+# The workload clusters' base domain, as on the oac hubs. The agents' install
+# checks look up api and api-int.<cluster>.hcp.nist.int.massopen.cloud; nothing
+# connects to them. external-dns's *.apps.<cluster> records are more specific
+# and still win.
+resource "aws_route53_record" "hcp-nist-wildcard" {
+  zone_id = aws_route53_zone.this["hcp.nist.int.massopen.cloud"].zone_id
+  name    = "*.hcp.nist.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["10.20.19.10"]
+}
