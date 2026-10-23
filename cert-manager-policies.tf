@@ -87,6 +87,12 @@ locals {
         "hcp-int.nist.int.massopen.cloud"
       ]
     }
+    "cert_manager_policy_nist_dev_workload0" = {
+      cluster_subdomain  = "nist-dev-workload0.hcp.nist.int.massopen.cloud"
+      zone_name          = "hcp.nist.int.massopen.cloud"
+      policy_name        = "cert-manager-nist-dev-workload0-int-massopen-cloud"
+      policy_description = "modify records for nist-dev-workload0 hosted cluster dns01 challenges."
+    }
   }
 }
 
