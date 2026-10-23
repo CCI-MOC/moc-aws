@@ -91,6 +91,18 @@ resource "aws_route53_record" "nist-dev-infra-apps-wildcard" {
   records = ["10.20.19.12"]
 }
 
+# The hub's object storage proxy (object-storage-proxy chart), in front of
+# the FlashBlade's S3 endpoint. The address is the proxy Service's fixed
+# cluster IP, so the name resolves to something reachable only from inside
+# the cluster, as for the oac clusters' s3 names.
+resource "aws_route53_record" "nist-dev-infra-s3" {
+  zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
+  name    = "s3.nist-dev-infra.nist.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["172.30.0.53"]
+}
+
 # Delegation. Created after the records above, so the new zone is never
 # live while empty.
 resource "aws_route53_record" "nist-int-delegation" {
