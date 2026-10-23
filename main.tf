@@ -129,6 +129,11 @@ locals {
         "cluster/nist-dev-infra/hostedcluster/",
       ]
     })
+    nist_dev_workload0 = merge(local.openshift_oidc_cluster_defaults, {
+      cluster_name            = "nist-dev-workload0"
+      oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
+      cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_nist_dev_workload0"].policy_arn
+    })
   }
 }
 

@@ -72,7 +72,7 @@ locals {
       given_name   = "Schlessman"
       family_name  = "Jason"
       email        = "jschless@redhat.com"
-      groups       = ["moc-aws-secrets-manager-operators"]
+      groups       = ["moc-aws-secrets-manager-operators", "moc-aws-cluster-operators"]
     }
   }
 }
