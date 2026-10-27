@@ -77,6 +77,12 @@ locals {
       policy_name        = "cert-manager-oac-dev-workload1-int-massopen-cloud"
       policy_description = "modify records for oac-dev-workload1 hosted cluster dns01 challenges."
     }
+    "cert_manager_policy_oac_dev_workload2" = {
+      cluster_subdomain  = "oac-dev-workload2.hcp.oac.int.massopen.cloud"
+      zone_name          = "hcp.oac.int.massopen.cloud"
+      policy_name        = "cert-manager-oac-dev-workload2-int-massopen-cloud"
+      policy_description = "modify records for oac-dev-workload2 hosted cluster dns01 challenges."
+    }
     "cert_manager_policy_nist_dev_infra" = {
       cluster_subdomain  = "nist-dev-infra.nist.int.massopen.cloud"
       zone_name          = "nist.int.massopen.cloud"
