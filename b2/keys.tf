@@ -86,6 +86,12 @@ locals {
       description  = "Read-Only key for oac-prod-workload0-metrics"
     }
 
+    "oac-invoicing-rw" = {
+      capabilities = local.b2_caps_read_write
+      bucket_ids   = [module.bucket["oac-invoicing"].id]
+      description  = "Read/Write key for oac-invoicing"
+    }
+
     "moc-services-backup-rw" = {
       capabilities = local.b2_caps_read_write
       bucket_ids   = [module.bucket["moc-services-backup"].id]

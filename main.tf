@@ -114,6 +114,8 @@ locals {
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_oac_prod_infra"].policy_arn
       eso_readable_secret_prefixes = [
         "b2-key/oac-prod-workload0-rw",
+        "b2-key/oac-prod-workload0-ro",
+        "b2-key/oac-invoicing-rw",
       ]
       eso_writable_secret_prefixes = [
         "cluster/oac-prod-infra/hostedcluster/",
