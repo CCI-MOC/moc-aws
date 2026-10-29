@@ -1,0 +1,49 @@
+# Checkov configuration, picked up automatically when running `checkov` from
+# the repository root and used by the Checkov workflow.
+#
+# The workflow also passes --baseline .checkov.baseline, so findings recorded
+# there are ignored and only new findings fail. Locally:
+#
+#   checkov                                  # all findings
+#   checkov --baseline .checkov.baseline     # only new findings (as in CI)
+#   checkov --create-baseline                # regenerate the baseline
+#
+# Each baseline finding carries a "comments" object (ignored by Checkov)
+# explaining what fails and why. --create-baseline drops these comments, so
+# when the baseline changes, edit it by hand or re-add the comments.
+compact: true
+directory:
+  - .
+framework:
+  - terraform
+quiet: true
+skip-check:
+  # "Ensure every security group and rule has a description"
+  - CKV_AWS_23
+  # "Ensure that Secrets Manager secret is encrypted using KMS CMK"
+  # Secrets Manager secrets use the AWS-managed aws/secretsmanager key.
+  - CKV_AWS_149
+  # "Ensure Secrets Manager secrets should have automatic rotation enabled"
+  # Secrets hold IAM access keys and other credentials created by OpenTofu,
+  # which are rotated by hand (docs/key-rotation.md).
+  - CKV2_AWS_57
+  # "Ensure IAM policies are attached only to groups or roles"
+  # modules/iam-user attaches policies directly to users by design for now.
+  - CKV_AWS_40
+  # "Ensure access is controlled through SSO and not AWS IAM defined users"
+  # IAM users exist for workloads outside AWS (cert-manager, external-dns,
+  # certbot), SES SMTP credentials and Wasabi, none of which can use SSO.
+  - CKV_AWS_273
+  # "Route53 A Record has Attached Resource"
+  # Route 53 A records point at MOC addresses outside AWS by design, so they
+  # never reference an AWS resource.
+  - CKV2_AWS_23
+  # "Ensure S3 buckets should have event notifications enabled"
+  # This repository has no consumers configured for them.
+  - CKV2_AWS_62
+  # "Ensure that S3 bucket has cross-region replication enabled"
+  - CKV_AWS_144
+  # "Ensure that S3 buckets are encrypted with KMS by default"
+  - CKV_AWS_145
+skip-path:
+  - .terraform
