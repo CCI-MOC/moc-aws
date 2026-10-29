@@ -23,6 +23,19 @@ locals {
         "hcp-int.oac.massopen.cloud"
       ]
     }
+    "dizzy" = {
+      zone_name          = "int.massopen.cloud"
+      cluster_subdomain  = "dizzy.int.massopen.cloud"
+      policy_name        = "cert-manager-dizzy"
+      policy_description = "modify records in dizzy.int.massopen.cloud for dns01 challenges."
+      # The hcp/hcp-int records live in their own delegated hosted zones;
+      # listing them here grants record changes in those zones and implicitly
+      # permits _acme-challenge.*.<zone> challenges for each.
+      additional_zone_names = [
+        "dizzy-int.int.massopen.cloud",
+        "dizzy-ext.int.massopen.cloud",
+      ]
+    }
     "cert_manager_policy_storage_massopen" = {
       zone_name          = "massopen.cloud"
       policy_name        = "cert-manager-storage-massopen-cloud"

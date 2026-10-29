@@ -73,6 +73,17 @@ locals {
   }
 
   openshift_oidc_clusters = {
+    dizzy = merge(local.openshift_oidc_cluster_defaults, {
+      cluster_name            = "dizzy"
+      oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
+      cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_dizzy"].policy_arn
+      eso_readable_secret_prefixes = [
+        "cluster/dizzy/",
+      ]
+      eso_writable_secret_prefixes = [
+        "cluster/dizzy/hostedcluster/",
+      ]
+    })
     oac_infra = merge(local.openshift_oidc_cluster_defaults, {
       cluster_name            = "oac-infra-dev"
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name

@@ -9,6 +9,20 @@ module "external_dns_policy_hcp_oac_int_massopen" {
   policy_description = "allow external-dns on oac-dev-infra to manage records in hcp.oac.int.massopen.cloud"
 }
 
+module "external_dns_policy_dizzy_int" {
+  source             = "./modules/iam-policy/route53-single-zone"
+  zone_name          = "dizzy-ext.int.massopen.cloud"
+  policy_name        = "external-dns-dizzy-ext"
+  policy_description = "allow external-dns on dizzy to manage records in dizzy-ext.int.massopen.cloud"
+}
+
+module "external_dns_policy_dizzy_int" {
+  source             = "./modules/iam-policy/route53-single-zone"
+  zone_name          = "dizzy-int.int.massopen.cloud"
+  policy_name        = "external-dns-dizzy-int"
+  policy_description = "allow external-dns on dizzy to manage records in dizzy-int.int.massopen.cloud"
+}
+
 module "external_dns_policy_hcp_int_oac_int_massopen" {
   source             = "./modules/iam-policy/route53-single-zone"
   zone_name          = "hcp-int.oac.int.massopen.cloud"
