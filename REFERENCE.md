@@ -23,6 +23,7 @@
 | <a name="module_cert_manager_policy"></a> [cert\_manager\_policy](#module\_cert\_manager\_policy) | ./modules/iam-policy/cert-manager-route53 | n/a |
 | <a name="module_cluster_operator_access"></a> [cluster\_operator\_access](#module\_cluster\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_eks_operator_access"></a> [eks\_operator\_access](#module\_eks\_operator\_access) | ./modules/permission-set | n/a |
+| <a name="module_external_dns_policy_dizzy_ext"></a> [external\_dns\_policy\_dizzy\_ext](#module\_external\_dns\_policy\_dizzy\_ext) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_dizzy_int"></a> [external\_dns\_policy\_dizzy\_int](#module\_external\_dns\_policy\_dizzy\_int) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_hcp_int_nist_int_massopen"></a> [external\_dns\_policy\_hcp\_int\_nist\_int\_massopen](#module\_external\_dns\_policy\_hcp\_int\_nist\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_hcp_int_oac_int_massopen"></a> [external\_dns\_policy\_hcp\_int\_oac\_int\_massopen](#module\_external\_dns\_policy\_hcp\_int\_oac\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
