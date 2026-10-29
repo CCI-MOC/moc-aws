@@ -23,7 +23,7 @@ locals {
         "hcp-int.oac.massopen.cloud"
       ]
     }
-    "dizzy" = {
+    "cert_manager_policy_dizzy" = {
       zone_name          = "int.massopen.cloud"
       cluster_subdomain  = "dizzy.int.massopen.cloud"
       policy_name        = "cert-manager-dizzy"
