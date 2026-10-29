@@ -14,6 +14,8 @@ locals {
     "nist.int.massopen.cloud"         = "For NIST 800-171 compliant clusters"
     "hcp.nist.int.massopen.cloud"     = "For nist-dev-infra hosted cluster ingress"
     "hcp-int.nist.int.massopen.cloud" = "For nist-dev-infra hosted control plane services"
+    "dizzy-int.int.massopen.cloud"    = "For dizzy hcp internal services"
+    "dizzy-ext.int.massopen.cloud"    = "For dizzy hcp external services"
   }
 }
 
@@ -22,6 +24,22 @@ resource "aws_route53_zone" "this" {
   name          = each.key
   comment       = each.value
   force_destroy = true
+}
+
+resource "aws_route53_record" "dizzy-ext-wildcard" {
+  zone_id = aws_route53_zone.this["dizzy-ext.int.massopen.cloud"].zone_id
+  name    = "*.dizzy-ext.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["129.10.5.107"]
+}
+
+resource "aws_route53_record" "dizzy-int-wildcard" {
+  zone_id = aws_route53_zone.this["dizzy-int.int.massopen.cloud"].zone_id
+  name    = "*.dizzy-int.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["10.20.23.10"]
 }
 
 resource "aws_route53_record" "hcp-ext-wildcard" {
