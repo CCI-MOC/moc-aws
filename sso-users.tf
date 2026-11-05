@@ -11,6 +11,13 @@ locals {
       email        = "lars@redhat.com"
       groups       = ["moc-aws-admins"]
     }
+    "memalhot" = {
+      display_name = "Meera Malhotra"
+      given_name   = "Meera"
+      family_name  = "Malhotra"
+      email        = "memalhot@redhat.com"
+      groups       = ["moc-aws-secrets-manager-operators"]
+    }
     "naved" = {
       display_name = "Naved Ansari"
       given_name   = "Naved"
