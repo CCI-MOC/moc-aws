@@ -167,6 +167,11 @@ locals {
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_moc_infra_massopen"].policy_arn
     })
+    bu_ist_demo_infra = merge(local.openshift_oidc_cluster_defaults, {
+      cluster_name            = "bu-ist-demo-infra"
+      oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
+      cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_bu_ist_demo_infra"].policy_arn
+    })
   }
 }
 

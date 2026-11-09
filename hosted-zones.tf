@@ -4,18 +4,20 @@
 
 locals {
   hosted_zones = {
-    "massopen.cloud"                  = "Top-level MOC domain"
-    "int.massopen.cloud"              = "Internal MOC systems"
-    "ocp.massopen.cloud"              = "For MOCs OpenShift clusters. Initially they will host the NIST cluster."
-    "hcp.oac.massopen.cloud"          = "For prod hosted control plane external services"
-    "hcp-int.oac.massopen.cloud"      = "For prod hosted control plane internal services"
-    "hcp.oac.int.massopen.cloud"      = "For dev hosted control plane external services"
-    "hcp-int.oac.int.massopen.cloud"  = "For dev hosted control plane internal services"
-    "nist.int.massopen.cloud"         = "For NIST 800-171 compliant clusters"
-    "hcp.nist.int.massopen.cloud"     = "For nist-dev-infra hosted cluster ingress"
-    "hcp-int.nist.int.massopen.cloud" = "For nist-dev-infra hosted control plane services"
-    "dizzy-int.int.massopen.cloud"    = "For dizzy hcp internal services"
-    "dizzy-ext.int.massopen.cloud"    = "For dizzy hcp external services"
+    "massopen.cloud"                         = "Top-level MOC domain"
+    "int.massopen.cloud"                     = "Internal MOC systems"
+    "ocp.massopen.cloud"                     = "For MOCs OpenShift clusters. Initially they will host the NIST cluster."
+    "hcp.oac.massopen.cloud"                 = "For prod hosted control plane external services"
+    "hcp-int.oac.massopen.cloud"             = "For prod hosted control plane internal services"
+    "hcp.oac.int.massopen.cloud"             = "For dev hosted control plane external services"
+    "hcp-int.oac.int.massopen.cloud"         = "For dev hosted control plane internal services"
+    "nist.int.massopen.cloud"                = "For NIST 800-171 compliant clusters"
+    "hcp.nist.int.massopen.cloud"            = "For nist-dev-infra hosted cluster ingress"
+    "hcp-int.nist.int.massopen.cloud"        = "For nist-dev-infra hosted control plane services"
+    "dizzy-int.int.massopen.cloud"           = "For dizzy hcp internal services"
+    "dizzy-ext.int.massopen.cloud"           = "For dizzy hcp external services"
+    "hcp.bu-ist-demo.int.massopen.cloud"     = "For BU IST demo infra hosted cluster external services"
+    "hcp-int.bu-ist-demo.int.massopen.cloud" = "For BU IST demo infra hosted cluster internal services"
   }
 }
 
@@ -143,6 +145,16 @@ resource "aws_route53_record" "nist-int-delegation" {
 resource "aws_route53_record" "hcp-nist-delegation" {
   for_each = toset(["hcp.nist.int.massopen.cloud", "hcp-int.nist.int.massopen.cloud"])
   zone_id  = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
+  name     = each.value
+  type     = "NS"
+  ttl      = 300
+  records  = aws_route53_zone.this[each.value].name_servers
+}
+
+# BU IST demo infra's hosted-cluster DNS zones.
+resource "aws_route53_record" "bu_ist_demo_infra_delegation" {
+  for_each = toset(["hcp.bu-ist-demo.int.massopen.cloud", "hcp-int.bu-ist-demo.int.massopen.cloud"])
+  zone_id  = aws_route53_zone.this["int.massopen.cloud"].zone_id
   name     = each.value
   type     = "NS"
   ttl      = 300

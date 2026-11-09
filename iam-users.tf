@@ -4,16 +4,18 @@
 
 locals {
   policy_arn_map = {
-    cert-manager-infra-ocp-massopen-cloud        = module.cert_manager_policy["cert_manager_policy_infra_ocp_massopen"].policy_arn
-    cert-manager-staging-ocp-massopen-cloud      = module.cert_manager_policy["cert_manager_policy_staging_ocp_massopen"].policy_arn
-    cert-manager-moc-infra-massopen-cloud        = module.cert_manager_policy["cert_manager_policy_moc_infra_massopen"].policy_arn
-    cert-manager-esi-massopen-cloud              = module.cert_manager_policy["cert_manager_policy_esi_massopen"].policy_arn
-    external-dns-hcp-oac-int-massopen-cloud      = module.external_dns_policy_hcp_oac_int_massopen.policy_arn
-    external-dns-hcp-int-oac-int-massopen-cloud  = module.external_dns_policy_hcp_int_oac_int_massopen.policy_arn
-    external-dns-hcp-oac-massopen-cloud          = module.external_dns_policy_hcp_oac_massopen.policy_arn
-    external-dns-hcp-int-oac-massopen-cloud      = module.external_dns_policy_hcp_int_oac_massopen.policy_arn
-    external-dns-hcp-nist-int-massopen-cloud     = module.external_dns_policy_hcp_nist_int_massopen.policy_arn
-    external-dns-hcp-int-nist-int-massopen-cloud = module.external_dns_policy_hcp_int_nist_int_massopen.policy_arn
+    cert-manager-infra-ocp-massopen-cloud                     = module.cert_manager_policy["cert_manager_policy_infra_ocp_massopen"].policy_arn
+    cert-manager-staging-ocp-massopen-cloud                   = module.cert_manager_policy["cert_manager_policy_staging_ocp_massopen"].policy_arn
+    cert-manager-moc-infra-massopen-cloud                     = module.cert_manager_policy["cert_manager_policy_moc_infra_massopen"].policy_arn
+    cert-manager-esi-massopen-cloud                           = module.cert_manager_policy["cert_manager_policy_esi_massopen"].policy_arn
+    external-dns-hcp-oac-int-massopen-cloud                   = module.external_dns_policy_hcp_oac_int_massopen.policy_arn
+    external-dns-hcp-int-oac-int-massopen-cloud               = module.external_dns_policy_hcp_int_oac_int_massopen.policy_arn
+    external-dns-hcp-oac-massopen-cloud                       = module.external_dns_policy_hcp_oac_massopen.policy_arn
+    external-dns-hcp-int-oac-massopen-cloud                   = module.external_dns_policy_hcp_int_oac_massopen.policy_arn
+    external-dns-hcp-nist-int-massopen-cloud                  = module.external_dns_policy_hcp_nist_int_massopen.policy_arn
+    external-dns-hcp-int-nist-int-massopen-cloud              = module.external_dns_policy_hcp_int_nist_int_massopen.policy_arn
+    external-dns-hcp-bu-ist-demo-infra-int-massopen-cloud     = module.external_dns_policy_hcp_bu_ist_demo_infra_int_massopen.policy_arn
+    external-dns-hcp-int-bu-ist-demo-infra-int-massopen-cloud = module.external_dns_policy_hcp_int_bu_ist_demo_infra_int_massopen.policy_arn
   }
 
   iam_users = {
@@ -34,6 +36,12 @@ locals {
         nist-dev-infra-external-dns = "Used by external dns operator on the nist-dev-infra cluster"
       }
       policy_names = ["external-dns-hcp-nist-int-massopen-cloud", "external-dns-hcp-int-nist-int-massopen-cloud"]
+    }
+    "bu-ist-demo-infra-external-dns" = {
+      access_keys = {
+        bu-ist-demo-infra-external-dns = "Used by external dns operator on the bu-ist-demo-infra cluster"
+      }
+      policy_names = ["external-dns-hcp-bu-ist-demo-infra-int-massopen-cloud", "external-dns-hcp-int-bu-ist-demo-infra-int-massopen-cloud"]
     }
     "cert-manager-infra-ocp-massopen" = {
       access_keys = {
