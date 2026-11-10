@@ -132,12 +132,20 @@ locals {
 }
 
 module "cert_manager_policy" {
-  for_each                   = local.cert_manager_policies
-  source                     = "./modules/iam-policy/cert-manager-route53"
-  cluster_subdomain          = try(each.value.cluster_subdomain, null)
-  zone_name                  = each.value.zone_name
-  policy_name                = each.value.policy_name
-  policy_description         = each.value.policy_description
+  for_each           = local.cert_manager_policies
+  source             = "./modules/iam-policy/cert-manager-route53"
+  cluster_subdomain  = try(each.value.cluster_subdomain, null)
+  policy_name        = each.value.policy_name
+  policy_description = each.value.policy_description
+
+  # All hosted zones referenced here (primary and additional) are managed in
+  # hosted-zones.tf, in this same root module -- so look up ARNs directly
+  # from the zone resources rather than by name. This avoids a data-source
+  # lookup racing the zone's own creation when both are applied together.
+  zone_arn                   = aws_route53_zone.this[each.value.zone_name].arn
   additional_challenge_names = try(each.value.additional_challenge_names, [])
   additional_zone_names      = try(each.value.additional_zone_names, [])
+  additional_zone_arns = {
+    for name in try(each.value.additional_zone_names, []) : name => aws_route53_zone.this[name].arn
+  }
 }
