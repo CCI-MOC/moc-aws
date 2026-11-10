@@ -161,6 +161,12 @@ locals {
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_nist_dev_workload0"].policy_arn
     })
+    # Standalone MOC cluster managed by CCI-MOC/moc-infra-config.
+    moc_infra = merge(local.openshift_oidc_cluster_defaults, {
+      cluster_name            = "moc-infra"
+      oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
+      cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_moc_infra_massopen"].policy_arn
+    })
   }
 }
 
