@@ -1,6 +1,6 @@
-variable "zone_name" {
+variable "zone_arn" {
   type        = string
-  description = "The Route 53 Hosted Zone Name (e.g., ocp.example.com)"
+  description = "ARN of the primary Route 53 Hosted Zone"
 }
 
 variable "policy_name" {
@@ -30,4 +30,10 @@ variable "additional_zone_names" {
   type        = list(string)
   default     = []
   description = "Additional Route 53 Hosted Zone names whose records this policy may modify. Use when challenge names live in delegated subdomains that have their own hosted zones (e.g., hcp.oac.massopen.cloud)."
+}
+
+variable "additional_zone_arns" {
+  type        = map(string)
+  default     = {}
+  description = "ARNs of the hosted zones named in additional_zone_names, keyed by zone name. Must have an entry for every name in additional_zone_names."
 }

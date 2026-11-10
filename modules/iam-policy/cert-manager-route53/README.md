@@ -19,16 +19,15 @@ No modules.
 | ---- | ---- |
 | [aws_iam_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy_document.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_route53_zone.additional](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
-| [aws_route53_zone.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 | ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_policy_name"></a> [policy\_name](#input\_policy\_name) | Name of the IAM Policy | `string` | n/a | yes |
-| <a name="input_zone_name"></a> [zone\_name](#input\_zone\_name) | The Route 53 Hosted Zone Name (e.g., ocp.example.com) | `string` | n/a | yes |
+| <a name="input_zone_arn"></a> [zone\_arn](#input\_zone\_arn) | ARN of the primary Route 53 Hosted Zone | `string` | n/a | yes |
 | <a name="input_additional_challenge_names"></a> [additional\_challenge\_names](#input\_additional\_challenge\_names) | Additional DNS names for which \_acme-challenge TXT records are permitted (e.g., api-cluster.apps.example.com). Each entry is prefixed with \_acme-challenge automatically. | `list(string)` | `[]` | no |
+| <a name="input_additional_zone_arns"></a> [additional\_zone\_arns](#input\_additional\_zone\_arns) | ARNs of the hosted zones named in additional\_zone\_names, keyed by zone name. Must have an entry for every name in additional\_zone\_names. | `map(string)` | `{}` | no |
 | <a name="input_additional_zone_names"></a> [additional\_zone\_names](#input\_additional\_zone\_names) | Additional Route 53 Hosted Zone names whose records this policy may modify. Use when challenge names live in delegated subdomains that have their own hosted zones (e.g., hcp.oac.massopen.cloud). | `list(string)` | `[]` | no |
 | <a name="input_cluster_subdomain"></a> [cluster\_subdomain](#input\_cluster\_subdomain) | The specific cluster subdomain prefix allowed for DNS-01 challenges (e.g., cluster1.ocp.example.com). Generates api/apps/\_acme-challenge patterns automatically. | `string` | `null` | no |
 | <a name="input_policy_description"></a> [policy\_description](#input\_policy\_description) | Description of the IAM Policy | `string` | `"Scoped Route53 policy for cert-manager DNS-01 challenges"` | no |
@@ -40,5 +39,4 @@ No modules.
 | <a name="output_policy_arn"></a> [policy\_arn](#output\_policy\_arn) | n/a |
 | <a name="output_policy_name"></a> [policy\_name](#output\_policy\_name) | n/a |
 | <a name="output_zone_arn"></a> [zone\_arn](#output\_zone\_arn) | n/a |
-| <a name="output_zone_id"></a> [zone\_id](#output\_zone\_id) | n/a |
 <!-- END_TF_DOCS -->

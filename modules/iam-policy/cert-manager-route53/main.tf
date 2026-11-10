@@ -1,12 +1,3 @@
-data "aws_route53_zone" "this" {
-  name = var.zone_name
-}
-
-data "aws_route53_zone" "additional" {
-  for_each = toset(var.additional_zone_names)
-  name     = each.value
-}
-
 locals {
   default_challenge_names = var.cluster_subdomain != null ? [
     "_acme-challenge.api.${var.cluster_subdomain}",
@@ -27,8 +18,8 @@ locals {
   # Every hosted zone whose records this policy may touch: the primary zone
   # plus any delegated subdomain zones passed via additional_zone_names.
   zone_arns = concat(
-    [data.aws_route53_zone.this.arn],
-    [for z in data.aws_route53_zone.additional : z.arn],
+    [var.zone_arn],
+    [for name in var.additional_zone_names : var.additional_zone_arns[name]],
   )
 }
 
