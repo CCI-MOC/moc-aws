@@ -25,6 +25,8 @@
 | <a name="module_eks_operator_access"></a> [eks\_operator\_access](#module\_eks\_operator\_access) | ./modules/permission-set | n/a |
 | <a name="module_external_dns_policy_dizzy_ext"></a> [external\_dns\_policy\_dizzy\_ext](#module\_external\_dns\_policy\_dizzy\_ext) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_dizzy_int"></a> [external\_dns\_policy\_dizzy\_int](#module\_external\_dns\_policy\_dizzy\_int) | ./modules/iam-policy/route53-single-zone | n/a |
+| <a name="module_external_dns_policy_hcp_bu_ist_demo_infra_int_massopen"></a> [external\_dns\_policy\_hcp\_bu\_ist\_demo\_infra\_int\_massopen](#module\_external\_dns\_policy\_hcp\_bu\_ist\_demo\_infra\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
+| <a name="module_external_dns_policy_hcp_int_bu_ist_demo_infra_int_massopen"></a> [external\_dns\_policy\_hcp\_int\_bu\_ist\_demo\_infra\_int\_massopen](#module\_external\_dns\_policy\_hcp\_int\_bu\_ist\_demo\_infra\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_hcp_int_nist_int_massopen"></a> [external\_dns\_policy\_hcp\_int\_nist\_int\_massopen](#module\_external\_dns\_policy\_hcp\_int\_nist\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_hcp_int_oac_int_massopen"></a> [external\_dns\_policy\_hcp\_int\_oac\_int\_massopen](#module\_external\_dns\_policy\_hcp\_int\_oac\_int\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
 | <a name="module_external_dns_policy_hcp_int_oac_massopen"></a> [external\_dns\_policy\_hcp\_int\_oac\_massopen](#module\_external\_dns\_policy\_hcp\_int\_oac\_massopen) | ./modules/iam-policy/route53-single-zone | n/a |
@@ -56,6 +58,7 @@
 | [aws_identitystore_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_group) | resource |
 | [aws_identitystore_group_membership.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_group_membership) | resource |
 | [aws_identitystore_user.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/identitystore_user) | resource |
+| [aws_route53_record.bu_ist_demo_infra_delegation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.dizzy-ext-wildcard](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.dizzy-int-wildcard](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.hcp-dev-ext-wildcard](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |

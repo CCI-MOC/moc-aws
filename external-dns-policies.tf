@@ -57,3 +57,17 @@ module "external_dns_policy_hcp_int_nist_int_massopen" {
   policy_name        = "external-dns-hcp-int-nist-int-massopen-cloud"
   policy_description = "allow external-dns on nist-dev-infra to manage records in hcp-int.nist.int.massopen.cloud"
 }
+
+module "external_dns_policy_hcp_bu_ist_demo_infra_int_massopen" {
+  source             = "./modules/iam-policy/route53-single-zone"
+  zone_arn           = aws_route53_zone.this["hcp.bu-ist-demo.int.massopen.cloud"].arn
+  policy_name        = "external-dns-hcp-bu-ist-demo-infra-int-massopen-cloud"
+  policy_description = "allow external-dns on bu-ist-demo-infra to manage records in hcp.bu-ist-demo.int.massopen.cloud"
+}
+
+module "external_dns_policy_hcp_int_bu_ist_demo_infra_int_massopen" {
+  source             = "./modules/iam-policy/route53-single-zone"
+  zone_arn           = aws_route53_zone.this["hcp-int.bu-ist-demo.int.massopen.cloud"].arn
+  policy_name        = "external-dns-hcp-int-bu-ist-demo-infra-int-massopen-cloud"
+  policy_description = "allow external-dns on bu-ist-demo-infra to manage records in hcp-int.bu-ist-demo.int.massopen.cloud"
+}
