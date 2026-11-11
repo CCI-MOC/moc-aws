@@ -171,6 +171,10 @@ locals {
       cluster_name            = "bu-ist-demo-infra"
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_bu_ist_demo_infra"].policy_arn
+      # external-dns reads its access key where the iam-user module stores it.
+      eso_readable_secret_prefixes = [
+        "iam-user/bu-ist-demo-infra-external-dns/",
+      ]
     })
   }
 }
