@@ -6,7 +6,6 @@ locals {
   policy_arn_map = {
     cert-manager-infra-ocp-massopen-cloud                     = module.cert_manager_policy["cert_manager_policy_infra_ocp_massopen"].policy_arn
     cert-manager-staging-ocp-massopen-cloud                   = module.cert_manager_policy["cert_manager_policy_staging_ocp_massopen"].policy_arn
-    cert-manager-moc-infra-massopen-cloud                     = module.cert_manager_policy["cert_manager_policy_moc_infra_massopen"].policy_arn
     cert-manager-esi-massopen-cloud                           = module.cert_manager_policy["cert_manager_policy_esi_massopen"].policy_arn
     external-dns-hcp-oac-int-massopen-cloud                   = module.external_dns_policy_hcp_oac_int_massopen.policy_arn
     external-dns-hcp-int-oac-int-massopen-cloud               = module.external_dns_policy_hcp_int_oac_int_massopen.policy_arn
@@ -54,12 +53,6 @@ locals {
         cert-manager-staging-ocp-massopen = "Used by certmanager in staging.ocp.massopen.cloud for dns01 challenges"
       }
       policy_names = ["cert-manager-staging-ocp-massopen-cloud"]
-    }
-    "cert-manager-moc-infra" = {
-      access_keys = {
-        cert-manager-moc-infra-massopen = "Used by certmanager in moc-infra.massopen.cloud for dns01 challenges"
-      }
-      policy_names = ["cert-manager-moc-infra-massopen-cloud"]
     }
     "certbot-letsencrypt-esi" = {
       access_keys = {
