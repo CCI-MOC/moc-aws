@@ -144,6 +144,12 @@ locals {
         "hcp-int.bu-ist-demo.int.massopen.cloud"
       ]
     }
+    "cert_manager_policy_bu_ist_demo_workload0" = {
+      zone_name          = "hcp.bu-ist-demo.int.massopen.cloud"
+      cluster_subdomain  = "bu-ist-demo-workload0.hcp.bu-ist-demo.int.massopen.cloud"
+      policy_name        = "cert-manager-bu-ist-demo-workload0-int-massopen-cloud"
+      policy_description = "modify records in hcp.bu-ist-demo.int.massopen.cloud for dns01 challenges"
+    }
   }
 }
 

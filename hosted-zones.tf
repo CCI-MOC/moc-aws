@@ -175,3 +175,11 @@ resource "aws_route53_record" "hcp-nist-wildcard" {
   ttl     = 300
   records = ["10.20.19.10"]
 }
+
+resource "aws_route53_record" "hcp-bu-ist-demo-wildcard" {
+  zone_id = aws_route53_zone.this["hcp.bu-ist-demo.int.massopen.cloud"].zone_id
+  name    = "*.hcp.bu-ist-demo.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["10.20.27.10"]
+}
