@@ -118,6 +118,22 @@ locals {
       policy_name        = "cert-manager-nist-dev-workload0-int-massopen-cloud"
       policy_description = "modify records for nist-dev-workload0 hosted cluster dns01 challenges."
     }
+    "cert_manager_policy_compliant_dev_infra" = {
+      cluster_subdomain  = "compliant-dev-infra.nist.int.massopen.cloud"
+      zone_name          = "nist.int.massopen.cloud"
+      policy_name        = "cert-manager-compliant-dev-infra-int-massopen-cloud"
+      policy_description = "modify records in compliant-dev-infra.nist.int.massopen.cloud for dns01 challenges."
+      additional_zone_names = [
+        "hcp.nist.int.massopen.cloud",
+        "hcp-int.nist.int.massopen.cloud"
+      ]
+    }
+    "cert_manager_policy_compliant_dev_workload0" = {
+      cluster_subdomain  = "compliant-dev-workload0.hcp.nist.int.massopen.cloud"
+      zone_name          = "hcp.nist.int.massopen.cloud"
+      policy_name        = "cert-manager-compliant-dev-workload0-int-massopen-cloud"
+      policy_description = "modify records for compliant-dev-workload0 hosted cluster dns01 challenges."
+    }
     "cert_manager_policy_bu_ist_demo_infra" = {
       cluster_subdomain  = "bu-ist-demo.int.massopen.cloud"
       zone_name          = "int.massopen.cloud"
