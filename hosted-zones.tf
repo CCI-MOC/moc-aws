@@ -123,6 +123,41 @@ resource "aws_route53_record" "nist-dev-infra-s3" {
   records = ["172.30.0.53"]
 }
 
+# compliant-dev-infra, the hub that follows nist-dev-infra on the same
+# networks and VIPs (MOC-issues #754).
+resource "aws_route53_record" "compliant-dev-infra-api" {
+  zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
+  name    = "api.compliant-dev-infra.nist.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["10.20.19.11"]
+}
+
+resource "aws_route53_record" "compliant-dev-infra-api-int" {
+  zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
+  name    = "api-int.compliant-dev-infra.nist.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["10.20.19.11"]
+}
+
+resource "aws_route53_record" "compliant-dev-infra-apps-wildcard" {
+  zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
+  name    = "*.apps.compliant-dev-infra.nist.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["10.20.19.12"]
+}
+
+# The hub's object storage proxy, as for nist-dev-infra-s3.
+resource "aws_route53_record" "compliant-dev-infra-s3" {
+  zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
+  name    = "s3.compliant-dev-infra.nist.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["172.30.0.53"]
+}
+
 # Delegation. Created after the records above, so the new zone is never
 # live while empty.
 resource "aws_route53_record" "nist-int-delegation" {
