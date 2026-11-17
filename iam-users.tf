@@ -33,7 +33,6 @@ locals {
     }
     "nist-dev-external-dns" = {
       access_keys = {
-        nist-dev-infra-external-dns      = "Used by external dns operator on the nist-dev-infra cluster"
         compliant-dev-infra-external-dns = "Used by external dns operator on the compliant-dev-infra cluster"
       }
       policy_names = ["external-dns-hcp-nist-int-massopen-cloud", "external-dns-hcp-int-nist-int-massopen-cloud"]
