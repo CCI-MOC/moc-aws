@@ -84,47 +84,8 @@ resource "aws_route53_record" "hcp-dev-int-wildcard" {
   records = ["10.20.3.10"]
 }
 
-# nist.int.massopen.cloud is delegated from int.massopen.cloud. The hub's
-# records were first created by hand in int.massopen.cloud; they are copied
-# here so the names keep resolving once the delegation is live.
-resource "aws_route53_record" "nist-dev-infra-api" {
-  zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
-  name    = "api.nist-dev-infra.nist.int.massopen.cloud"
-  type    = "A"
-  ttl     = 300
-  records = ["10.20.19.11"]
-}
-
-resource "aws_route53_record" "nist-dev-infra-api-int" {
-  zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
-  name    = "api-int.nist-dev-infra.nist.int.massopen.cloud"
-  type    = "A"
-  ttl     = 300
-  records = ["10.20.19.11"]
-}
-
-resource "aws_route53_record" "nist-dev-infra-apps-wildcard" {
-  zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
-  name    = "*.apps.nist-dev-infra.nist.int.massopen.cloud"
-  type    = "A"
-  ttl     = 300
-  records = ["10.20.19.12"]
-}
-
-# The hub's object storage proxy (object-storage-proxy chart), in front of
-# the FlashBlade's S3 endpoint. The address is the proxy Service's fixed
-# cluster IP, so the name resolves to something reachable only from inside
-# the cluster, as for the oac clusters' s3 names.
-resource "aws_route53_record" "nist-dev-infra-s3" {
-  zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
-  name    = "s3.nist-dev-infra.nist.int.massopen.cloud"
-  type    = "A"
-  ttl     = 300
-  records = ["172.30.0.53"]
-}
-
-# compliant-dev-infra, the hub that follows nist-dev-infra on the same
-# networks and VIPs (MOC-issues #754).
+# compliant-dev-infra (MOC-issues #754). It replaces nist-dev-infra, which
+# was removed on 2026-10-28, on the same networks and VIPs.
 resource "aws_route53_record" "compliant-dev-infra-api" {
   zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
   name    = "api.compliant-dev-infra.nist.int.massopen.cloud"
@@ -149,7 +110,10 @@ resource "aws_route53_record" "compliant-dev-infra-apps-wildcard" {
   records = ["10.20.19.12"]
 }
 
-# The hub's object storage proxy, as for nist-dev-infra-s3.
+# The hub's object storage proxy (object-storage-proxy chart), in front of
+# the FlashBlade's S3 endpoint. The address is the proxy Service's fixed
+# cluster IP, so the name resolves only from inside the cluster, as for the
+# oac clusters' s3 names.
 resource "aws_route53_record" "compliant-dev-infra-s3" {
   zone_id = aws_route53_zone.this["nist.int.massopen.cloud"].zone_id
   name    = "s3.compliant-dev-infra.nist.int.massopen.cloud"
@@ -158,23 +122,17 @@ resource "aws_route53_record" "compliant-dev-infra-s3" {
   records = ["172.30.0.53"]
 }
 
-# Delegation. Created after the records above, so the new zone is never
-# live while empty.
+# Delegation. It first went live after nist-dev-infra's records, so the
+# zone was never empty; they have since been replaced by the records above.
 resource "aws_route53_record" "nist-int-delegation" {
   zone_id = aws_route53_zone.this["int.massopen.cloud"].zone_id
   name    = "nist.int.massopen.cloud"
   type    = "NS"
   ttl     = 300
   records = aws_route53_zone.this["nist.int.massopen.cloud"].name_servers
-
-  depends_on = [
-    aws_route53_record.nist-dev-infra-api,
-    aws_route53_record.nist-dev-infra-api-int,
-    aws_route53_record.nist-dev-infra-apps-wildcard,
-  ]
 }
 
-# nist-dev-infra's hosted clusters. external-dns on the hub writes each
+# The nist hub's hosted clusters. external-dns on the hub writes each
 # cluster's API and ingress records; cert-manager writes its challenges.
 # Both zones are new names, so delegating them while empty breaks nothing.
 resource "aws_route53_record" "hcp-nist-delegation" {
