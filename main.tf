@@ -193,6 +193,14 @@ locals {
       eso_readable_secret_prefixes = [
         "iam-user/bu-ist-demo-infra-external-dns/",
       ]
+      eso_writable_secret_prefixes = [
+        "cluster/bu-ist-demo-infra/hostedcluster/",
+      ]
+    })
+    bu_ist_demo_workload0 = merge(local.openshift_oidc_cluster_defaults, {
+      cluster_name            = "bu-ist-demo-workload0"
+      oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
+      cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_bu_ist_demo_workload0"].policy_arn
     })
   }
 }
