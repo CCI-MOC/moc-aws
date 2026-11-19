@@ -81,6 +81,13 @@ locals {
       email        = "jschless@redhat.com"
       groups       = ["moc-aws-secrets-manager-operators", "moc-aws-cluster-operators"]
     }
+    "tschwesi" = {
+      display_name = "Thorsten Schwesig"
+      given_name   = "Thorsten"
+      family_name  = "Schwesig"
+      email        = "tschwesi@redhat.com"
+      groups       = ["moc-aws-secrets-manager-operators"]
+    }
   }
 }
 
