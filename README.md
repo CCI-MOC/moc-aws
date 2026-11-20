@@ -213,6 +213,20 @@ The **Plan** workflow runs `tofu plan` to show the changes included in the pull 
 
 [conftest]: https://www.conftest.dev/
 
+### Checkov
+
+The **Checkov** workflow runs [Checkov] static analysis over the OpenTofu configuration, using the settings in [.checkov.yaml](.checkov.yaml). Findings that already existed when the check was introduced are recorded in [.checkov.baseline](.checkov.baseline) and ignored, so the job fails only on new findings. Fix a new finding, or suppress it with an inline `#checkov:skip=<check id>:<reason>` comment on the resource if it is intentional.
+
+To run the same check locally from the repository root:
+
+```sh
+checkov --baseline .checkov.baseline
+```
+
+Each finding in the baseline has a `comments` entry per check explaining exactly what fails and why; Checkov ignores these. Run `checkov` without `--baseline` to see every finding. After fixing a finding, remove it from the baseline by hand: `checkov --create-baseline` regenerates the file but drops the comments.
+
+[checkov]: https://www.checkov.io/
+
 ### Apply
 
 When changes merge to the `main` branch, the **Apply** workflow runs `tofu apply` to apply the changes against AWS.

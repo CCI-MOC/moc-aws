@@ -1,0 +1,312 @@
+{
+    "failed_checks": [
+        {
+            "file": "/aws-moc-services-eks/bastion.tf",
+            "findings": [
+                {
+                    "resource": "aws_instance.bastion",
+                    "check_ids": [
+                        "CKV_AWS_126",
+                        "CKV_AWS_135",
+                        "CKV_AWS_8"
+                    ],
+                    "comments": {
+                        "CKV_AWS_126": "Ensure that detailed monitoring is enabled for EC2 instances: monitoring = true is not set, so only basic (5-minute) CloudWatch metrics are collected for the bastion.",
+                        "CKV_AWS_135": "Ensure that EC2 is EBS optimized: ebs_optimized = true is not set on the bastion instance.",
+                        "CKV_AWS_8": "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted: No root_block_device { encrypted = true } block, so the bastion's root volume is only encrypted if account-level EBS default encryption is on."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/aws-moc-services-eks/eks.tf",
+            "findings": [
+                {
+                    "resource": "aws_eks_cluster.cluster",
+                    "check_ids": [
+                        "CKV_AWS_339",
+                        "CKV_AWS_37",
+                        "CKV_AWS_38",
+                        "CKV_AWS_39",
+                        "CKV_AWS_58"
+                    ],
+                    "comments": {
+                        "CKV_AWS_339": "Ensure EKS clusters run on a supported Kubernetes version: version = var.kubernetes_version defaults to \"1.36\", which Checkov 3.3.29 does not know about (its supported list stops at 1.35). This is a stale list in Checkov, not an unsupported cluster version.",
+                        "CKV_AWS_37": "Ensure Amazon EKS control plane logging is enabled for all log types: No enabled_cluster_log_types, so EKS control plane logs (api, audit, authenticator, controllerManager, scheduler) are not sent to CloudWatch.",
+                        "CKV_AWS_38": "Ensure Amazon EKS public endpoint not accessible to 0.0.0.0/0: public_access_cidrs = var.public_access_cidrs, which defaults to [\"0.0.0.0/0\"] and is not overridden in moc-services.auto.tfvars, so the public API endpoint is reachable from any address.",
+                        "CKV_AWS_39": "Ensure Amazon EKS public endpoint disabled: endpoint_public_access = true, so the Kubernetes API has a public endpoint in addition to the private one.",
+                        "CKV_AWS_58": "Ensure EKS Cluster has Secrets Encryption Enabled: No encryption_config block, so Kubernetes Secrets in etcd are not envelope-encrypted with a KMS key."
+                    }
+                },
+                {
+                    "resource": "aws_launch_template.node_group",
+                    "check_ids": [
+                        "CKV_AWS_79"
+                    ],
+                    "comments": {
+                        "CKV_AWS_79": "Ensure Instance Metadata Service Version 1 is not enabled: No metadata_options { http_tokens = \"required\" } block, so worker nodes launched from this template accept IMDSv1 requests."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/aws-moc-services-eks/vpc.tf",
+            "findings": [
+                {
+                    "resource": "aws_vpc.main",
+                    "check_ids": [
+                        "CKV2_AWS_11",
+                        "CKV2_AWS_12"
+                    ],
+                    "comments": {
+                        "CKV2_AWS_11": "Ensure VPC flow logging is enabled in all VPCs: No aws_flow_log is attached to the VPC, so network traffic is not logged.",
+                        "CKV2_AWS_12": "Ensure the default security group of every VPC restricts all traffic: No aws_default_security_group resource manages the VPC's default security group, which keeps AWS's default allow rules."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/modules/bucket/main.tf",
+            "findings": [
+                {
+                    "resource": "aws_s3_bucket.this",
+                    "check_ids": [
+                        "CKV_AWS_18",
+                        "CKV_AWS_21"
+                    ],
+                    "comments": {
+                        "CKV_AWS_18": "Ensure the S3 bucket has access logging enabled: In the shared bucket module (used by every module.bucket caller): No aws_s3_bucket_logging resource enables server access logging for the bucket.",
+                        "CKV_AWS_21": "Ensure all data stored in the S3 bucket have versioning enabled: In the shared bucket module (used by every module.bucket caller): No aws_s3_bucket_versioning resource enables versioning, so overwritten or deleted objects cannot be recovered."
+                    }
+                },
+                {
+                    "resource": "aws_s3_bucket_lifecycle_configuration.this[0]",
+                    "check_ids": [
+                        "CKV_AWS_300"
+                    ],
+                    "comments": {
+                        "CKV_AWS_300": "Ensure S3 lifecycle configuration sets period for aborting failed uploads: The lifecycle rule only transitions objects to var.storage_class. It has no abort_incomplete_multipart_upload block, so incomplete multipart uploads are kept (and billed) indefinitely."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/modules/github-oidc/github-aws.tf",
+            "findings": [
+                {
+                    "resource": "module.github-oidc.aws_iam_role_policy_attachment.github_actions_admin",
+                    "check_ids": [
+                        "CKV_AWS_274"
+                    ],
+                    "comments": {
+                        "CKV_AWS_274": "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy: AdministratorAccess is attached to the github-actions-admin role which GitHub Actions in CCI-MOC/moc-aws assume through OIDC to run the Plan and Apply workflows (the github_actions_admin_deny_dangerous inline policy denies some dangerous actions)."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/modules/permission-set/main.tf",
+            "findings": [
+                {
+                    "resource": "module.administrator_access.aws_ssoadmin_managed_policy_attachment.this[\"administrator_access\"]",
+                    "check_ids": [
+                        "CKV_AWS_274"
+                    ],
+                    "comments": {
+                        "CKV_AWS_274": "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy: AdministratorAccess is attached to the AdministratorAccess SSO permission set, which is assigned to the moc-aws-admins group."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/oidc-bucket.tf",
+            "findings": [
+                {
+                    "resource": "aws_s3_bucket.oac_oidc",
+                    "check_ids": [
+                        "CKV2_AWS_6",
+                        "CKV2_AWS_61",
+                        "CKV_AWS_18",
+                        "CKV_AWS_21"
+                    ],
+                    "comments": {
+                        "CKV2_AWS_6": "Ensure that S3 bucket has a Public Access block: The attached aws_s3_bucket_public_access_block leaves block_public_policy and restrict_public_buckets off (see CKV_AWS_54/CKV_AWS_56 below), because the OIDC discovery documents must be publicly readable.",
+                        "CKV2_AWS_61": "Ensure that an S3 bucket has a lifecycle configuration: No aws_s3_bucket_lifecycle_configuration is defined for the bucket.",
+                        "CKV_AWS_18": "Ensure the S3 bucket has access logging enabled: No aws_s3_bucket_logging resource enables server access logging for the bucket.",
+                        "CKV_AWS_21": "Ensure all data stored in the S3 bucket have versioning enabled: No aws_s3_bucket_versioning resource enables versioning, so overwritten or deleted objects cannot be recovered."
+                    }
+                },
+                {
+                    "resource": "aws_s3_bucket_public_access_block.oac_oidc",
+                    "check_ids": [
+                        "CKV_AWS_54",
+                        "CKV_AWS_56"
+                    ],
+                    "comments": {
+                        "CKV_AWS_54": "Ensure S3 bucket has block public policy enabled: block_public_policy = false. This is intentional: the bucket policy grants anonymous s3:GetObject so AWS STS can fetch the OIDC discovery documents (issuer and JWKS) for the OAC clusters' service-account tokens.",
+                        "CKV_AWS_56": "Ensure S3 bucket has 'restrict_public_buckets' enabled: restrict_public_buckets = false. This is intentional: the bucket policy grants anonymous s3:GetObject so AWS STS can fetch the OIDC discovery documents (issuer and JWKS) for the OAC clusters' service-account tokens."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/ses.tf",
+            "findings": [
+                {
+                    "resource": "aws_iam_policy_document.ses_sender",
+                    "check_ids": [
+                        "CKV_AWS_111",
+                        "CKV_AWS_356"
+                    ],
+                    "comments": {
+                        "CKV_AWS_111": "Ensure IAM policies does not allow write access without constraints: Grants ses:SendEmail and ses:SendRawEmail on Resource \"*\", so the SMTP user can send as any verified SES identity rather than only contact@massopen.cloud / massopen.cloud.",
+                        "CKV_AWS_356": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions: ses:SendEmail and ses:SendRawEmail use Resource \"*\" although they can be scoped to the SES identity ARNs."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/sso-permissions.tf",
+            "findings": [
+                {
+                    "resource": "aws_iam_policy_document.eks_access",
+                    "check_ids": [
+                        "CKV_AWS_109",
+                        "CKV_AWS_111",
+                        "CKV_AWS_356"
+                    ],
+                    "comments": {
+                        "CKV_AWS_109": "Ensure IAM policies does not allow permissions management / resource exposure without constraints: Statement AllowEKSIAMRoleManagement grants permissions-management actions on Resource \"*\": iam:CreateRole, iam:DeleteRole, iam:AttachRolePolicy, iam:DetachRolePolicy, iam:CreateServiceLinkedRole, iam:CreateOpenIDConnectProvider and iam:DeleteOpenIDConnectProvider. A holder could create a role and attach any policy to it, including AdministratorAccess.",
+                        "CKV_AWS_111": "Ensure IAM policies does not allow write access without constraints: Statement AllowEKSFullAccess grants eks:* on Resource \"*\", which includes write actions such as eks:DeleteCluster, eks:CreateNodegroup and eks:AssociateAccessPolicy on every cluster in the account.",
+                        "CKV_AWS_356": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions: eks:* and the IAM role/OIDC actions use Resource \"*\" although they can be scoped to cluster and role ARNs (62 unrestricted actions in total)."
+                    }
+                },
+                {
+                    "resource": "aws_iam_policy_document.monitoring_operators",
+                    "check_ids": [
+                        "CKV_AWS_109",
+                        "CKV_AWS_111",
+                        "CKV_AWS_356"
+                    ],
+                    "comments": {
+                        "CKV_AWS_109": "Ensure IAM policies does not allow permissions management / resource exposure without constraints: Statement KmsWrite grants kms:RevokeGrant on Resource \"*\", which can change who may use any KMS key in the account.",
+                        "CKV_AWS_111": "Ensure IAM policies does not allow write access without constraints: The *Write statements grant write actions on Resource \"*\": cloudwatch:PutMetricAlarm/DeleteAlarms, events:PutRule/PutTargets/DeleteRule, config:PutConfigRule/DeleteConfigRule/PutConformancePack, secretsmanager:RotateSecret/UpdateSecretVersionStage, kms:EnableKeyRotation, acm:RenewCertificate and sns:Publish.",
+                        "CKV_AWS_356": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions: Most statements use Resource \"*\" for actions that can be scoped to specific alarms, rules, secrets, keys or certificates (61 unrestricted actions in total)."
+                    }
+                },
+                {
+                    "resource": "aws_iam_policy_document.route53_records",
+                    "check_ids": [
+                        "CKV_AWS_111",
+                        "CKV_AWS_356"
+                    ],
+                    "comments": {
+                        "CKV_AWS_111": "Ensure IAM policies does not allow write access without constraints: Grants route53:ChangeResourceRecordSets on Resource \"*\", so holders can change records in every hosted zone in the account, not just specific zones.",
+                        "CKV_AWS_356": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions: route53:ChangeResourceRecordSets, GetChange, GetHostedZone and ListResourceRecordSets use Resource \"*\" although they can be scoped to hosted-zone ARNs."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/wasabi/groups.tf",
+            "findings": [
+                {
+                    "resource": "module.wasabi.aws_iam_group_membership.admins",
+                    "check_ids": [
+                        "CKV2_AWS_14",
+                        "CKV2_AWS_21"
+                    ],
+                    "comments": {
+                        "CKV2_AWS_14": "Ensure that IAM groups includes at least one IAM user: Most likely a false positive: the membership's users list is built with a for expression over module.user outputs, which Checkov's graph does not appear to resolve, so it does not connect the admins group to its users. The group does have members (the users with is_admin = true).",
+                        "CKV2_AWS_21": "Ensure that all IAM users are members of at least one IAM group: Most likely a false positive: the membership's users list is built with a for expression over module.user outputs, which Checkov's graph does not appear to resolve, so it does not connect the admins group to its users. The group does have members (the users with is_admin = true)."
+                    }
+                },
+                {
+                    "resource": "module.wasabi.aws_iam_group_policy_attachment.admins_administrator_access",
+                    "check_ids": [
+                        "CKV_AWS_274"
+                    ],
+                    "comments": {
+                        "CKV_AWS_274": "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy: AdministratorAccess is attached to the AdministratorAccess SSO permission set, which is assigned to the moc-aws-admins group."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/wasabi/modules/bucket/main.tf",
+            "findings": [
+                {
+                    "resource": "module.wasabi.module.bucket[\"nerc-loki-backup-bu\"].aws_s3_bucket.this",
+                    "check_ids": [
+                        "CKV2_AWS_6",
+                        "CKV2_AWS_61",
+                        "CKV_AWS_18",
+                        "CKV_AWS_21"
+                    ],
+                    "comments": {
+                        "CKV2_AWS_6": "Ensure that S3 bucket has a Public Access block: No aws_s3_bucket_public_access_block is attached to the bucket. This bucket is in Wasabi (provider aws.wasabi), where some AWS-only remedies (such as SSE-KMS) are unavailable.",
+                        "CKV2_AWS_61": "Ensure that an S3 bucket has a lifecycle configuration: No aws_s3_bucket_lifecycle_configuration is defined for the bucket. This bucket is in Wasabi (provider aws.wasabi), where some AWS-only remedies (such as SSE-KMS) are unavailable.",
+                        "CKV_AWS_18": "Ensure the S3 bucket has access logging enabled: No aws_s3_bucket_logging resource enables server access logging for the bucket. This bucket is in Wasabi (provider aws.wasabi), where some AWS-only remedies (such as SSE-KMS) are unavailable.",
+                        "CKV_AWS_21": "Ensure all data stored in the S3 bucket have versioning enabled: No aws_s3_bucket_versioning resource enables versioning, so overwritten or deleted objects cannot be recovered. This bucket is in Wasabi (provider aws.wasabi), where some AWS-only remedies (such as SSE-KMS) are unavailable."
+                    }
+                },
+                {
+                    "resource": "module.wasabi.module.bucket[\"nerc-metrics-backup-bu\"].aws_s3_bucket.this",
+                    "check_ids": [
+                        "CKV2_AWS_6",
+                        "CKV2_AWS_61",
+                        "CKV_AWS_18",
+                        "CKV_AWS_21"
+                    ],
+                    "comments": {
+                        "CKV2_AWS_6": "Ensure that S3 bucket has a Public Access block: No aws_s3_bucket_public_access_block is attached to the bucket. This bucket is in Wasabi (provider aws.wasabi), where some AWS-only remedies (such as SSE-KMS) are unavailable.",
+                        "CKV2_AWS_61": "Ensure that an S3 bucket has a lifecycle configuration: No aws_s3_bucket_lifecycle_configuration is defined for the bucket. This bucket is in Wasabi (provider aws.wasabi), where some AWS-only remedies (such as SSE-KMS) are unavailable.",
+                        "CKV_AWS_18": "Ensure the S3 bucket has access logging enabled: No aws_s3_bucket_logging resource enables server access logging for the bucket. This bucket is in Wasabi (provider aws.wasabi), where some AWS-only remedies (such as SSE-KMS) are unavailable.",
+                        "CKV_AWS_21": "Ensure all data stored in the S3 bucket have versioning enabled: No aws_s3_bucket_versioning resource enables versioning, so overwritten or deleted objects cannot be recovered. This bucket is in Wasabi (provider aws.wasabi), where some AWS-only remedies (such as SSE-KMS) are unavailable."
+                    }
+                }
+            ]
+        },
+        {
+            "file": "/wasabi/modules/iam-user/main.tf",
+            "findings": [
+                {
+                    "resource": "module.wasabi.module.user[\"lars\"].aws_iam_user.this",
+                    "check_ids": [
+                        "CKV2_AWS_22"
+                    ],
+                    "comments": {
+                        "CKV2_AWS_22": "Ensure an IAM User does not have access to the console: aws_iam_user_login_profile gives this Wasabi admin user a console password (allow_change_password = true)."
+                    }
+                },
+                {
+                    "resource": "module.wasabi.module.user[\"naved001\"].aws_iam_user.this",
+                    "check_ids": [
+                        "CKV2_AWS_22"
+                    ],
+                    "comments": {
+                        "CKV2_AWS_22": "Ensure an IAM User does not have access to the console: aws_iam_user_login_profile gives this Wasabi admin user a console password (allow_change_password = true)."
+                    }
+                },
+                {
+                    "resource": "module.wasabi.module.user[\"nerc-backup-wasabi\"].aws_iam_user.this",
+                    "check_ids": [
+                        "CKV2_AWS_22"
+                    ],
+                    "comments": {
+                        "CKV2_AWS_22": "Ensure an IAM User does not have access to the console: Checkov artifact: it evaluates every resource block in a module for every module instance, even when count/for_each creates nothing. nerc-backup-wasabi has allow_change_password = false, so it has no login profile or console access."
+                    }
+                },
+                {
+                    "resource": "module.wasabi.module.user[\"tschwesi\"].aws_iam_user.this",
+                    "check_ids": [
+                        "CKV2_AWS_22"
+                    ],
+                    "comments": {
+                        "CKV2_AWS_22": "Ensure an IAM User does not have access to the console: aws_iam_user_login_profile gives this Wasabi admin user a console password (allow_change_password = true)."
+                    }
+                }
+            ]
+        }
+    ]
+}
