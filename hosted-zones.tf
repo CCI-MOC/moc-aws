@@ -129,7 +129,9 @@ resource "aws_route53_record" "nist-int-delegation" {
   name    = "nist.int.massopen.cloud"
   type    = "NS"
   ttl     = 300
-  records = aws_route53_zone.this["nist.int.massopen.cloud"].name_servers
+  # name_servers lacks the trailing dot, but Route53 always stores/returns NS
+  # values in canonical FQDN form; without this the plan flip-flops forever.
+  records = [for ns in aws_route53_zone.this["nist.int.massopen.cloud"].name_servers : "${ns}."]
 }
 
 # The nist hub's hosted clusters. external-dns on the hub writes each
@@ -141,7 +143,7 @@ resource "aws_route53_record" "hcp-nist-delegation" {
   name     = each.value
   type     = "NS"
   ttl      = 300
-  records  = aws_route53_zone.this[each.value].name_servers
+  records  = [for ns in aws_route53_zone.this[each.value].name_servers : "${ns}."]
 }
 
 # BU IST demo infra's hosted-cluster DNS zones.
@@ -151,7 +153,7 @@ resource "aws_route53_record" "bu_ist_demo_infra_delegation" {
   name     = each.value
   type     = "NS"
   ttl      = 300
-  records  = aws_route53_zone.this[each.value].name_servers
+  records  = [for ns in aws_route53_zone.this[each.value].name_servers : "${ns}."]
 }
 
 # The hosted control planes' Ignition, Konnectivity and OAuth routes, served by
