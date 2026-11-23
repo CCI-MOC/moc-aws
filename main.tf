@@ -155,6 +155,13 @@ locals {
       oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
       cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_compliant_dev_workload0"].policy_arn
     })
+    # andalusia: a KubeVirt hosted cluster of compliant-dev-infra whose VM
+    # runs on compliant-dev-workload0 (MOC-issues #788).
+    andalusia = merge(local.openshift_oidc_cluster_defaults, {
+      cluster_name            = "andalusia"
+      oidc_bucket_domain_name = aws_s3_bucket.oac_oidc.bucket_regional_domain_name
+      cert_manager_policy_arn = module.cert_manager_policy["cert_manager_policy_andalusia"].policy_arn
+    })
     # Standalone MOC cluster managed by CCI-MOC/moc-infra-config.
     moc_infra = merge(local.openshift_oidc_cluster_defaults, {
       cluster_name            = "moc-infra"

@@ -112,6 +112,12 @@ locals {
       policy_name        = "cert-manager-compliant-dev-workload0-int-massopen-cloud"
       policy_description = "modify records for compliant-dev-workload0 hosted cluster dns01 challenges."
     }
+    "cert_manager_policy_andalusia" = {
+      cluster_subdomain  = "andalusia.hcp.nist.int.massopen.cloud"
+      zone_name          = "hcp.nist.int.massopen.cloud"
+      policy_name        = "cert-manager-andalusia-int-massopen-cloud"
+      policy_description = "modify records for andalusia hosted cluster dns01 challenges."
+    }
     "cert_manager_policy_bu_ist_demo_infra" = {
       cluster_subdomain  = "bu-ist-demo.int.massopen.cloud"
       zone_name          = "int.massopen.cloud"
