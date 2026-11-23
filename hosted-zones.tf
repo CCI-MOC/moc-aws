@@ -178,6 +178,17 @@ resource "aws_route53_record" "hcp-nist-wildcard" {
   records = ["10.20.19.10"]
 }
 
+# compliant-dev-workload0's object storage proxy, as for its hub's s3 name:
+# the proxy Service's fixed cluster IP, so it resolves only from inside the
+# cluster. Without it the name falls to the wildcard above.
+resource "aws_route53_record" "compliant-dev-workload0-s3" {
+  zone_id = aws_route53_zone.this["hcp.nist.int.massopen.cloud"].zone_id
+  name    = "s3.compliant-dev-workload0.hcp.nist.int.massopen.cloud"
+  type    = "A"
+  ttl     = 300
+  records = ["172.31.0.53"]
+}
+
 resource "aws_route53_record" "hcp-bu-ist-demo-int-wildcard" {
   zone_id = aws_route53_zone.this["hcp-int.bu-ist-demo.int.massopen.cloud"].zone_id
   name    = "*.hcp-int.bu-ist-demo.int.massopen.cloud"
