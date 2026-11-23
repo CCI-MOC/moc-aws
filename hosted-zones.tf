@@ -191,5 +191,5 @@ resource "aws_route53_record" "hcp-bu-ist-demo-wildcard" {
   name    = "*.hcp.bu-ist-demo.int.massopen.cloud"
   type    = "A"
   ttl     = 300
-  records = ["10.20.27.10"]
+  records = ["129.10.5.111"]
 }
