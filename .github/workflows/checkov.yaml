@@ -1,0 +1,32 @@
+name: Checkov
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "**/*.tf"
+      - ".checkov.yaml"
+      - ".checkov.baseline"
+      - ".github/workflows/checkov.yaml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checkov:
+    # Static analysis of the OpenTofu configuration. Findings recorded in
+    # .checkov.baseline are ignored; any new finding fails the job.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@v12.3134.0
+        with:
+          config_file: .checkov.yaml
+          baseline: .checkov.baseline
+          output_format: cli
